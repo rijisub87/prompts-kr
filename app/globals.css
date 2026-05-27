@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* 라이트모드 전용 (umppa-pick에서 학습한 패턴) */
+:root {
+  color-scheme: light;
+}
