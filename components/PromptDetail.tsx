@@ -24,6 +24,8 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
   const copy = async () => {
     await navigator.clipboard.writeText(rendered);
     setCopied(true);
+    // 복사 카운터 증가 (실패해도 UX 무관)
+    fetch('https://abacus.jasoncameron.dev/hit/prompts-kr/copies').catch(() => {});
     setTimeout(() => setCopied(false), 1500);
   };
 
