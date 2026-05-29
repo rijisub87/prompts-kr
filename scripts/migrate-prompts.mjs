@@ -13,6 +13,7 @@ const SOURCE_FILES = [
   'C:/Users/User/Documents/Claude/게임재테크/docs/prompts-research/initial-collection.md',
   'C:/Users/User/Documents/Claude/게임재테크/docs/prompts-research/korean-sources.md',
   'C:/Users/User/Documents/Claude/게임재테크/docs/prompts-research/korean-deepdive.md',
+  'C:/Users/User/Documents/Claude/게임재테크/docs/prompts-research/image-prompts.md',
 ];
 
 const CAT_MAP = {
@@ -23,6 +24,8 @@ const CAT_MAP = {
   '번역': 'translation',
   '학습': 'learning',
   '기획': 'planning',
+  '이미지 생성': 'image',
+  '이미지': 'image',
   '이메일': 'email',
   '자소서·면접': 'cover-letter',
   '보고서·회의록': 'report',

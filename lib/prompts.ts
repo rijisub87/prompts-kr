@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 
 export const CATEGORIES = [
   'writing', 'summary', 'code', 'analysis', 'translation', 'learning',
-  'planning', 'email', 'cover-letter', 'report', 'edu-parent', 'etc',
+  'planning', 'image', 'email', 'cover-letter', 'report', 'edu-parent', 'etc',
 ] as const;
 export type Category = typeof CATEGORIES[number];
 
@@ -16,6 +16,7 @@ export const CATEGORY_KO: Record<Category, string> = {
   translation:  '번역',
   learning:     '학습',
   planning:     '기획',
+  image:        '이미지 생성',
   email:        '이메일',
   'cover-letter': '자소서·면접',
   report:       '보고서·회의록',
@@ -23,7 +24,9 @@ export const CATEGORY_KO: Record<Category, string> = {
   etc:          '기타',
 };
 
-export const PLATFORMS = ['공통', 'Claude', 'ChatGPT', 'Gemini'] as const;
+export const PLATFORMS = [
+  '공통', 'Claude', 'ChatGPT', 'Gemini', 'Midjourney', 'Stable Diffusion',
+] as const;
 export type Platform = typeof PLATFORMS[number];
 
 export type Variable = { name: string; label: string };
