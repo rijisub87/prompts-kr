@@ -4,6 +4,7 @@ import { getPromptsByCategory, CATEGORIES, CATEGORY_KO } from '@/lib/prompts';
 export default function Home() {
   const grouped = getPromptsByCategory();
   const totalCount = CATEGORIES.reduce((sum, c) => sum + grouped[c].length, 0);
+  const presentCategories = CATEGORIES.filter(c => grouped[c].length > 0);
 
   return (
     <div className="space-y-10">
@@ -15,11 +16,26 @@ export default function Home() {
         <p className="mt-2 text-sm text-slate-500">현재 {totalCount}개 프롬프트</p>
       </section>
 
-      {CATEGORIES.map(c => {
+      {/* 카테고리 칩 네비 — 클릭 시 해당 섹션으로 스무스 스크롤 */}
+      <nav className="sticky top-0 z-10 -mx-6 border-b bg-slate-50/95 px-6 py-3 backdrop-blur">
+        <div className="flex flex-wrap gap-2">
+          {presentCategories.map(c => (
+            <a
+              key={c}
+              href={`#${c}`}
+              className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
+            >
+              {CATEGORY_KO[c]}
+              <span className="ml-1 text-slate-400">{grouped[c].length}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      {presentCategories.map(c => {
         const list = grouped[c];
-        if (list.length === 0) return null;
         return (
-          <section key={c}>
+          <section key={c} id={c} className="scroll-mt-20">
             <h2 className="mb-3 text-lg font-semibold">{CATEGORY_KO[c]}</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {list.map(p => (
