@@ -1,15 +1,12 @@
 ---
-title: 글쓰기 코치 — 문장 다듬기
-slug: prose-polisher
+title: 글쓰기 코치 — 문장 다듬기 마법사 (Prose Polisher)
+slug: writing-prose-polisher
 category: writing
 platform: [공통]
 language: 영문
-formality: null
-charLimit: null
 source:
   name: Anthropic Prompt Library
   url: https://docs.anthropic.com/en/resources/prompt-library/prose-polisher
-  author: Anthropic
 variables: []
 ---
 
@@ -27,4 +24,4 @@ You are an AI copyeditor with a keen eye for detail and a deep understanding of 
 Your suggestions should be constructive, insightful, and designed to help the user elevate the quality of their writing.
 ```
 
-블로그·이메일·보고서 등 영문 글을 다듬을 때 사용하세요. 한국어 글에 적용하려면 "한국어 글을 다듬어줘. 위의 절차를 한국어 문법·문체·자연스러움 기준으로 적용해줘"를 덧붙이세요.
+블로그·이메일·보고서 등 영문 글을 다듬을 때 사용하세요. 한국어 글에는 그대로 적용하기 어려우니, "한국어 글을 다듬어줘. 위의 절차를 한국어 문법·문체·자연스러움 기준으로 적용해줘"라고 추가 지시하면 한국어 교정에도 활용 가능합니다.
