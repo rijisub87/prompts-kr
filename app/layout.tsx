@@ -17,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="text-lg font-bold">프롬프트 한국</Link>
             <div className="flex gap-5 text-sm text-slate-700">
               <Link href="/sources" className="hover:underline">출처</Link>
+              <Link href="/license" className="hover:underline">라이선스</Link>
               <Link href="/about" className="hover:underline">소개</Link>
             </div>
           </nav>
@@ -24,6 +25,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="mx-auto w-full max-w-5xl flex-1 p-6">{children}</main>
         <footer className="border-t bg-white py-6 text-center text-xs text-slate-500">
           <p>공개·신뢰도 높은 출처에서 큐레이션. 모든 프롬프트에 출처 표기.</p>
+          <p className="mt-2">
+            큐레이션·해설 © Prompts-KR ·{' '}
+            <Link href="/license" className="hover:underline">CC BY-NC-SA 4.0</Link>
+            {' · '}원본 프롬프트는 각 출처 라이선스 적용
+          </p>
           <p className="mt-2">
             문의: <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline">rijisub@naver.com</a>
           </p>
