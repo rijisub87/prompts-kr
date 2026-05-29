@@ -4,6 +4,7 @@ slug: report-005
 category: report
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "Notta AI 블로그 \"회의 메모를 위한 ChatGPT 사용 방법\""
   url: https://www.notta.ai/ko/blog/how-to-use-chatgpt-for-meeting-notes

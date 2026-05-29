@@ -4,6 +4,7 @@ slug: learning-007
 category: learning
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "dunoit \"교사를 위한 70개의 ChatGPT 프롬프트\""
   url: https://dunoit.com/blogs/70-chatgpt-650525709cad6

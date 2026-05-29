@@ -4,6 +4,7 @@ slug: analysis-uxui-uxui-developer
 category: analysis
 platform: [공통]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: awesome-chatgpt-prompts (f/awesome-chatgpt-prompts)
   url: https://github.com/f/awesome-chatgpt-prompts

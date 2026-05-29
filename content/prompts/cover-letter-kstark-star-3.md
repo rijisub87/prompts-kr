@@ -4,6 +4,7 @@ slug: cover-letter-kstark-star-3
 category: cover-letter
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "렛츠커리어 (letscareer.co.kr) \"챗GPT로 자소서 티 안나게 쓰는 STAR 기법 총정리\""
   url: https://www.letscareer.co.kr/blog/46/

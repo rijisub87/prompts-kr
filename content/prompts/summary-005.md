@@ -4,6 +4,7 @@ slug: summary-005
 category: summary
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 장병준 (AI Ground 대표)
   url: https://www.aiground.co.kr/practical-gpts-guide-meeting-minutes-data-collection/

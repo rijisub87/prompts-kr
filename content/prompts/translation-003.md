@@ -4,6 +4,7 @@ slug: translation-003
 category: translation
 platform: [ChatGPT]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: "공부하우 \"한글로 묻는 ChatGPT 프롬프트\""
   url: https://gongbuhow.com/posts/gpt-prompt-for-korean-prompt/

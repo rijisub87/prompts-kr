@@ -4,6 +4,7 @@ slug: summary-5
 category: summary
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "GPTers 뉴스레터 #92"
   url: https://www.gpters.org/newsletter/post/92-joheun-giroggwa-caesgptro-ilsangeul-hoegohaneun-5gaji-bangbeob-23V4bVBohcUhnl2

@@ -4,6 +4,7 @@ slug: summary-pdf-qa
 category: summary
 platform: [Claude]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: awesome-claude-prompts (langgptai)
   url: https://github.com/langgptai/awesome-claude-prompts

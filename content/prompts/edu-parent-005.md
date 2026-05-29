@@ -4,6 +4,7 @@ slug: edu-parent-005
 category: edu-parent
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: FindSkill.ai
   url: https://findskill.ai/ko/blog/gyosareul-wihan-muryo-ai-peurompeuteu-tempeulris-sueobeseo-baro/

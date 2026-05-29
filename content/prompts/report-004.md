@@ -4,6 +4,7 @@ slug: report-004
 category: report
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "GPTers \"회의록 작성 도우미 만들기\""
   url: https://www.gpters.org/chatbot/post/bCbAM7SdoXlPrxv

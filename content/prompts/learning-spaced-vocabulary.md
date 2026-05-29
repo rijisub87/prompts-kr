@@ -4,6 +4,7 @@ slug: learning-spaced-vocabulary
 category: learning
 platform: [공통]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: awesome-claude-prompts (langgptai)
   url: https://github.com/langgptai/awesome-claude-prompts

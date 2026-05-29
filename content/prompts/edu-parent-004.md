@@ -4,6 +4,7 @@ slug: edu-parent-004
 category: edu-parent
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "FindSkill.ai \"교사를 위한 무료 AI 프롬프트 템플릿\""
   url: https://findskill.ai/ko/blog/gyosareul-wihan-muryo-ai-peurompeuteu-tempeulris-sueobeseo-baro/

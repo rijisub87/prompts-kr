@@ -4,6 +4,7 @@ slug: translation-polyglot-superpowers
 category: translation
 platform: [공통]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: Anthropic Prompt Library
   url: https://docs.anthropic.com/en/resources/prompt-library/polyglot-superpowers

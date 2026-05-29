@@ -113,6 +113,10 @@ function yamlEscape(s) {
   return s;
 }
 
+// 모든 시드 프롬프트는 사이트 런칭일로 통일 — 이후 cron이 추가하는 항목만
+// 더 최신 날짜로 "New" 배지 받음.
+const SEED_ADDED_AT = '2026-05-29';
+
 function toMarkdown(p) {
   const lines = [
     '---',
@@ -121,6 +125,7 @@ function toMarkdown(p) {
     `category: ${p.catSlug}`,
     `platform: [${p.platforms.map(x => yamlEscape(x)).join(', ')}]`,
     `language: ${p.language}`,
+    `addedAt: ${SEED_ADDED_AT}`,
     `source:`,
     `  name: ${yamlEscape(p.sourceName)}`,
     `  url: ${p.sourceUrl || '""'}`,

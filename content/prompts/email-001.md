@@ -4,6 +4,7 @@ slug: email-001
 category: email
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: Ondoku 한국어 블로그
   url: https://ondoku3.com/ko/post/chatgpt-business-email-prompts/

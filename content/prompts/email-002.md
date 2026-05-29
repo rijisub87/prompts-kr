@@ -4,6 +4,7 @@ slug: email-002
 category: email
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "실무로그 (silmulog.com) \"ChatGPT로 실무 이메일 작성하는 방법\""
   url: https://silmulog.com/entry/chatgpt-email

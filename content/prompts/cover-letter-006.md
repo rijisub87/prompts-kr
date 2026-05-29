@@ -4,6 +4,7 @@ slug: cover-letter-006
 category: cover-letter
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 자소설닷컴 (jasoseol.com)
   url: https://jasoseol.com/blog/post/취준시간-단축하는-chatgpt-프롬프트/

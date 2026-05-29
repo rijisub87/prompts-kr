@@ -4,6 +4,7 @@ slug: summary-corporate-clairvoyant
 category: summary
 platform: [Claude]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: Anthropic Prompt Library
   url: https://docs.anthropic.com/en/resources/prompt-library/corporate-clairvoyant

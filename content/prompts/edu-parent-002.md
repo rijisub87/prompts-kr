@@ -4,6 +4,7 @@ slug: edu-parent-002
 category: edu-parent
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 코지맘 (cozymom.kr)
   url: https://cozymom.kr/2679/

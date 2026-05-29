@@ -4,6 +4,7 @@ slug: report-1-executive-summary
 category: report
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "GPTers \"귀찮은 회의록 정리 나대신 GPT가 정리하게 만들기\""
   url: https://www.gpters.org/dev/post/gwicanheun-hoeyirog-jeongri-nadaesin-gptga-jeongrihage-mandeulgi-harue-h9Bm6cHFAWFAa0B

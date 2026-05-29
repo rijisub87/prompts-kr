@@ -4,6 +4,7 @@ slug: etc-tot-3
 category: etc
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 개발자F (GPTers 마스터 파트너)
   url: https://www.gpters.org/dev/post/how-create-chatgpt-prompts-YqersR95FKsCmN4

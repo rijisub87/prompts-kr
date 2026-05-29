@@ -4,6 +4,7 @@ slug: planning-pm
 category: planning
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "스파르타클럽 \"챗GPT 프롬프트 템플릿 100개 모음\""
   url: https://spartaclub.kr/blog/chatgpt-prompt-templates

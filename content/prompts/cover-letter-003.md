@@ -4,6 +4,7 @@ slug: cover-letter-003
 category: cover-letter
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 디지털 인사이트 매거진
   url: https://digit2sight.com/2026년-취업-성공을-위한-chatgpt-자기소개서-프롬프트-5가지/

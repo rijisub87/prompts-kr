@@ -4,6 +4,7 @@ slug: edu-parent-003
 category: edu-parent
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "OpenPrompt (prpt.ai) \"선생님을 위한 101개의 프롬프트 — 학부모님께 문자보내기\""
   url: https://www.prpt.ai/prompt/textDetail/357

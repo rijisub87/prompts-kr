@@ -44,6 +44,7 @@ export type PromptMeta = {
   charLimit?: number | null;
   source: PromptSource;
   variables?: Variable[];
+  addedAt?: string;  // YYYY-MM-DD — 정렬·"New" 배지 기준
 };
 
 export type Prompt = PromptMeta & {
@@ -99,4 +100,32 @@ export function detectVariables(body: string): string[] {
   let m: RegExpExecArray | null;
   while ((m = re.exec(body))) found.add(m[1]);
   return Array.from(found);
+}
+
+// YAML이 `2026-05-29`를 Date 객체로 파싱하는 경우가 있어 항상 문자열 강제.
+function asDateStr(v: unknown): string {
+  if (!v) return '';
+  if (v instanceof Date) return v.toISOString().slice(0, 10);
+  return String(v);
+}
+
+// addedAt 내림차순 정렬. addedAt 없으면 슬러그로 안정 정렬.
+export function sortByNewest(prompts: Prompt[]): Prompt[] {
+  return [...prompts].sort((a, b) => {
+    const da = asDateStr(a.addedAt);
+    const db = asDateStr(b.addedAt);
+    if (db !== da) return db.localeCompare(da);
+    return a.slug.localeCompare(b.slug);
+  });
+}
+
+// "New" 배지 — addedAt이 오늘 ± NEW_WINDOW_DAYS 이내면 true.
+export const NEW_WINDOW_DAYS = 7;
+export function isNew(addedAt: string | undefined | Date, today = new Date()): boolean {
+  const s = asDateStr(addedAt);
+  if (!s) return false;
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return false;
+  const diff = (today.getTime() - d.getTime()) / (1000 * 60 * 60 * 24);
+  return diff >= 0 && diff < NEW_WINDOW_DAYS;
 }

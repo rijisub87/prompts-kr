@@ -4,6 +4,7 @@ slug: email-006
 category: email
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 실무로그 (silmulog.com)
   url: https://silmulog.com/entry/chatgpt-email

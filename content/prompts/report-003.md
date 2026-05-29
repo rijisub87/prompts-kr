@@ -4,6 +4,7 @@ slug: report-003
 category: report
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "아침산책 브런치 \"챗GPT 활용 보고서 작성을 위한 프롬프트 50\""
   url: https://brunch.co.kr/@morningwalk/516

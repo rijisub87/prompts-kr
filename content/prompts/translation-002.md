@@ -4,6 +4,7 @@ slug: translation-002
 category: translation
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: 패스트캠퍼스 / 프리워커스클럽(번역 프롬프트 작성법)
   url: https://freeworkers.club/번역-결과를-개선을-위한-chat-gpt-번역-프롬프트-작성법/

@@ -4,6 +4,7 @@ slug: report-001
 category: report
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "WikiDocs \"2025 AI 시대 일잘러를 위한 비현실적인 700가지 ChatGPT 활용 바이블\""
   url: https://wikidocs.net/270025

@@ -4,6 +4,7 @@ slug: writing-styleretiree
 category: writing
 platform: ["ChatGPT | Claude"]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: speculate (Valley AI)
   url: https://www.valley.town/space/@speculate/articles/676812734c519f051154e80e

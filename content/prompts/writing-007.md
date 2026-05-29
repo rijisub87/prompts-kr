@@ -4,6 +4,7 @@ slug: writing-007
 category: writing
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "스토리위너코치(Sky Chang), 브런치"
   url: https://brunch.co.kr/@skychang44/670

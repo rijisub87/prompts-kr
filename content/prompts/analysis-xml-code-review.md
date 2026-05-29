@@ -4,6 +4,7 @@ slug: analysis-xml-code-review
 category: analysis
 platform: [Claude]
 language: 영문
+addedAt: 2026-05-29
 source:
   name: aipromptlibrary.app (Anthropic XML 템플릿 정리)
   url: https://www.aipromptlibrary.app/blog/anthropic-prompt-library-examples

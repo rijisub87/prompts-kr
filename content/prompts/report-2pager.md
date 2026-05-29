@@ -4,6 +4,7 @@ slug: report-2pager
 category: report
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "브런치 \"기획서 작성, 발표까지 한 번에 끝내는 챗GPT 활용법\""
   url: https://brunch.co.kr/@acc9b16b9f0f430/154

@@ -4,6 +4,7 @@ slug: edu-parent-001
 category: edu-parent
 platform: [공통]
 language: 한국어
+addedAt: 2026-05-29
 source:
   name: "코지맘 (cozymom.kr) \"AI GPT를 활용한 공부 계획 세우기\""
   url: https://cozymom.kr/2679/
