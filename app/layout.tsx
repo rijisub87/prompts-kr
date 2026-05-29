@@ -12,7 +12,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className="flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased">
-        <SiteStats />
         <header className="border-b bg-white">
           <nav className="mx-auto flex max-w-5xl items-center justify-between p-4">
             <Link href="/" className="text-lg font-bold">프롬프트 한국</Link>
@@ -28,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p className="mt-2">
             문의: <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline">rijisub@naver.com</a>
           </p>
+          <p className="mt-2"><SiteStats /></p>
         </footer>
       </body>
     </html>
