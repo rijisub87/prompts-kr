@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Prompt } from '@/lib/prompts';
 
 export default function PromptDetail({ prompt }: { prompt: Prompt }) {
@@ -9,6 +9,12 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
     Object.fromEntries(variables.map(v => [v.name, ''])),
   );
   const [copied, setCopied] = useState(false);
+
+  // 상세 페이지 진입할 때마다 view 카운터 증가 (홈 카드의 👁️ 숫자에 반영)
+  useEffect(() => {
+    fetch(`https://abacus.jasoncameron.dev/hit/prompts-kr/view-${prompt.slug}`)
+      .catch(() => {});
+  }, [prompt.slug]);
 
   // [변수] 패턴 치환 — 미입력은 그대로 두어 사용자가 어디를 채울지 보이게 함.
   const rendered = useMemo(() => {

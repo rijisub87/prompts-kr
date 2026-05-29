@@ -3,6 +3,7 @@ import {
   getAllPrompts, getPromptsByCategory, CATEGORIES, CATEGORY_KO,
   sortByNewest, isNew,
 } from '@/lib/prompts';
+import PromptCardViews from '@/components/PromptCardViews';
 
 const NEW_TOP_N = 3;
 
@@ -81,10 +82,13 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <p className="mt-2 text-xs text-slate-500">
-                {p.addedAt && <span className="mr-2">{formatDate(p.addedAt)}</span>}
-                출처: {p.source.name}
-              </p>
+              <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+                <span>
+                  {p.addedAt && <span className="mr-2">{formatDate(p.addedAt)}</span>}
+                  {p.source.name}
+                </span>
+                <PromptCardViews slug={p.slug} />
+              </div>
             </Link>
           ))}
         </div>
@@ -118,7 +122,10 @@ export default function Home() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 text-xs text-slate-500">출처: {p.source.name}</p>
+                  <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+                    <span>출처: {p.source.name}</span>
+                    <PromptCardViews slug={p.slug} />
+                  </div>
                 </Link>
               ))}
             </div>
