@@ -3,6 +3,7 @@ import {
   getAllPrompts, getPromptsByCategory, CATEGORIES, CATEGORY_KO,
   sortByNewest, isNew,
 } from '@/lib/prompts';
+import { getAllGuides } from '@/lib/guides';
 import PromptCardViews from '@/components/PromptCardViews';
 
 const NEW_TOP_N = 3;
@@ -21,6 +22,7 @@ export default function Home() {
   const presentCategories = CATEGORIES.filter(c => grouped[c].length > 0);
   // 최신 3개 — addedAt 내림차순. 모두 같은 날이면 슬러그 알파벳 안정 정렬.
   const newest = sortByNewest(all).slice(0, NEW_TOP_N);
+  const guides = getAllGuides();
 
   return (
     <div className="space-y-10">
@@ -41,6 +43,14 @@ export default function Home() {
           >
             🆕 새로 추가
           </a>
+          {guides.length > 0 && (
+            <Link
+              href="/guides"
+              className="rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-800 hover:bg-purple-100"
+            >
+              📖 가이드 {guides.length}
+            </Link>
+          )}
           {presentCategories.map(c => (
             <a
               key={c}
@@ -53,6 +63,31 @@ export default function Home() {
           ))}
         </div>
       </nav>
+
+      {/* 가이드 진입 — 도메인 가이드 카드 */}
+      {guides.length > 0 && (
+        <section>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-semibold">📖 도메인 가이드</h2>
+            <Link href="/guides" className="text-xs text-purple-700 hover:underline">
+              전체 보기 →
+            </Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {guides.slice(0, 3).map(g => (
+              <Link
+                key={g.slug}
+                href={`/guides/${g.slug}`}
+                className="block rounded border-2 border-purple-200 bg-white p-4 transition hover:shadow"
+              >
+                <div className="text-xs text-purple-700">{CATEGORY_KO[g.category]}</div>
+                <h3 className="mt-1 text-sm font-semibold">{g.title}</h3>
+                <p className="mt-2 text-xs text-slate-600 line-clamp-2">{g.summary}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* 최신 3개 — addedAt 기준 */}
       <section id="newest" className="scroll-mt-20">

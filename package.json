@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/build-search-index.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/build-search-index.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "fuse.js": "^7.3.0",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.4",
     "next": "16.2.6",

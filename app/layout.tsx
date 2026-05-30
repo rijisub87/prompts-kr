@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteStats from '@/components/SiteStats';
+import SearchBar from '@/components/SearchBar';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -13,11 +14,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className="flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased">
         <header className="border-b bg-white">
-          <nav className="mx-auto flex max-w-5xl items-center justify-between p-4">
-            <Link href="/" className="text-lg font-bold">프롬프트 한국</Link>
-            <div className="flex gap-5 text-sm text-slate-700">
+          <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 p-4">
+            <Link href="/" className="text-lg font-bold shrink-0">프롬프트 한국</Link>
+            <div className="order-3 w-full sm:order-2 sm:w-auto sm:flex-1 sm:px-4">
+              <SearchBar />
+            </div>
+            <div className="order-2 flex gap-5 text-sm text-slate-700 shrink-0 sm:order-3">
+              <Link href="/guides" className="hover:underline">가이드</Link>
               <Link href="/sources" className="hover:underline">출처</Link>
-              <Link href="/license" className="hover:underline">라이선스</Link>
               <Link href="/about" className="hover:underline">소개</Link>
             </div>
           </nav>
