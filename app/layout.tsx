@@ -22,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="order-2 flex gap-5 text-sm text-slate-700 shrink-0 sm:order-3">
               <Link href="/guides" className="hover:underline">가이드</Link>
               <Link href="/platforms" className="hover:underline">비교</Link>
+              <Link href="/glossary" className="hover:underline">용어집</Link>
               <Link href="/sources" className="hover:underline">출처</Link>
             </div>
           </nav>
