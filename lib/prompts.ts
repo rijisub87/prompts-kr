@@ -5,7 +5,7 @@ import matter from 'gray-matter';
 export const CATEGORIES = [
   'writing', 'summary', 'code', 'analysis', 'translation', 'learning',
   'planning', 'image', 'email', 'cover-letter', 'report', 'ppt',
-  'edu-parent', 'etc',
+  'edu-parent', 'data', 'etc',
 ] as const;
 export type Category = typeof CATEGORIES[number];
 
@@ -23,6 +23,7 @@ export const CATEGORY_KO: Record<Category, string> = {
   report:       '보고서·회의록',
   ppt:          'PPT·발표',
   'edu-parent': '학부모·교사',
+  data:         '데이터·연구',
   etc:          '기타',
 };
 
