@@ -9,10 +9,13 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
     Object.fromEntries(variables.map(v => [v.name, ''])),
   );
   const [copied, setCopied] = useState(false);
+  const [views, setViews] = useState<number | null>(null);
 
-  // 상세 페이지 진입할 때마다 view 카운터 증가 (홈 카드의 👁️ 숫자에 반영)
+  // 상세 페이지 진입 = view +1. /hit/ 응답이 새 값을 돌려주므로 별도 GET 불필요.
   useEffect(() => {
     fetch(`https://abacus.jasoncameron.dev/hit/prompts-kr/view-${prompt.slug}`)
+      .then(r => r.json())
+      .then(d => setViews(typeof d?.value === 'number' ? d.value : null))
       .catch(() => {});
   }, [prompt.slug]);
 
@@ -37,6 +40,12 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
 
   return (
     <div className="space-y-6">
+      {views != null && (
+        <div className="text-xs text-slate-500">
+          👁️ {views.toLocaleString('ko-KR')} views
+        </div>
+      )}
+
       {variables.length > 0 && (
         <section className="rounded border bg-white p-4">
           <h3 className="mb-3 text-sm font-semibold">변수 채우기</h3>
