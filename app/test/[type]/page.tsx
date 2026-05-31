@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ALL_TYPES, RESULTS } from '@/lib/mbti-test';
+import KakaoShareButton from '@/components/KakaoShareButton';
 
 export function generateStaticParams() {
   return ALL_TYPES.map(t => ({ type: t.toLowerCase() }));
@@ -64,6 +65,11 @@ export default async function ResultPage({
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+        <KakaoShareButton
+          title={`${result.type} — ${result.nickname}`}
+          description={result.description}
+          path={`/test/${type.toLowerCase()}`}
+        />
         <Link
           href="/test"
           className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100"
@@ -77,10 +83,6 @@ export default async function ResultPage({
           프롬프트 둘러보기 →
         </Link>
       </div>
-
-      <p className="pt-4 text-center text-xs text-slate-400">
-        이 URL을 공유하면 같은 결과 페이지가 보입니다.
-      </p>
     </article>
   );
 }
