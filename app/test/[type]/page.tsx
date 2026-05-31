@@ -49,18 +49,45 @@ export default async function ResultPage({
         </p>
       </section>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-3">
         <section className="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 p-4">
           <div className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
-            AI 스타일
+            🤖 AI 스타일
           </div>
-          <p className="mt-1 text-sm text-slate-800">{result.aiStyle}</p>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800">
+            {result.aiStyle.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-emerald-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </section>
         <section className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4">
           <div className="text-xs font-semibold uppercase tracking-wider text-blue-800">
-            업무 특징
+            💼 업무 특징
           </div>
-          <p className="mt-1 text-sm text-slate-800">{result.workTrait}</p>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800">
+            {result.workTrait.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-blue-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4">
+          <div className="text-xs font-semibold uppercase tracking-wider text-rose-800">
+            💗 연애 특징
+          </div>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800">
+            {result.loveTrait.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-rose-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
 
