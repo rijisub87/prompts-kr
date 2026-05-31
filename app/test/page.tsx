@@ -80,10 +80,9 @@ export default function TestPage() {
         </button>
         <button
           onClick={() => answer(q.m.trait)}
-          className="block w-full rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 px-5 py-4 text-left text-base text-slate-700 hover:border-emerald-500 hover:bg-emerald-50"
+          className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50"
         >
           {q.m.label}
-          <span className="ml-2 text-xs text-slate-400">(중간)</span>
         </button>
         <button
           onClick={() => answer(q.b.trait)}
