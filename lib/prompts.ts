@@ -24,7 +24,7 @@ export const CATEGORY_KO: Record<Category, string> = {
   ppt:          'PPT·발표',
   'edu-parent': '학부모·교사',
   data:         '데이터·연구',
-  research:     '웹 리서치',
+  research:     '조사',
   etc:          '기타',
 };
 
