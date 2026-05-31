@@ -1,13 +1,16 @@
-// MBTI × AI 사용 성향 테스트 데이터.
-// 12문항 (4축 × 3문항). 결과는 16가지 표준 MBTI 코드.
+// AI 사용으로 보는 MBTI 테스트 데이터.
+// 12문항 × 3지선다 (좌·중·우). 중간 선택지는 trait=null(0점), 동률은 좌측 우선.
 
 export type Letter = 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P';
+
+export type Option = { label: string; trait: Letter | null };
 
 export type Question = {
   id: number;
   text: string;
-  a: { label: string; trait: Letter };
-  b: { label: string; trait: Letter };
+  a: Option;  // 좌측 trait
+  m: Option;  // 중립 (trait=null)
+  b: Option;  // 우측 trait
 };
 
 export const QUESTIONS: Question[] = [
@@ -16,18 +19,21 @@ export const QUESTIONS: Question[] = [
     id: 1,
     text: '새 AI 기능이 발표됐다. 가장 먼저 하는 행동은?',
     a: { label: '단톡방에 공유하고 같이 떠들어본다', trait: 'E' },
+    m: { label: '혼자 가볍게 보고 좋으면 나중에 공유', trait: null },
     b: { label: '혼자 시간 두고 천천히 만져본다', trait: 'I' },
   },
   {
     id: 2,
     text: '회의 중 "이 도구 한번 보여주세요" 요청이 들어왔다.',
     a: { label: '즉석에서 데모해본다', trait: 'E' },
+    m: { label: '"잠깐 보고 핵심만 알려드릴게요"', trait: null },
     b: { label: '"정리해서 다음에 보여드릴게요"', trait: 'I' },
   },
   {
     id: 3,
     text: '새 채팅을 시작할 때 본인 패턴은?',
     a: { label: '인사·맥락을 두루 깔고 시작', trait: 'E' },
+    m: { label: '짧은 한 줄 맥락 + 본론', trait: null },
     b: { label: '본론만 바로 던진다', trait: 'I' },
   },
   // === S/N ===
@@ -35,18 +41,21 @@ export const QUESTIONS: Question[] = [
     id: 4,
     text: 'AI에게 글 톤을 알려줄 때 더 자주 하는 방식은?',
     a: { label: '예시 문장 직접 만들어 보여준다', trait: 'S' },
+    m: { label: '키워드 몇 개 + 짧은 예시', trait: null },
     b: { label: '결과 방향·분위기를 추상적으로 묘사', trait: 'N' },
   },
   {
     id: 5,
     text: 'AI 결과물을 평가할 때 먼저 보는 것은?',
     a: { label: '사실·수치가 정확한가', trait: 'S' },
+    m: { label: '둘 다 비슷한 비중으로 본다', trait: null },
     b: { label: '큰 그림·맥락이 통하는가', trait: 'N' },
   },
   {
     id: 6,
     text: '한 시간째 막혀 있을 때 다음 행동은?',
     a: { label: '비슷한 사례·튜토리얼을 찾는다', trait: 'S' },
+    m: { label: '잠깐 쉬고 다시 같은 방식으로', trait: null },
     b: { label: '다른 각도로 문제를 다시 정의해본다', trait: 'N' },
   },
   // === T/F ===
@@ -54,18 +63,21 @@ export const QUESTIONS: Question[] = [
     id: 7,
     text: 'AI 결과가 마음에 안 들 때 보통 어떤 이유가 크다?',
     a: { label: '로직·구조에서 어디가 빗나갔는지', trait: 'T' },
+    m: { label: '둘 다 신경 쓰임, 그때그때 다름', trait: null },
     b: { label: '톤·뉘앙스가 어색해서', trait: 'F' },
   },
   {
     id: 8,
     text: '이메일 초안을 시킬 때 우선순위는?',
     a: { label: '핵심 요구·기한이 명확한가', trait: 'T' },
+    m: { label: '둘 다 비슷하게 본다', trait: null },
     b: { label: '받는 사람이 불편해하지 않을까', trait: 'F' },
   },
   {
     id: 9,
     text: 'AI에게 의견·평가를 구할 때 원하는 답은?',
     a: { label: '객관적 장단점·근거 비교', trait: 'T' },
+    m: { label: '근거 + 사람들 반응 둘 다', trait: null },
     b: { label: '사람들이 어떻게 느낄지', trait: 'F' },
   },
   // === J/P ===
@@ -73,18 +85,21 @@ export const QUESTIONS: Question[] = [
     id: 10,
     text: 'AI 프로젝트(또는 새 채팅)를 시작하기 전에?',
     a: { label: '시스템 프롬프트·규칙부터 정한다', trait: 'J' },
+    m: { label: '큰 틀만 잡고 시작', trait: null },
     b: { label: '일단 시작하고 가면서 조정한다', trait: 'P' },
   },
   {
     id: 11,
     text: '결과물이 80% 완성됐을 때 본인은?',
     a: { label: '정리 모드로 마무리한다', trait: 'J' },
+    m: { label: '한 번 점검 후 결정', trait: null },
     b: { label: '마감 직전까지 계속 손본다', trait: 'P' },
   },
   {
     id: 12,
     text: 'AI 도구를 여러 개 쓸 때 본인 스타일은?',
     a: { label: '용도별로 정해두고 그것만', trait: 'J' },
+    m: { label: '메인 2~3개 + 가끔 새 시도', trait: null },
     b: { label: '그때그때 끌리는 거 골라 씀', trait: 'P' },
   },
 ];
@@ -221,10 +236,10 @@ export const RESULTS: Record<string, MBTIResult> = {
   },
 };
 
-// 답안 12개 → 4자리 MBTI 코드. 동률은 좌측(E/S/T/J) 우선.
-export function calcType(answers: Letter[]): string {
+// 답안 12개 → 4자리 MBTI 코드. null(중립)은 카운트 제외. 동률은 좌측(E/S/T/J) 우선.
+export function calcType(answers: (Letter | null)[]): string {
   const c: Record<Letter, number> = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-  for (const a of answers) c[a]++;
+  for (const a of answers) if (a) c[a]++;
   return (
     (c.E >= c.I ? 'E' : 'I') +
     (c.S >= c.N ? 'S' : 'N') +

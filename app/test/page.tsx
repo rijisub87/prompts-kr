@@ -8,9 +8,9 @@ export default function TestPage() {
   const router = useRouter();
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<Letter[]>([]);
+  const [answers, setAnswers] = useState<(Letter | null)[]>([]);
 
-  function answer(trait: Letter) {
+  function answer(trait: Letter | null) {
     const next = [...answers, trait];
     if (next.length === QUESTIONS.length) {
       const type = calcType(next);
@@ -30,10 +30,10 @@ export default function TestPage() {
   if (!started) {
     return (
       <div className="mx-auto max-w-2xl space-y-6 py-10 text-center">
-        <h1 className="text-3xl font-bold md:text-4xl">AI 사용 성향 테스트</h1>
+        <h1 className="text-3xl font-bold md:text-4xl">AI 사용으로 보는 MBTI 테스트</h1>
         <p className="text-base text-slate-600 md:text-lg">
-          MBTI 4축 × AI 사용 / 업무 스타일을 12문항으로 본다.<br/>
-          3분 내외 · 결과는 16가지 유형 중 하나.
+          MBTI 4축을 AI 사용·업무 상황으로 본다.<br/>
+          12문항 · 3지선다 · 3분 내외 · 결과는 16가지 유형 중 하나.
         </p>
         <button
           onClick={() => setStarted(true)}
@@ -77,6 +77,13 @@ export default function TestPage() {
           className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50"
         >
           {q.a.label}
+        </button>
+        <button
+          onClick={() => answer(q.m.trait)}
+          className="block w-full rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 px-5 py-4 text-left text-base text-slate-700 hover:border-emerald-500 hover:bg-emerald-50"
+        >
+          {q.m.label}
+          <span className="ml-2 text-xs text-slate-400">(중간)</span>
         </button>
         <button
           onClick={() => answer(q.b.trait)}
