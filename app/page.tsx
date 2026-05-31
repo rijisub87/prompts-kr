@@ -4,6 +4,10 @@ import {
   sortByNewest, isNew,
 } from '@/lib/prompts';
 import { getAllGuides } from '@/lib/guides';
+import { redis, k } from '@/lib/redis';
+
+// ISR — 60초마다 재생성. views/추천수가 1분 단위로 갱신됨.
+export const revalidate = 60;
 
 const NEW_TOP_N = 3;
 
@@ -14,7 +18,31 @@ function formatDate(v: unknown): string {
   return String(v);
 }
 
-export default function Home() {
+type Counts = Record<string, { views: number; recommends: number }>;
+
+async function fetchAllCounts(slugs: string[]): Promise<Counts> {
+  if (slugs.length === 0) return {};
+  try {
+    const pipeline = redis.pipeline();
+    for (const slug of slugs) {
+      pipeline.get(k.views(slug));
+      pipeline.get(k.recommendCount(slug));
+    }
+    const results = (await pipeline.exec()) as unknown[];
+    const out: Counts = {};
+    for (let i = 0; i < slugs.length; i++) {
+      out[slugs[i]] = {
+        views: Number(results[i * 2] ?? 0),
+        recommends: Number(results[i * 2 + 1] ?? 0),
+      };
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}
+
+export default async function Home() {
   const all = getAllPrompts();
   const grouped = getPromptsByCategory();
   const totalCount = CATEGORIES.reduce((sum, c) => sum + grouped[c].length, 0);
@@ -22,6 +50,7 @@ export default function Home() {
   // 최신 3개 — addedAt 내림차순. 모두 같은 날이면 슬러그 알파벳 안정 정렬.
   const newest = sortByNewest(all).slice(0, NEW_TOP_N);
   const guides = getAllGuides();
+  const counts = await fetchAllCounts(all.map(p => p.slug));
 
   return (
     <div className="space-y-10">
@@ -116,9 +145,14 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <div className="mt-2 text-xs text-slate-500">
-                {p.addedAt && <span className="mr-2">{formatDate(p.addedAt)}</span>}
-                {p.source.name}
+              <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+                <span>
+                  {p.addedAt && <span className="mr-2">{formatDate(p.addedAt)}</span>}
+                  {p.source.name}
+                </span>
+                <span className="shrink-0 text-slate-400">
+                  👁️ {counts[p.slug]?.views ?? 0} · ❤️ {counts[p.slug]?.recommends ?? 0}
+                </span>
               </div>
             </Link>
           ))}
@@ -153,8 +187,11 @@ export default function Home() {
                       </span>
                     )}
                   </div>
-                  <div className="mt-2 text-xs text-slate-500">
-                    출처: {p.source.name}
+                  <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+                    <span>출처: {p.source.name}</span>
+                    <span className="shrink-0 text-slate-400">
+                      👁️ {counts[p.slug]?.views ?? 0} · ❤️ {counts[p.slug]?.recommends ?? 0}
+                    </span>
                   </div>
                 </Link>
               ))}

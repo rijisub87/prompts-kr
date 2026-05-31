@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllPrompts, getPromptBySlug, CATEGORY_KO } from '@/lib/prompts';
 import PromptDetail from '@/components/PromptDetail';
+import RecommendButton from '@/components/RecommendButton';
 
 export function generateStaticParams() {
   return getAllPrompts().map(p => ({ slug: p.slug }));
@@ -58,6 +59,10 @@ export default async function PromptPage({
       </header>
 
       <PromptDetail prompt={prompt} />
+
+      <div className="flex justify-center">
+        <RecommendButton slug={prompt.slug} />
+      </div>
 
       {prompt.tipHtml && (
         <section className="rounded border bg-amber-50 p-4">

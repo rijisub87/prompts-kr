@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteStats from '@/components/SiteStats';
 import SearchBar from '@/components/SearchBar';
+import LoginButton from '@/components/LoginButton';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -19,12 +20,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="order-3 w-full sm:order-2 sm:w-auto sm:flex-1 sm:px-4">
               <SearchBar />
             </div>
-            <div className="order-2 flex gap-5 text-sm text-slate-700 shrink-0 sm:order-3">
+            <div className="order-2 flex items-center gap-5 text-sm text-slate-700 shrink-0 sm:order-3">
               <Link href="/guides" className="hover:underline">가이드</Link>
               <Link href="/test" className="hover:underline">테스트</Link>
               <Link href="/platforms" className="hover:underline">비교</Link>
               <Link href="/glossary" className="hover:underline">용어집</Link>
               <Link href="/sources" className="hover:underline">출처</Link>
+              <LoginButton />
             </div>
           </nav>
         </header>

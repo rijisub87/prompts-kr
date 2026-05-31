@@ -11,11 +11,15 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
   const [copied, setCopied] = useState(false);
   const [views, setViews] = useState<number | null>(null);
 
-  // 상세 페이지 진입 = view +1. /hit/ 응답이 새 값을 돌려주므로 별도 GET 불필요.
+  // 상세 페이지 진입 = view +1. 자체 API(/api/view)가 Upstash incr 후 새 값 반환.
   useEffect(() => {
-    fetch(`https://abacus.jasoncameron.dev/hit/prompts-kr/view-${prompt.slug}`)
+    fetch('/api/view', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: prompt.slug }),
+    })
       .then(r => r.json())
-      .then(d => setViews(typeof d?.value === 'number' ? d.value : null))
+      .then(d => setViews(typeof d?.views === 'number' ? d.views : null))
       .catch(() => {});
   }, [prompt.slug]);
 
