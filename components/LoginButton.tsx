@@ -1,44 +1,24 @@
-// 헤더에 표시되는 카카오 로그인/로그아웃 버튼 (Server Component).
-import type { Session } from 'next-auth';
-import { auth, signIn, signOut } from '@/auth';
+// 헤더 로그인/로그아웃 영역 (Server Component → 세션 SSR로 즉시 반영).
+import { createClient } from '@/lib/supabase/server';
+import { LoginForm, LogoutForm } from './LoginForms';
 
 export default async function LoginButton() {
-  let session: Session | null = null;
   try {
-    session = await auth();
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getUser();
+    const user = data?.user;
+    if (user) {
+      // user_metadata는 OAuth 제공자가 채움 (Kakao: nickname, name, etc.)
+      const meta = user.user_metadata as Record<string, unknown> | undefined;
+      const name =
+        (typeof meta?.name === 'string' && meta.name) ||
+        (typeof meta?.preferred_username === 'string' && meta.preferred_username) ||
+        (typeof meta?.full_name === 'string' && meta.full_name) ||
+        '로그인됨';
+      return <LogoutForm name={name} />;
+    }
+    return <LoginForm />;
   } catch {
-    // AUTH_SECRET 미설정 등 — 로그인 자체가 비활성. 버튼 숨김.
     return null;
   }
-
-  if (session?.user) {
-    const name = session.user.name || '로그인됨';
-    return (
-      <form
-        action={async () => {
-          'use server';
-          await signOut({ redirectTo: '/' });
-        }}
-      >
-        <button type="submit" className="text-xs text-slate-600 hover:underline">
-          {name} · 로그아웃
-        </button>
-      </form>
-    );
-  }
-  return (
-    <form
-      action={async () => {
-        'use server';
-        await signIn('kakao', { redirectTo: '/' });
-      }}
-    >
-      <button
-        type="submit"
-        className="rounded-full bg-[#FEE500] px-3 py-1 text-xs font-semibold text-[#191919] hover:opacity-90"
-      >
-        카카오 로그인
-      </button>
-    </form>
-  );
 }

@@ -4,7 +4,7 @@ import {
   sortByNewest, isNew,
 } from '@/lib/prompts';
 import { getAllGuides } from '@/lib/guides';
-import { redis, k } from '@/lib/redis';
+import { createClient } from '@/lib/supabase/server';
 
 // ISR — 60초마다 재생성. views/추천수가 1분 단위로 갱신됨.
 export const revalidate = 60;
@@ -23,17 +23,16 @@ type Counts = Record<string, { views: number; recommends: number }>;
 async function fetchAllCounts(slugs: string[]): Promise<Counts> {
   if (slugs.length === 0) return {};
   try {
-    const pipeline = redis.pipeline();
-    for (const slug of slugs) {
-      pipeline.get(k.views(slug));
-      pipeline.get(k.recommendCount(slug));
-    }
-    const results = (await pipeline.exec()) as unknown[];
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from('prompt_stats')
+      .select('slug, view_count, recommend_count')
+      .in('slug', slugs);
     const out: Counts = {};
-    for (let i = 0; i < slugs.length; i++) {
-      out[slugs[i]] = {
-        views: Number(results[i * 2] ?? 0),
-        recommends: Number(results[i * 2 + 1] ?? 0),
+    for (const row of data ?? []) {
+      out[row.slug as string] = {
+        views: Number(row.view_count),
+        recommends: Number(row.recommend_count),
       };
     }
     return out;

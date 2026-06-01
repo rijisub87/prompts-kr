@@ -1,6 +1,7 @@
-// 프롬프트 상세 페이지 진입 시 호출되는 뷰 카운터 (익명 OK).
+// 프롬프트 상세 페이지 진입 시 뷰 카운트 +1 (익명 OK).
+// Supabase RPC: incr_view(p_slug text) returns bigint
 import { NextRequest, NextResponse } from 'next/server';
-import { redis, k } from '@/lib/redis';
+import { createClient } from '@/lib/supabase/server';
 
 export async function POST(req: NextRequest) {
   let slug: unknown;
@@ -10,9 +11,16 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'invalid body' }, { status: 400 });
   }
-  if (typeof slug !== 'string' || !slug.match(/^[a-z0-9-]+$/i)) {
+  if (typeof slug !== 'string' || !/^[a-z0-9-]+$/i.test(slug)) {
     return NextResponse.json({ error: 'invalid slug' }, { status: 400 });
   }
-  const views = await redis.incr(k.views(slug));
-  return NextResponse.json({ views });
+
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.rpc('incr_view', { p_slug: slug });
+    if (error) throw error;
+    return NextResponse.json({ views: Number(data) });
+  } catch {
+    return NextResponse.json({ views: 0 });
+  }
 }
