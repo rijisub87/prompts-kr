@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
 
-// 추천 버튼 — 카운트 표시 + 토글. 401 시 로그인 페이지로 안내.
+// 추천 버튼 — 카운트 표시 + 토글. 401 시 Supabase OAuth로 카카오 로그인 트리거.
 export default function RecommendButton({ slug }: { slug: string }) {
   const [count, setCount] = useState<number | null>(null);
   const [recommended, setRecommended] = useState(false);
@@ -29,13 +30,15 @@ export default function RecommendButton({ slug }: { slug: string }) {
         body: JSON.stringify({ slug }),
       });
       if (r.status === 401) {
-        if (
-          confirm(
-            '추천하려면 카카오 로그인이 필요해요. 로그인 페이지로 이동할까요?',
-          )
-        ) {
-          const callback = encodeURIComponent(window.location.href);
-          window.location.href = `/api/auth/signin?callbackUrl=${callback}`;
+        if (confirm('추천하려면 카카오 로그인이 필요해요. 로그인할까요?')) {
+          const supabase = createClient();
+          const next = encodeURIComponent(window.location.pathname);
+          await supabase.auth.signInWithOAuth({
+            provider: 'kakao',
+            options: {
+              redirectTo: `${window.location.origin}/auth/callback?next=${next}`,
+            },
+          });
         }
         return;
       }
