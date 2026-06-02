@@ -125,3 +125,61 @@ end;
 $$;
 
 grant execute on function public.toggle_recommend(text) to authenticated;
+
+-- =====================================================
+-- 6. 사주 풀이 — 캐시 + 일일 quota (비용 통제)
+-- =====================================================
+
+-- (a) 사주 결과 캐시 — 같은 생년월일+오늘 조합이면 API 호출 안 함
+create table if not exists public.saju_cache (
+  cache_key text primary key,
+  reading text not null,
+  created_at timestamptz not null default now()
+);
+
+alter table public.saju_cache enable row level security;
+-- 읽기/쓰기 모두 RPC(security definer) 통해서만 — 직접 접근 금지
+
+create or replace function public.get_saju_cache(p_key text)
+returns text language plpgsql security definer set search_path = public as $$
+declare v_reading text;
+begin
+  select reading into v_reading from public.saju_cache where cache_key = p_key;
+  return v_reading;
+end;
+$$;
+
+create or replace function public.set_saju_cache(p_key text, p_reading text)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.saju_cache (cache_key, reading) values (p_key, p_reading)
+  on conflict (cache_key) do nothing;
+end;
+$$;
+
+grant execute on function public.get_saju_cache(text) to anon, authenticated;
+grant execute on function public.set_saju_cache(text, text) to anon, authenticated;
+
+-- (b) 일일 quota — IP당 하루 N회 제한
+create table if not exists public.daily_quota (
+  key text not null,
+  date date not null,
+  count integer not null default 0,
+  primary key (key, date)
+);
+
+alter table public.daily_quota enable row level security;
+-- RPC만 접근 (security definer라 RLS 우회)
+
+create or replace function public.check_quota(p_key text, p_max integer)
+returns boolean language plpgsql security definer set search_path = public as $$
+declare v_count integer;
+begin
+  insert into public.daily_quota (key, date, count) values (p_key, current_date, 1)
+  on conflict (key, date) do update set count = public.daily_quota.count + 1
+  returning count into v_count;
+  return v_count <= p_max;
+end;
+$$;
+
+grant execute on function public.check_quota(text, integer) to anon, authenticated;

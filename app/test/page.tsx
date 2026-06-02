@@ -29,18 +29,41 @@ export default function TestPage() {
 
   if (!started) {
     return (
-      <div className="mx-auto max-w-2xl space-y-6 py-10 text-center">
-        <h1 className="text-3xl font-bold md:text-4xl">AI 사용으로 보는 MBTI 테스트</h1>
-        <p className="text-base text-slate-600 md:text-lg">
-          MBTI 4축을 AI 사용·업무 상황으로 본다.<br/>
-          12문항 · 3지선다 · 3분 내외 · 결과는 16가지 유형 중 하나.
-        </p>
-        <button
-          onClick={() => setStarted(true)}
-          className="rounded-lg bg-emerald-600 px-6 py-3 text-base font-semibold text-white hover:bg-emerald-700"
+      <div className="mx-auto max-w-2xl space-y-8 py-10">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold md:text-4xl">테스트</h1>
+          <p className="mt-2 text-sm text-slate-500">재미있게 해볼 수 있는 AI 기반 테스트</p>
+        </div>
+
+        <div className="rounded-lg border-2 border-emerald-200 bg-white p-6 text-center">
+          <div className="text-xs text-emerald-700">테스트 1</div>
+          <h2 className="mt-1 text-xl font-bold md:text-2xl">AI 사용으로 보는 MBTI</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            MBTI 4축을 AI 사용·업무 상황으로 본다.<br/>
+            12문항 · 3지선다 · 3분 내외 · 결과는 16가지 유형.
+          </p>
+          <button
+            onClick={() => setStarted(true)}
+            className="mt-4 rounded-lg bg-emerald-600 px-6 py-3 text-base font-semibold text-white hover:bg-emerald-700"
+          >
+            시작하기
+          </button>
+        </div>
+
+        <a
+          href="/test/saju"
+          className="block rounded-lg border-2 border-purple-200 bg-white p-6 text-center transition hover:shadow"
         >
-          시작하기
-        </button>
+          <div className="text-xs text-purple-700">테스트 2</div>
+          <h2 className="mt-1 text-xl font-bold md:text-2xl">🔮 AI로 보는 오늘의 사주</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            생년월일 입력 → Claude가 오늘의 운세를 풀어줍니다.<br/>
+            총운·재물·인연·건강·행운·조언 6섹션.
+          </p>
+          <div className="mt-4 inline-block rounded-lg bg-purple-600 px-6 py-3 text-base font-semibold text-white">
+            사주 보러 가기 →
+          </div>
+        </a>
       </div>
     );
   }
