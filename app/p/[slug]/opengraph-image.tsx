@@ -44,7 +44,7 @@ export default async function OgImage({
     'cover-letter': '#EF4444', report: '#06B6D4', ppt: '#14B8A6',
     learning: '#F97316', planning: '#A855F7', image: '#EAB308',
     translation: '#84CC16', summary: '#0EA5E9', 'edu-parent': '#D946EF',
-    etc: '#64748B',
+    agents: '#4F46E5', etc: '#64748B',
   };
   const accent = categoryColor[prompt.category] ?? '#10B981';
 
