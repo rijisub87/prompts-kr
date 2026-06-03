@@ -231,17 +231,20 @@ export default function SajuPage() {
 
       <section className="space-y-3">
         <button
-          onClick={askAI}
-          disabled={loading}
-          className="w-full rounded-lg bg-emerald-600 px-5 py-3 text-base font-semibold text-white hover:bg-emerald-700 disabled:opacity-60"
+          disabled
+          title="AI 호출 모드는 곧 오픈됩니다"
+          className="relative w-full cursor-not-allowed rounded-lg bg-slate-200 px-5 py-3 text-base font-semibold text-slate-500"
         >
-          {loading ? '풀이 중...' : '🔮 AI에게 바로 물어보기'}
+          🔮 AI에게 바로 물어보기
+          <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800">
+            준비중
+          </span>
         </button>
         <button
           onClick={copyPrompt}
-          className="w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100"
+          className="w-full rounded-lg bg-emerald-600 px-5 py-3 text-base font-semibold text-white hover:bg-emerald-700"
         >
-          📋 프롬프트만 복사 (Claude/ChatGPT에 직접 붙여넣기)
+          📋 프롬프트 복사 → Claude/ChatGPT에 붙여넣기
         </button>
         {copyMsg && (
           <p className="text-center text-xs text-emerald-700">{copyMsg}</p>
