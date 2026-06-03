@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { getAllPrompts } from '@/lib/prompts';
+
+export const metadata: Metadata = {
+  title: '출처 모음 — 큐레이션한 200+ 프롬프트의 원본 출처',
+  description: 'Anthropic, OpenAI, GitHub, 한국 블로그 등 모든 큐레이션 프롬프트의 원본 출처를 한 페이지에 모았습니다.',
+};
 
 export default function Sources() {
   const prompts = getAllPrompts();

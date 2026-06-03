@@ -74,3 +74,6 @@ Disallow: /
 # === 기본 (명시되지 않은 봇은 허용) ===
 User-agent: *
 Allow: /
+
+# === Sitemap ===
+Sitemap: https://prompts-kr.vercel.app/sitemap.xml

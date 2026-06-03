@@ -1,3 +1,10 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '소개 — Anthropic·OpenAI·한국 출처 큐레이션',
+  description: 'Anthropic Prompt Library, awesome-chatgpt-prompts, GPTers, 자소설닷컴 등 공개·신뢰도 높은 출처에서 한국 사용자에게 실용적인 AI 프롬프트만 골라 모았습니다.',
+};
+
 export default function About() {
   return (
     <article className="prose prose-sm max-w-none">

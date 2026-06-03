@@ -6,8 +6,36 @@ import LoginButton from '@/components/LoginButton';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: { default: '프롬프트 한국', template: '%s · 프롬프트 한국' },
-  description: '한국 사용자를 위한 AI 프롬프트 큐레이션 — Claude · ChatGPT · Gemini',
+  metadataBase: new URL('https://prompts-kr.vercel.app'),
+  title: { default: '프롬프트 한국 — Claude · ChatGPT · Gemini AI 프롬프트', template: '%s · 프롬프트 한국' },
+  description: '한국 사용자를 위한 AI 프롬프트 큐레이션. Claude · ChatGPT · Gemini 200+ 검증된 프롬프트 무료. 자소서·이메일·보고서·코딩·사주·MBTI 테스트까지.',
+  keywords: ['AI 프롬프트', 'ChatGPT 프롬프트', 'Claude 프롬프트', 'Gemini 프롬프트', '프롬프트 엔지니어링', '한국어 AI', '자소서 AI', 'AI 사주', 'MBTI 테스트', '프롬프트 모음'],
+  authors: [{ name: 'Prompts-KR' }],
+  openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    url: 'https://prompts-kr.vercel.app',
+    siteName: '프롬프트 한국',
+    title: '프롬프트 한국 — 한국 사용자를 위한 AI 프롬프트 큐레이션',
+    description: 'Claude · ChatGPT · Gemini 검증된 출처에서 큐레이션. 200+ 프롬프트 무료. 자소서·이메일·코딩·사주·MBTI까지.',
+    images: [
+      { url: '/kakao-app-icon.png', width: 144, height: 144, alt: '프롬프트 한국' },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: '프롬프트 한국',
+    description: 'Claude · ChatGPT · Gemini AI 프롬프트 큐레이션. 200+ 프롬프트 무료.',
+    images: ['/kakao-app-icon.png'],
+  },
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
