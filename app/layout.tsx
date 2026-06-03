@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
+import { Noto_Sans_KR } from 'next/font/google';
 import Link from 'next/link';
 import SiteStats from '@/components/SiteStats';
 import SearchBar from '@/components/SearchBar';
 import LoginButton from '@/components/LoginButton';
 import './globals.css';
+
+// 한국 웹에 친숙하고 가독성 검증된 구글 공식 한국어 폰트.
+// next/font/google이 자동으로 self-host + 최적화 (FOIT/FOUT 방지).
+const notoSansKR = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-noto-kr',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://prompts-kr.vercel.app'),
@@ -45,8 +55,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
-      <body className="flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased">
+    <html lang="ko" className={notoSansKR.variable}>
+      <body className={`${notoSansKR.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased`}>
         <header className="border-b bg-white">
           <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 p-4">
             <Link href="/" className="text-lg font-bold shrink-0">프롬프트 한국</Link>
