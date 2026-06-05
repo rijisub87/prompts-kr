@@ -29,6 +29,27 @@ export const CATEGORY_KO: Record<Category, string> = {
   etc:          '기타',
 };
 
+// 카테고리별 좌측 컬러바 — 카드에서 시각적 구분. Tailwind가 빌드시 스캔.
+export const CATEGORY_BORDER: Record<Category, string> = {
+  writing:      'border-l-pink-400',
+  summary:      'border-l-sky-400',
+  code:         'border-l-emerald-400',
+  analysis:     'border-l-amber-400',
+  translation:  'border-l-lime-400',
+  learning:     'border-l-orange-400',
+  planning:     'border-l-violet-400',
+  image:        'border-l-yellow-400',
+  email:        'border-l-indigo-400',
+  'cover-letter': 'border-l-red-400',
+  report:       'border-l-cyan-400',
+  ppt:          'border-l-teal-400',
+  'edu-parent': 'border-l-fuchsia-400',
+  data:         'border-l-blue-400',
+  research:     'border-l-purple-400',
+  agents:       'border-l-indigo-500',
+  etc:          'border-l-slate-400',
+};
+
 export const PLATFORMS = [
   '공통', 'Claude', 'ChatGPT', 'Gemini', 'Midjourney', 'Stable Diffusion',
 ] as const;

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import {
-  getAllPrompts, getPromptsByCategory, CATEGORIES, CATEGORY_KO,
+  getAllPrompts, getPromptsByCategory, CATEGORIES, CATEGORY_KO, CATEGORY_BORDER,
   sortByNewest, isNew,
 } from '@/lib/prompts';
 import { getAllGuides } from '@/lib/guides';
@@ -124,7 +124,7 @@ export default async function Home() {
             <Link
               key={p.slug}
               href={`/p/${p.slug}`}
-              className="block rounded border-2 border-emerald-200 bg-white p-4 transition hover:shadow dark:border-emerald-800 dark:bg-slate-900"
+              className={`block rounded border border-l-4 bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-sm font-semibold">{p.title}</h3>
@@ -168,7 +168,7 @@ export default async function Home() {
                 <Link
                   key={p.slug}
                   href={`/p/${p.slug}`}
-                  className="block rounded border bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900"
+                  className={`block rounded border border-l-4 bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
                 >
                   <h3 className="text-sm font-semibold">{p.title}</h3>
                   <div className="mt-2 flex flex-wrap gap-1 text-xs">
