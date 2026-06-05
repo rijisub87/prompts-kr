@@ -119,8 +119,8 @@ export default function Platforms() {
       <header>
         <h1 className="text-3xl font-bold">Claude · ChatGPT · Gemini — 어떤 거 써야 하나</h1>
         <p className="mt-3 text-base text-slate-600">
-          한국 사용자가 가장 자주 묻는 질문. 정답은 "작업별로 다르다"이고,
-          이 페이지는 그 "다르다"를 구체적으로 풀어놓은 비교입니다.
+          한국 사용자가 가장 자주 묻는 질문. 정답은 &ldquo;작업별로 다르다&rdquo;이고,
+          이 페이지는 그 &ldquo;다르다&rdquo;를 구체적으로 풀어놓은 비교입니다.
         </p>
       </header>
 

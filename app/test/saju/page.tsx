@@ -107,11 +107,14 @@ export default function SajuPage() {
   const [hour, setHour] = useState('모름');
   const [calendar, setCalendar] = useState<'양력' | '음력'>('양력');
 
-  const [loading, setLoading] = useState(false);
   const [reading, setReading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copyMsg, setCopyMsg] = useState<string | null>(null);
 
+  // AI 직접 호출 모드 — 현재 비활성화 (정책·비용 검토 중).
+  // ANTHROPIC_API_KEY 셋업 후 버튼 disabled만 풀고 onClick={askAI} 연결하면 부활.
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  const [loading, setLoading] = useState(false);
   async function askAI() {
     setLoading(true);
     setError(null);
@@ -134,6 +137,7 @@ export default function SajuPage() {
       setLoading(false);
     }
   }
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   async function copyPrompt() {
     const text = buildPromptText(year, month, day, hour, calendar);
@@ -198,7 +202,7 @@ export default function SajuPage() {
 
         <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
           <label className="block">
-            <span className="text-xs text-slate-600">생시 (모르면 '모름')</span>
+            <span className="text-xs text-slate-600">생시 (모르면 &lsquo;모름&rsquo;)</span>
             <select
               value={hour}
               onChange={e => setHour(e.target.value)}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { QUESTIONS, calcType, type Letter } from '@/lib/mbti-test';
 
@@ -50,7 +51,7 @@ export default function TestPage() {
           </button>
         </div>
 
-        <a
+        <Link
           href="/test/saju"
           className="block rounded-lg border-2 border-purple-200 bg-white p-6 text-center transition hover:shadow"
         >
@@ -63,7 +64,7 @@ export default function TestPage() {
           <div className="mt-4 inline-block rounded-lg bg-purple-600 px-6 py-3 text-base font-semibold text-white">
             사주 보러 가기 →
           </div>
-        </a>
+        </Link>
       </div>
     );
   }
