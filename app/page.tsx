@@ -5,6 +5,7 @@ import {
 } from '@/lib/prompts';
 import { getAllGuides } from '@/lib/guides';
 import { createClient } from '@/lib/supabase/server';
+import RecentlyViewed from '@/components/RecentlyViewed';
 
 // ISR — 60초마다 재생성. views/추천수가 1분 단위로 갱신됨.
 export const revalidate = 60;
@@ -148,6 +149,9 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      {/* 최근 본 — 클라이언트 localStorage 기반. 첫 방문자엔 안 보임 */}
+      <RecentlyViewed />
 
       {/* 최신 3개 — addedAt 기준 */}
       <section id="newest" className="scroll-mt-20">

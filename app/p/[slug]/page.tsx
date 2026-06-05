@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllPrompts, getPromptBySlug, CATEGORY_KO } from '@/lib/prompts';
+import {
+  getAllPrompts, getPromptBySlug, getPromptsByCategory,
+  CATEGORY_KO, CATEGORY_BORDER,
+} from '@/lib/prompts';
 import PromptDetail from '@/components/PromptDetail';
 import RecommendButton from '@/components/RecommendButton';
 
@@ -19,6 +22,10 @@ export async function generateMetadata({
   return { title: prompt.title };
 }
 
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 export default async function PromptPage({
   params,
 }: {
@@ -28,8 +35,47 @@ export default async function PromptPage({
   const prompt = getPromptBySlug(slug);
   if (!prompt) notFound();
 
+  // 같은 카테고리 다른 프롬프트 — 최대 4개 (현재 제외)
+  const grouped = getPromptsByCategory();
+  const related = (grouped[prompt.category] ?? [])
+    .filter(p => p.slug !== prompt.slug)
+    .slice(0, 4);
+
+  // JSON-LD 구조화 데이터 — 구글 rich snippet
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: prompt.title,
+    description: prompt.tipHtml
+      ? stripHtml(prompt.tipHtml).slice(0, 160)
+      : prompt.body.slice(0, 160),
+    inLanguage: 'ko-KR',
+    author: prompt.source.author
+      ? { '@type': 'Person', name: prompt.source.author }
+      : { '@type': 'Organization', name: prompt.source.name, url: prompt.source.url },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Prompts-KR',
+      url: 'https://prompts-kr.vercel.app',
+    },
+    datePublished: prompt.addedAt ? String(prompt.addedAt) : undefined,
+    keywords: [
+      CATEGORY_KO[prompt.category],
+      ...prompt.platform,
+      prompt.language,
+      'AI 프롬프트',
+    ].join(', '),
+    isBasedOn: prompt.source.url || undefined,
+    mainEntityOfPage: `https://prompts-kr.vercel.app/p/${prompt.slug}`,
+  };
+
   return (
     <article className="space-y-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <header>
         <Link href="/" className="text-xs text-slate-500 hover:underline">← 전체</Link>
         <h1 className="mt-2 text-2xl font-bold">{prompt.title}</h1>
@@ -90,6 +136,28 @@ export default async function PromptPage({
           )}
         </p>
       </section>
+
+      {related.length > 0 && (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">
+            🔗 같은 카테고리 — {CATEGORY_KO[prompt.category]}
+          </h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {related.map(p => (
+              <Link
+                key={p.slug}
+                href={`/p/${p.slug}`}
+                className={`block rounded border border-l-4 bg-white p-3 text-sm transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+              >
+                <div className="line-clamp-1 font-medium">{p.title}</div>
+                <div className="mt-1 line-clamp-1 text-xs text-slate-500">
+                  출처: {p.source.name}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   );
 }

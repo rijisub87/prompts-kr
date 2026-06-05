@@ -21,6 +21,18 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
       .then(r => r.json())
       .then(d => setViews(typeof d?.views === 'number' ? d.views : null))
       .catch(() => {});
+
+    // 최근 본 프롬프트 — localStorage에 최대 8개. (홈의 RecentlyViewed가 읽음)
+    try {
+      const KEY = 'recent_views';
+      const raw = localStorage.getItem(KEY);
+      const list: string[] = raw ? JSON.parse(raw) : [];
+      const filtered = list.filter(s => s !== prompt.slug);
+      filtered.unshift(prompt.slug);
+      localStorage.setItem(KEY, JSON.stringify(filtered.slice(0, 8)));
+    } catch {
+      // localStorage 거부 모드 — 무시
+    }
   }, [prompt.slug]);
 
   // [변수] 패턴 치환 — 미입력은 그대로 두어 사용자가 어디를 채울지 보이게 함.
