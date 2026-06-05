@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-/* 라이트모드 전용 (umppa-pick에서 학습한 패턴) */
+/* Tailwind v4 dark variant — class 기반. <html class="dark"> 토글로 활성. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 html {

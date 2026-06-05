@@ -62,18 +62,18 @@ export default async function Home() {
       </section>
 
       {/* 카테고리 칩 네비 — 클릭 시 해당 섹션으로 스무스 스크롤 */}
-      <nav className="sticky top-0 z-10 -mx-6 border-b bg-slate-50/95 px-6 py-3 backdrop-blur">
+      <nav className="sticky top-0 z-10 -mx-6 border-b bg-slate-50/95 px-6 py-3 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
         <div className="flex flex-wrap gap-2">
           <a
             href="#newest"
-            className="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
+            className="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/40"
           >
             🆕 새로 추가
           </a>
           {guides.length > 0 && (
             <Link
               href="/guides"
-              className="rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-800 hover:bg-purple-100"
+              className="rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-800 hover:bg-purple-100 dark:border-purple-700 dark:bg-purple-950/40 dark:text-purple-300 dark:hover:bg-purple-900/40"
             >
               📖 가이드 {guides.length}
             </Link>
@@ -82,7 +82,7 @@ export default async function Home() {
             <a
               key={c}
               href={`#${c}`}
-              className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
+              className="rounded-full border bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
             >
               {CATEGORY_KO[c]}
               <span className="ml-1 text-slate-400">{grouped[c].length}</span>
@@ -105,11 +105,11 @@ export default async function Home() {
               <Link
                 key={g.slug}
                 href={`/guides/${g.slug}`}
-                className="block rounded border-2 border-purple-200 bg-white p-4 transition hover:shadow"
+                className="block rounded border-2 border-purple-200 bg-white p-4 transition hover:shadow dark:border-purple-800 dark:bg-slate-900"
               >
-                <div className="text-xs text-purple-700">{CATEGORY_KO[g.category]}</div>
+                <div className="text-xs text-purple-700 dark:text-purple-400">{CATEGORY_KO[g.category]}</div>
                 <h3 className="mt-1 text-sm font-semibold">{g.title}</h3>
-                <p className="mt-2 text-xs text-slate-600 line-clamp-2">{g.summary}</p>
+                <p className="mt-2 text-xs text-slate-600 line-clamp-2 dark:text-slate-400">{g.summary}</p>
               </Link>
             ))}
           </div>
@@ -124,7 +124,7 @@ export default async function Home() {
             <Link
               key={p.slug}
               href={`/p/${p.slug}`}
-              className="block rounded border-2 border-emerald-200 bg-white p-4 transition hover:shadow"
+              className="block rounded border-2 border-emerald-200 bg-white p-4 transition hover:shadow dark:border-emerald-800 dark:bg-slate-900"
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-sm font-semibold">{p.title}</h3>
@@ -135,11 +135,11 @@ export default async function Home() {
                 )}
               </div>
               <div className="mt-2 flex flex-wrap gap-1 text-xs">
-                <span className="rounded bg-slate-900 px-2 py-0.5 text-white">
+                <span className="rounded bg-slate-900 px-2 py-0.5 text-white dark:bg-slate-100 dark:text-slate-900">
                   {CATEGORY_KO[p.category]}
                 </span>
                 {p.platform.map(pl => (
-                  <span key={pl} className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">
+                  <span key={pl} className="rounded bg-slate-100 px-2 py-0.5 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
                     {pl}
                   </span>
                 ))}
@@ -168,20 +168,20 @@ export default async function Home() {
                 <Link
                   key={p.slug}
                   href={`/p/${p.slug}`}
-                  className="block rounded border bg-white p-4 transition hover:shadow"
+                  className="block rounded border bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900"
                 >
                   <h3 className="text-sm font-semibold">{p.title}</h3>
                   <div className="mt-2 flex flex-wrap gap-1 text-xs">
                     {p.platform.map(pl => (
-                      <span key={pl} className="rounded bg-slate-100 px-2 py-0.5 text-slate-700">
+                      <span key={pl} className="rounded bg-slate-100 px-2 py-0.5 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
                         {pl}
                       </span>
                     ))}
-                    <span className="rounded bg-amber-50 px-2 py-0.5 text-amber-800">
+                    <span className="rounded bg-amber-50 px-2 py-0.5 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
                       {p.language}
                     </span>
                     {p.formality && (
-                      <span className="rounded bg-blue-50 px-2 py-0.5 text-blue-800">
+                      <span className="rounded bg-blue-50 px-2 py-0.5 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300">
                         {p.formality}
                       </span>
                     )}

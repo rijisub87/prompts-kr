@@ -4,16 +4,27 @@ import Link from 'next/link';
 import SiteStats from '@/components/SiteStats';
 import SearchBar from '@/components/SearchBar';
 import LoginButton from '@/components/LoginButton';
+import ThemeToggle from '@/components/ThemeToggle';
 import './globals.css';
 
-// 한국 웹에 친숙하고 가독성 검증된 구글 공식 한국어 폰트.
-// next/font/google이 자동으로 self-host + 최적화 (FOIT/FOUT 방지).
 const notoSansKR = Noto_Sans_KR({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   display: 'swap',
   variable: '--font-noto-kr',
 });
+
+// FOUC 방지 — React 하이드레이션 전에 .dark 클래스를 미리 붙임.
+// localStorage 우선, 없으면 OS 설정 따라감.
+const themeInitScript = `
+(function() {
+  try {
+    var t = localStorage.getItem('theme');
+    var isDark = t === 'dark' || ((t == null || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) document.documentElement.classList.add('dark');
+  } catch (e) {}
+})();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://prompts-kr.vercel.app'),
@@ -55,26 +66,30 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={notoSansKR.variable}>
-      <body className={`${notoSansKR.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased`}>
-        <header className="border-b bg-white">
+    <html lang="ko" className={notoSansKR.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className={`${notoSansKR.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100`}>
+        <header className="border-b bg-white dark:border-slate-800 dark:bg-slate-900">
           <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 p-4">
             <Link href="/" className="text-lg font-bold shrink-0">프롬프트 한국</Link>
             <div className="order-3 w-full sm:order-2 sm:w-auto sm:flex-1 sm:px-4">
               <SearchBar />
             </div>
-            <div className="order-2 flex items-center gap-5 text-sm text-slate-700 shrink-0 sm:order-3">
+            <div className="order-2 flex items-center gap-5 text-sm text-slate-700 shrink-0 sm:order-3 dark:text-slate-300">
               <Link href="/guides" className="hover:underline">가이드</Link>
               <Link href="/test" className="hover:underline">테스트</Link>
               <Link href="/platforms" className="hover:underline">비교</Link>
               <Link href="/glossary" className="hover:underline">용어집</Link>
               <Link href="/sources" className="hover:underline">출처</Link>
+              <ThemeToggle />
               <LoginButton />
             </div>
           </nav>
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 p-6">{children}</main>
-        <footer className="border-t bg-white py-6 text-center text-xs text-slate-500">
+        <footer className="border-t bg-white py-6 text-center text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
           <p>공개·신뢰도 높은 출처에서 큐레이션. 모든 프롬프트에 출처 표기.</p>
           <p className="mt-2">
             큐레이션·해설 © Prompts-KR ·{' '}
@@ -82,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {' · '}원본 프롬프트는 각 출처 라이선스 적용
           </p>
           <p className="mt-2">
-            문의: <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline">rijisub@naver.com</a>
+            문의: <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline dark:text-emerald-400">rijisub@naver.com</a>
           </p>
           <p className="mt-2"><SiteStats /></p>
         </footer>

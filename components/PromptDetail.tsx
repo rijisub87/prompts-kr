@@ -51,19 +51,19 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
       )}
 
       {variables.length > 0 && (
-        <section className="rounded border bg-white p-4">
+        <section className="rounded border bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
           <h3 className="mb-3 text-sm font-semibold">변수 채우기</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {variables.map(v => (
               <label key={v.name} className="block">
-                <span className="text-xs text-slate-600">
-                  <code className="rounded bg-slate-100 px-1">[{v.name}]</code> {v.label}
+                <span className="text-xs text-slate-600 dark:text-slate-400">
+                  <code className="rounded bg-slate-100 px-1 dark:bg-slate-800">[{v.name}]</code> {v.label}
                 </span>
                 <input
                   type="text"
                   value={values[v.name] ?? ''}
                   onChange={e => setValues(s => ({ ...s, [v.name]: e.target.value }))}
-                  className="mt-1 w-full rounded border px-2 py-1 text-sm"
+                  className="mt-1 w-full rounded border px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
                   placeholder={v.label}
                 />
               </label>
@@ -72,19 +72,19 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
         </section>
       )}
 
-      <section className="rounded border bg-white">
-        <div className="flex items-center justify-between border-b px-4 py-2">
-          <span className="text-xs font-medium text-slate-600">
+      <section className="rounded border bg-white dark:border-slate-800 dark:bg-slate-900">
+        <div className="flex items-center justify-between border-b px-4 py-2 dark:border-slate-800">
+          <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
             {variables.length > 0 ? '치환된 프롬프트' : '프롬프트'}
           </span>
           <button
             onClick={copy}
-            className="rounded border bg-slate-50 px-3 py-1 text-xs font-medium hover:bg-slate-100"
+            className="rounded border bg-slate-50 px-3 py-1 text-xs font-medium hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700"
           >
             {copied ? '복사됨 ✓' : '복사'}
           </button>
         </div>
-        <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-sm leading-relaxed text-slate-800">
+        <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-sm leading-relaxed text-slate-800 dark:text-slate-200">
 {rendered}
         </pre>
       </section>
