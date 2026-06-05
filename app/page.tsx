@@ -7,6 +7,7 @@ import { getAllGuides } from '@/lib/guides';
 import { createClient } from '@/lib/supabase/server';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import { ButtonLink } from '@/components/Button';
+import PromptStats from '@/components/PromptStats';
 
 // ISR — 60초마다 재생성. views/추천수가 1분 단위로 갱신됨.
 export const revalidate = 60;
@@ -176,14 +177,15 @@ export default async function Home() {
                   </span>
                 ))}
               </div>
-              <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
-                <span>
+              <div className="mt-2 flex items-center justify-between gap-2 text-xs text-slate-500">
+                <span className="line-clamp-1">
                   {p.addedAt && <span className="mr-2">{formatDate(p.addedAt)}</span>}
                   {p.source.name}
                 </span>
-                <span className="shrink-0 text-slate-400">
-                  👁️ {counts[p.slug]?.views ?? 0} · ❤️ {counts[p.slug]?.recommends ?? 0}
-                </span>
+                <PromptStats
+                  views={counts[p.slug]?.views ?? 0}
+                  recommends={counts[p.slug]?.recommends ?? 0}
+                />
               </div>
             </Link>
           ))}
@@ -218,11 +220,12 @@ export default async function Home() {
                       </span>
                     )}
                   </div>
-                  <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
-                    <span>출처: {p.source.name}</span>
-                    <span className="shrink-0 text-slate-400">
-                      👁️ {counts[p.slug]?.views ?? 0} · ❤️ {counts[p.slug]?.recommends ?? 0}
-                    </span>
+                  <div className="mt-2 flex items-center justify-between gap-2 text-xs text-slate-500">
+                    <span className="line-clamp-1">출처: {p.source.name}</span>
+                    <PromptStats
+                      views={counts[p.slug]?.views ?? 0}
+                      recommends={counts[p.slug]?.recommends ?? 0}
+                    />
                   </div>
                 </Link>
               ))}
