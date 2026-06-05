@@ -77,29 +77,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="order-3 w-full sm:order-2 sm:w-auto sm:flex-1 sm:px-4">
               <SearchBar />
             </div>
-            <div className="order-2 flex items-center gap-5 text-sm text-slate-700 shrink-0 sm:order-3 dark:text-slate-300">
+            <div className="order-2 flex items-center gap-3 text-sm text-slate-700 shrink-0 sm:order-3 sm:gap-5 dark:text-slate-300">
               <Link href="/guides" className="hover:underline">가이드</Link>
               <Link href="/test" className="hover:underline">테스트</Link>
-              <Link href="/platforms" className="hover:underline">비교</Link>
-              <Link href="/glossary" className="hover:underline">용어집</Link>
-              <Link href="/sources" className="hover:underline">출처</Link>
+              {/* 부수 메뉴 — 모바일 숨김, 데스크탑 노출 */}
+              <Link href="/platforms" className="hidden hover:underline md:inline">비교</Link>
+              <Link href="/glossary" className="hidden hover:underline md:inline">용어집</Link>
+              <Link href="/sources" className="hidden hover:underline md:inline">출처</Link>
               <ThemeToggle />
               <LoginButton />
             </div>
           </nav>
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 p-6">{children}</main>
-        <footer className="border-t bg-white py-6 text-center text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
-          <p>공개·신뢰도 높은 출처에서 큐레이션. 모든 프롬프트에 출처 표기.</p>
-          <p className="mt-2">
-            큐레이션·해설 © Prompts-KR ·{' '}
+        <footer className="border-t bg-white py-4 text-center text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
+          <p>
+            © Prompts-KR ·{' '}
             <Link href="/license" className="hover:underline">CC BY-NC-SA 4.0</Link>
-            {' · '}원본 프롬프트는 각 출처 라이선스 적용
+            {' · '}
+            <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline dark:text-emerald-400">rijisub@naver.com</a>
+            {' · '}
+            <SiteStats />
           </p>
-          <p className="mt-2">
-            문의: <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline dark:text-emerald-400">rijisub@naver.com</a>
-          </p>
-          <p className="mt-2"><SiteStats /></p>
         </footer>
       </body>
     </html>

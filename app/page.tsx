@@ -53,12 +53,45 @@ export default async function Home() {
 
   return (
     <div className="space-y-10">
-      <section className="text-center">
-        <h1 className="text-3xl font-bold md:text-4xl">한국 사용자를 위한 AI 프롬프트</h1>
-        <p className="mt-3 text-base text-slate-600 md:text-lg">
+      <section className="relative -mx-6 overflow-hidden border-b bg-gradient-to-br from-emerald-50 via-white to-purple-50 px-6 py-12 text-center dark:border-slate-800 dark:from-emerald-950/30 dark:via-slate-950 dark:to-purple-950/30">
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+          한국 사용자를 위한{' '}
+          <span className="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent dark:from-emerald-400 dark:to-purple-400">
+            AI 프롬프트
+          </span>
+        </h1>
+        <p className="mt-4 text-base text-slate-600 md:text-lg dark:text-slate-400">
           Claude · ChatGPT · Gemini — 검증된 출처에서 큐레이션
         </p>
-        <p className="mt-2 text-sm text-slate-500">현재 {totalCount}개 프롬프트</p>
+
+        {/* 트러스트 시그널 */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
+          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
+            🗂 프롬프트 {totalCount}+
+          </span>
+          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
+            📖 가이드 {guides.length}
+          </span>
+          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
+            🏷 카테고리 {presentCategories.length}
+          </span>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#newest"
+            className="rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+          >
+            프롬프트 둘러보기
+          </a>
+          <Link
+            href="/test"
+            className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+          >
+            🔮 테스트 해보기
+          </Link>
+        </div>
       </section>
 
       {/* 카테고리 칩 네비 — 클릭 시 해당 섹션으로 스무스 스크롤 */}
