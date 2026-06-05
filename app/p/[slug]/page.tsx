@@ -147,7 +147,7 @@ export default async function PromptPage({
               <Link
                 key={p.slug}
                 href={`/p/${p.slug}`}
-                className={`block rounded border border-l-4 bg-white p-3 text-sm transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+                className={`block rounded border border-l-4 bg-white p-3 text-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
               >
                 <div className="line-clamp-1 font-medium">{p.title}</div>
                 <div className="mt-1 line-clamp-1 text-xs text-slate-500">

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ALL_TYPES, RESULTS } from '@/lib/mbti-test';
+import { ALL_TYPES, RESULTS, MBTI_CATEGORIES } from '@/lib/mbti-test';
+import { getPromptsByCategory, CATEGORY_KO, CATEGORY_BORDER, sortByNewest, type Category } from '@/lib/prompts';
 import KakaoShareButton from '@/components/KakaoShareButton';
 
 export function generateStaticParams() {
@@ -30,6 +31,14 @@ export default async function ResultPage({
   const upper = type.toUpperCase();
   const result = RESULTS[upper];
   if (!result) notFound();
+
+  // 추천 프롬프트 — 매핑된 카테고리에서 카테고리당 1개씩, 최신순. 최대 3개.
+  const grouped = getPromptsByCategory();
+  const cats = (MBTI_CATEGORIES[upper] ?? []) as readonly Category[];
+  const recommended = cats
+    .map(cat => sortByNewest(grouped[cat] ?? [])[0])
+    .filter(Boolean)
+    .slice(0, 3);
 
   return (
     <article className="mx-auto max-w-2xl space-y-6 py-8">
@@ -90,6 +99,29 @@ export default async function ResultPage({
           </ul>
         </section>
       </div>
+
+      {recommended.length > 0 && (
+        <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="mb-1 text-sm font-semibold text-slate-700 dark:text-slate-300">
+            🎯 {result.type}에게 어울리는 프롬프트
+          </h2>
+          <p className="mb-3 text-xs text-slate-500">{result.nickname} 스타일에 맞춰 골랐어요.</p>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {recommended.map(p => (
+              <Link
+                key={p.slug}
+                href={`/p/${p.slug}`}
+                className={`block rounded border border-l-4 bg-slate-50 p-3 text-sm transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md dark:bg-slate-950 dark:hover:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+              >
+                <div className="text-xs text-slate-500">{CATEGORY_KO[p.category]}</div>
+                <div className="mt-1 line-clamp-2 font-medium text-slate-900 dark:text-slate-100">
+                  {p.title}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
         <KakaoShareButton

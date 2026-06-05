@@ -445,6 +445,27 @@ export const RESULTS: Record<string, MBTIResult> = {
   },
 };
 
+// 유형별 추천 카테고리 — 결과 페이지 "내 카테고리 추천" 섹션에서 사용.
+// 각 유형의 aiStyle·workTrait에서 자연스럽게 어울리는 3개 카테고리 매핑.
+export const MBTI_CATEGORIES: Record<string, readonly string[]> = {
+  INTJ: ['planning', 'agents', 'analysis'],
+  INTP: ['code', 'analysis', 'learning'],
+  ENTJ: ['planning', 'agents', 'report'],
+  ENTP: ['code', 'image', 'agents'],
+  INFJ: ['writing', 'translation', 'email'],
+  INFP: ['writing', 'image', 'learning'],
+  ENFJ: ['email', 'ppt', 'learning'],
+  ENFP: ['writing', 'image', 'planning'],
+  ISTJ: ['report', 'summary', 'email'],
+  ISFJ: ['summary', 'email', 'report'],
+  ESTJ: ['report', 'ppt', 'planning'],
+  ESFJ: ['email', 'ppt', 'report'],
+  ISTP: ['code', 'data', 'analysis'],
+  ISFP: ['image', 'writing', 'ppt'],
+  ESTP: ['summary', 'ppt', 'email'],
+  ESFP: ['image', 'writing', 'ppt'],
+};
+
 // 답안 12개 → 4자리 MBTI 코드. null(중립)은 카운트 제외. 동률은 좌측(E/S/T/J) 우선.
 export function calcType(answers: (Letter | null)[]): string {
   const c: Record<Letter, number> = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };

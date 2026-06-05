@@ -110,6 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* 부수 메뉴 — 모바일 숨김, 데스크탑 노출 */}
               <Link href="/platforms" className="hidden hover:underline md:inline">비교</Link>
               <Link href="/glossary" className="hidden hover:underline md:inline">용어집</Link>
+              <Link href="/stats" className="hidden hover:underline md:inline">통계</Link>
               <Link href="/sources" className="hidden hover:underline md:inline">출처</Link>
               <ThemeToggle />
               <LoginButton />

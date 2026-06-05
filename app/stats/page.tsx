@@ -104,7 +104,7 @@ export default async function StatsPage() {
                 <li key={row.slug}>
                   <Link
                     href={`/p/${row.slug}`}
-                    className={`flex items-center gap-3 rounded border border-l-4 bg-white p-3 transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+                    className={`flex items-center gap-3 rounded border border-l-4 bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
                   >
                     <span className="w-6 shrink-0 text-center text-lg font-bold text-slate-400">
                       {i + 1}
@@ -139,7 +139,7 @@ export default async function StatsPage() {
                 <li key={row.slug}>
                   <Link
                     href={`/p/${row.slug}`}
-                    className={`flex items-center gap-3 rounded border border-l-4 bg-white p-3 transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+                    className={`flex items-center gap-3 rounded border border-l-4 bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
                   >
                     <span className="w-6 shrink-0 text-center text-lg font-bold text-rose-400">
                       {i + 1}

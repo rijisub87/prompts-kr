@@ -23,7 +23,7 @@ export default function GuidesIndex() {
             <li key={g.slug}>
               <Link
                 href={`/guides/${g.slug}`}
-                className="block rounded border bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900"
+                className="block rounded border bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
               >
                 <div className="text-xs text-emerald-700 dark:text-emerald-400">{CATEGORY_KO[g.category]}</div>
                 <h2 className="mt-1 text-base font-semibold">{g.title}</h2>

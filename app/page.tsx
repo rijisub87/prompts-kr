@@ -54,6 +54,17 @@ export default async function Home() {
   const guides = getAllGuides();
   const counts = await fetchAllCounts(all.map(p => p.slug));
 
+  // 인기 TOP 3 — 추천수 > 조회수 가중치. 모두 0이면 빈 배열.
+  const popular = all
+    .map(p => ({
+      p,
+      score: (counts[p.slug]?.recommends ?? 0) * 3 + (counts[p.slug]?.views ?? 0),
+    }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map(x => x.p);
+
   return (
     <div className="space-y-10">
       <section className="relative -mx-6 overflow-hidden border-b bg-gradient-to-br from-emerald-50 via-white to-purple-50 px-6 py-12 text-center dark:border-slate-800 dark:from-emerald-950/30 dark:via-slate-950 dark:to-purple-950/30">
@@ -89,6 +100,22 @@ export default async function Home() {
             🔮 테스트 해보기
           </ButtonLink>
         </div>
+
+        {/* 인기 TOP 3 — 추천·조회 데이터 있을 때만 노출 */}
+        {popular.length > 0 && (
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
+            <span className="text-slate-500 dark:text-slate-400">🔥 지금 인기</span>
+            {popular.map(p => (
+              <Link
+                key={p.slug}
+                href={`/p/${p.slug}`}
+                className="rounded-full bg-white px-3 py-1 font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:shadow-md dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                {p.title.length > 22 ? p.title.slice(0, 22) + '…' : p.title}
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* 카테고리 칩 네비 — 클릭 시 해당 섹션으로 스무스 스크롤 */}
@@ -135,7 +162,7 @@ export default async function Home() {
               <Link
                 key={g.slug}
                 href={`/guides/${g.slug}`}
-                className="block rounded border-2 border-purple-200 bg-white p-4 transition hover:shadow dark:border-purple-800 dark:bg-slate-900"
+                className="block rounded border-2 border-purple-200 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:border-purple-800 dark:bg-slate-900"
               >
                 <div className="text-xs text-purple-700 dark:text-purple-400">{CATEGORY_KO[g.category]}</div>
                 <h3 className="mt-1 text-sm font-semibold">{g.title}</h3>
@@ -157,7 +184,7 @@ export default async function Home() {
             <Link
               key={p.slug}
               href={`/p/${p.slug}`}
-              className={`block rounded border border-l-4 bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+              className={`block rounded border border-l-4 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="text-sm font-semibold">{p.title}</h3>
@@ -202,7 +229,7 @@ export default async function Home() {
                 <Link
                   key={p.slug}
                   href={`/p/${p.slug}`}
-                  className={`block rounded border border-l-4 bg-white p-4 transition hover:shadow dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
+                  className={`block rounded border border-l-4 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 ${CATEGORY_BORDER[p.category]}`}
                 >
                   <h3 className="text-sm font-semibold">{p.title}</h3>
                   <div className="mt-2 flex flex-wrap gap-1 text-xs">
