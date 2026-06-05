@@ -118,7 +118,7 @@ export default function Platforms() {
     <article className="space-y-10">
       <header>
         <h1 className="text-3xl font-bold">Claude · ChatGPT · Gemini — 어떤 거 써야 하나</h1>
-        <p className="mt-3 text-base text-slate-600">
+        <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
           한국 사용자가 가장 자주 묻는 질문. 정답은 &ldquo;작업별로 다르다&rdquo;이고,
           이 페이지는 그 &ldquo;다르다&rdquo;를 구체적으로 풀어놓은 비교입니다.
         </p>
@@ -127,15 +127,15 @@ export default function Platforms() {
       <section>
         <h2 className="mb-4 text-xl font-bold">한 줄 요약</h2>
         <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded border-2 border-orange-200 bg-orange-50 p-4">
+          <div className="rounded border-2 border-orange-200 bg-orange-50 p-4 dark:border-orange-800 dark:bg-orange-950/30">
             <h3 className="font-semibold">Claude</h3>
             <p className="mt-2 text-sm">한국어·긴 글·코딩의 종합 1위. 안정적인 톤 일관성.</p>
           </div>
-          <div className="rounded border-2 border-emerald-200 bg-emerald-50 p-4">
+          <div className="rounded border-2 border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-950/30">
             <h3 className="font-semibold">ChatGPT</h3>
             <p className="mt-2 text-sm">생태계와 도구가 가장 풍부. 이미지·데이터 분석에 강함.</p>
           </div>
-          <div className="rounded border-2 border-blue-200 bg-blue-50 p-4">
+          <div className="rounded border-2 border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/30">
             <h3 className="font-semibold">Gemini</h3>
             <p className="mt-2 text-sm">긴 컨텍스트와 가격 효율. 무료로 가장 많이 쓸 수 있음.</p>
           </div>
@@ -147,7 +147,7 @@ export default function Platforms() {
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b-2 border-slate-300 bg-slate-100">
+              <tr className="border-b-2 border-slate-300 bg-slate-100 dark:border-slate-700 dark:bg-slate-800">
                 <th className="p-2 text-left">항목</th>
                 <th className="p-2 text-left">Claude</th>
                 <th className="p-2 text-left">ChatGPT</th>
@@ -156,11 +156,11 @@ export default function Platforms() {
             </thead>
             <tbody>
               {ROWS.map(r => (
-                <tr key={r.feature} className="border-b border-slate-200">
+                <tr key={r.feature} className="border-b border-slate-200 dark:border-slate-800">
                   <td className="p-2 font-medium">{r.feature}</td>
-                  <td className="p-2 text-slate-700">{r.claude}</td>
-                  <td className="p-2 text-slate-700">{r.chatgpt}</td>
-                  <td className="p-2 text-slate-700">{r.gemini}</td>
+                  <td className="p-2 text-slate-700 dark:text-slate-300">{r.claude}</td>
+                  <td className="p-2 text-slate-700 dark:text-slate-300">{r.chatgpt}</td>
+                  <td className="p-2 text-slate-700 dark:text-slate-300">{r.gemini}</td>
                 </tr>
               ))}
             </tbody>
@@ -175,20 +175,20 @@ export default function Platforms() {
         <h2 className="mb-4 text-xl font-bold">작업별 추천</h2>
         <div className="space-y-3">
           {TASKS.map(t => (
-            <div key={t.task} className="rounded border bg-white p-4">
+            <div key={t.task} className="rounded border bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
               <div className="flex flex-wrap items-baseline gap-3">
                 <h3 className="text-sm font-semibold">{t.task}</h3>
-                <span className="rounded bg-slate-900 px-2 py-0.5 text-xs font-bold text-white">
+                <span className="rounded bg-slate-900 px-2 py-0.5 text-xs font-bold text-white dark:bg-slate-100 dark:text-slate-900">
                   → {t.pick}
                 </span>
               </div>
-              <p className="mt-2 text-sm text-slate-600">{t.reason}</p>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{t.reason}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="rounded border-2 border-purple-200 bg-purple-50 p-5">
+      <section className="rounded border-2 border-purple-200 bg-purple-50 p-5 dark:border-purple-800 dark:bg-purple-950/30">
         <h2 className="text-lg font-bold">결정이 어려우면 — 단순 규칙</h2>
         <ol className="mt-3 list-decimal space-y-1 pl-6 text-sm">
           <li><strong>한국어 글쓰기 위주</strong>면 Claude</li>
@@ -202,11 +202,11 @@ export default function Platforms() {
         <h2 className="mb-3 text-lg font-bold">관련 자료</h2>
         <ul className="space-y-1 text-sm">
           <li>
-            → <Link href="/" className="text-emerald-700 hover:underline">전체 프롬프트 갤러리</Link>
+            → <Link href="/" className="text-emerald-700 hover:underline dark:text-emerald-400">전체 프롬프트 갤러리</Link>
             {' '}— 113개 (플랫폼별 태그로 필터 가능)
           </li>
           <li>
-            → <Link href="/guides" className="text-emerald-700 hover:underline">도메인 가이드</Link>
+            → <Link href="/guides" className="text-emerald-700 hover:underline dark:text-emerald-400">도메인 가이드</Link>
             {' '}— 분야별 AI 활용법
           </li>
         </ul>

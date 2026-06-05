@@ -162,8 +162,8 @@ export default function SajuPage() {
         </p>
       </header>
 
-      <section className="rounded-lg border bg-white p-5">
-        <h2 className="mb-3 text-sm font-semibold text-slate-700">생년월일 입력</h2>
+      <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+        <h2 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">생년월일 입력</h2>
 
         <div className="grid grid-cols-3 gap-2">
           <label className="block">
@@ -171,7 +171,7 @@ export default function SajuPage() {
             <select
               value={year}
               onChange={e => setYear(Number(e.target.value))}
-              className="mt-1 w-full rounded border px-2 py-2 text-sm"
+              className="mt-1 w-full rounded border px-2 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
             >
               {years.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
@@ -181,7 +181,7 @@ export default function SajuPage() {
             <select
               value={month}
               onChange={e => setMonth(Number(e.target.value))}
-              className="mt-1 w-full rounded border px-2 py-2 text-sm"
+              className="mt-1 w-full rounded border px-2 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
             >
               {Array.from({ length: 12 }, (_, i) => i + 1).map(m =>
                 <option key={m} value={m}>{m}</option>)}
@@ -192,7 +192,7 @@ export default function SajuPage() {
             <select
               value={day}
               onChange={e => setDay(Number(e.target.value))}
-              className="mt-1 w-full rounded border px-2 py-2 text-sm"
+              className="mt-1 w-full rounded border px-2 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
             >
               {Array.from({ length: 31 }, (_, i) => i + 1).map(d =>
                 <option key={d} value={d}>{d}</option>)}
@@ -206,7 +206,7 @@ export default function SajuPage() {
             <select
               value={hour}
               onChange={e => setHour(e.target.value)}
-              className="mt-1 w-full rounded border px-2 py-2 text-sm"
+              className="mt-1 w-full rounded border px-2 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
             >
               {HOURS.map(h => <option key={h.value} value={h.value}>{h.label}</option>)}
             </select>
@@ -221,8 +221,8 @@ export default function SajuPage() {
                   onClick={() => setCalendar(c)}
                   className={`flex-1 rounded border-2 px-3 py-2 text-sm ${
                     calendar === c
-                      ? 'border-emerald-500 bg-emerald-50 font-semibold text-emerald-800'
-                      : 'border-slate-300 bg-white text-slate-700'
+                      ? 'border-emerald-500 bg-emerald-50 font-semibold text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'
+                      : 'border-slate-300 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300'
                   }`}
                 >
                   {c}
@@ -237,10 +237,10 @@ export default function SajuPage() {
         <button
           disabled
           title="AI 호출 모드는 곧 오픈됩니다"
-          className="relative w-full cursor-not-allowed rounded-lg bg-slate-200 px-5 py-3 text-base font-semibold text-slate-500"
+          className="relative w-full cursor-not-allowed rounded-lg bg-slate-200 px-5 py-3 text-base font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-500"
         >
           🔮 AI에게 바로 물어보기
-          <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800">
+          <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
             준비중
           </span>
         </button>
@@ -251,21 +251,21 @@ export default function SajuPage() {
           📋 프롬프트 복사 → Claude/ChatGPT에 붙여넣기
         </button>
         {copyMsg && (
-          <p className="text-center text-xs text-emerald-700">{copyMsg}</p>
+          <p className="text-center text-xs text-emerald-700 dark:text-emerald-400">{copyMsg}</p>
         )}
       </section>
 
       {error && (
-        <section className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4 text-sm text-rose-800">
+        <section className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4 text-sm text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
           {error}
         </section>
       )}
 
       {reading && (
-        <section className="rounded-lg border bg-white p-5">
+        <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
           <h2 className="mb-3 text-lg font-bold">오늘의 사주 풀이</h2>
           {renderReading(reading)}
-          <p className="mt-5 border-t pt-3 text-xs text-slate-400">
+          <p className="mt-5 border-t pt-3 text-xs text-slate-400 dark:border-slate-800">
             ⚠️ 이 풀이는 AI가 생성한 참고용 콘텐츠입니다. 사주명리학 전문가의 정식 상담을 대체하지 않습니다.
           </p>
         </section>

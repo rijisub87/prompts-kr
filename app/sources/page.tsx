@@ -20,18 +20,18 @@ export default function Sources() {
   return (
     <div>
       <h1 className="text-2xl font-bold">출처 ({entries.length})</h1>
-      <p className="mt-2 text-sm text-slate-600">
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
         모든 프롬프트는 아래 공개 출처에서 큐레이션되었으며, 각 항목 페이지에 원본 링크가 표기됩니다.
       </p>
       <ul className="mt-6 space-y-3">
         {entries.map(([name, info]) => (
-          <li key={name} className="rounded border bg-white p-4">
+          <li key={name} className="rounded border bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
             <div className="flex items-center justify-between">
               <a
                 href={info.url}
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-emerald-700 hover:underline"
+                className="font-medium text-emerald-700 hover:underline dark:text-emerald-400"
               >
                 {name}
               </a>

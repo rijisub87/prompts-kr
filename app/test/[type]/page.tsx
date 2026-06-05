@@ -38,23 +38,23 @@ export default async function ResultPage({
         <h1 className="mt-2 text-5xl font-bold tracking-tight md:text-6xl">
           {result.type}
         </h1>
-        <p className="mt-3 text-xl font-semibold text-emerald-700 md:text-2xl">
+        <p className="mt-3 text-xl font-semibold text-emerald-700 md:text-2xl dark:text-emerald-400">
           {result.nickname}
         </p>
       </header>
 
-      <section className="rounded-lg border bg-white p-6">
-        <p className="text-base leading-relaxed text-slate-700">
+      <section className="rounded-lg border bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+        <p className="text-base leading-relaxed text-slate-700 dark:text-slate-300">
           {result.description}
         </p>
       </section>
 
       <div className="grid gap-3 md:grid-cols-3">
-        <section className="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 p-4">
-          <div className="text-xs font-semibold uppercase tracking-wider text-emerald-800">
+        <section className="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 p-4 dark:bg-emerald-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
             🤖 AI 스타일
           </div>
-          <ul className="mt-2 space-y-1.5 text-sm text-slate-800">
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
             {result.aiStyle.map((line, i) => (
               <li key={i} className="flex gap-1.5">
                 <span className="text-emerald-500" aria-hidden>•</span>
@@ -63,11 +63,11 @@ export default async function ResultPage({
             ))}
           </ul>
         </section>
-        <section className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4">
-          <div className="text-xs font-semibold uppercase tracking-wider text-blue-800">
+        <section className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-blue-800 dark:text-blue-300">
             💼 업무 특징
           </div>
-          <ul className="mt-2 space-y-1.5 text-sm text-slate-800">
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
             {result.workTrait.map((line, i) => (
               <li key={i} className="flex gap-1.5">
                 <span className="text-blue-500" aria-hidden>•</span>
@@ -76,11 +76,11 @@ export default async function ResultPage({
             ))}
           </ul>
         </section>
-        <section className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4">
-          <div className="text-xs font-semibold uppercase tracking-wider text-rose-800">
+        <section className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4 dark:bg-rose-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-rose-800 dark:text-rose-300">
             💗 연애 특징
           </div>
-          <ul className="mt-2 space-y-1.5 text-sm text-slate-800">
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
             {result.loveTrait.map((line, i) => (
               <li key={i} className="flex gap-1.5">
                 <span className="text-rose-500" aria-hidden>•</span>
@@ -99,7 +99,7 @@ export default async function ResultPage({
         />
         <Link
           href="/test"
-          className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100"
+          className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800"
         >
           다시 하기
         </Link>

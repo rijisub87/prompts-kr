@@ -2,7 +2,7 @@ export const metadata = { title: '라이선스 · 이용 안내' };
 
 export default function License() {
   return (
-    <article className="prose prose-sm max-w-none">
+    <article className="prose prose-sm max-w-none dark:prose-invert">
       <h1>라이선스 · 이용 안내</h1>
 
       <h2>핵심 요약</h2>
@@ -58,7 +58,7 @@ export default function License() {
       <h2>문의 · 침해 신고</h2>
       <p>
         라이선스 관련 문의, 상업 이용 협의, 또는 침해 사례 신고는{' '}
-        <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline">
+        <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline dark:text-emerald-400">
           rijisub@naver.com
         </a>{' '}
         으로 주세요.

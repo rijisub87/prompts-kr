@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <article className="prose prose-sm max-w-none">
+    <article className="prose prose-sm max-w-none dark:prose-invert">
       <h1>프롬프트 한국 소개</h1>
       <p>
         Anthropic Prompt Library, awesome-chatgpt-prompts, GPTers, 자소설닷컴 등
