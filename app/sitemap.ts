@@ -2,7 +2,7 @@
 // 검색엔진(구글·네이버·빙)이 색인할 URL 목록.
 
 import { MetadataRoute } from 'next';
-import { getAllPrompts } from '@/lib/prompts';
+import { getAllPrompts, getPromptsByCategory, CATEGORIES } from '@/lib/prompts';
 import { getAllGuides } from '@/lib/guides';
 import { ALL_TYPES } from '@/lib/mbti-test';
 
@@ -58,5 +58,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...prompts, ...guides, ...tests];
+  // 5. 카테고리 인덱스 페이지 — 콘텐츠 있는 카테고리만
+  const grouped = getPromptsByCategory();
+  const categories: MetadataRoute.Sitemap = CATEGORIES
+    .filter(c => grouped[c].length > 0)
+    .map(c => ({
+      url: `${BASE_URL}/c/${c}`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }));
+
+  return [...staticRoutes, ...prompts, ...guides, ...tests, ...categories];
 }

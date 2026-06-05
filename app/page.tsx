@@ -223,7 +223,15 @@ export default async function Home() {
         const list = grouped[c];
         return (
           <section key={c} id={c} className="scroll-mt-20">
-            <h2 className="mb-3 text-lg font-semibold">{CATEGORY_KO[c]}</h2>
+            <div className="mb-3 flex items-baseline justify-between gap-2">
+              <h2 className="text-lg font-semibold">{CATEGORY_KO[c]}</h2>
+              <Link
+                href={`/c/${c}`}
+                className="text-xs text-slate-500 hover:text-emerald-700 hover:underline dark:hover:text-emerald-400"
+              >
+                전체 {list.length}개 →
+              </Link>
+            </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {list.map(p => (
                 <Link

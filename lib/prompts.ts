@@ -29,6 +29,27 @@ export const CATEGORY_KO: Record<Category, string> = {
   etc:          '기타',
 };
 
+// 카테고리 페이지(/c/[category]) 헤더·OG·검색엔진용 한 줄 설명.
+export const CATEGORY_TAGLINE: Record<Category, string> = {
+  writing:      '글쓰기·문서 작성 — 블로그, 에세이, 카피, 콘텐츠 기획',
+  summary:      '긴 글을 한눈에 — 요약·압축·핵심 추출',
+  code:         '코드 생성·리뷰·디버깅·리팩토링',
+  analysis:     '데이터·자료 분석과 인사이트 추출',
+  translation:  '한·영 번역과 번역투 제거, 자막·문체 변환',
+  learning:     '학습·이해를 돕는 설명·개념 정리·문제 풀이',
+  planning:     '사업 계획·전략·기획안 작성',
+  image:        '이미지 생성 (Midjourney·SD·DALL·E) 프롬프트',
+  email:        '비즈니스·일상 이메일 작성과 톤 조정',
+  'cover-letter': '자소서·면접 답변·이력서 작성',
+  report:       '보고서·회의록·업무 문서 작성',
+  ppt:          'PPT·발표 슬라이드·스크립트 작성',
+  'edu-parent': '학부모·교사를 위한 교육 프롬프트',
+  data:         '데이터·KPI·통계·연구 분석',
+  research:     '인터넷·자료 조사와 정보 정리',
+  agents:       'AI 에이전트·자동화 워크플로 설계',
+  etc:          '기타 유용한 프롬프트 모음',
+};
+
 // 카테고리별 좌측 컬러바 — 카드에서 시각적 구분. Tailwind가 빌드시 스캔.
 export const CATEGORY_BORDER: Record<Category, string> = {
   writing:      'border-l-pink-400',
