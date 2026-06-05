@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { QUESTIONS, calcType, type Letter } from '@/lib/mbti-test';
+import { Button } from '@/components/Button';
 
 export default function TestPage() {
   const router = useRouter();
@@ -43,12 +44,14 @@ export default function TestPage() {
             MBTI 4축을 AI 사용·업무 상황으로 본다.<br/>
             12문항 · 3지선다 · 3분 내외 · 결과는 16가지 유형.
           </p>
-          <button
+          <Button
             onClick={() => setStarted(true)}
-            className="mt-4 rounded-lg bg-emerald-600 px-6 py-3 text-base font-semibold text-white hover:bg-emerald-700"
+            variant="primary"
+            size="lg"
+            className="mt-4"
           >
             시작하기
-          </button>
+          </Button>
         </div>
 
         <Link

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
+import { Button } from '@/components/Button';
 
 const HOURS = [
   { value: '자시', label: '자시 (23:00~01:00)' },
@@ -234,22 +235,26 @@ export default function SajuPage() {
       </section>
 
       <section className="space-y-3">
-        <button
+        <Button
           disabled
+          variant="secondary"
+          size="lg"
           title="AI 호출 모드는 곧 오픈됩니다"
-          className="relative w-full cursor-not-allowed rounded-lg bg-slate-200 px-5 py-3 text-base font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-500"
+          className="w-full"
         >
           🔮 AI에게 바로 물어보기
           <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
             준비중
           </span>
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={copyPrompt}
-          className="w-full rounded-lg bg-emerald-600 px-5 py-3 text-base font-semibold text-white hover:bg-emerald-700"
+          variant="primary"
+          size="lg"
+          className="w-full"
         >
           📋 프롬프트 복사 → Claude/ChatGPT에 붙여넣기
-        </button>
+        </Button>
         {copyMsg && (
           <p className="text-center text-xs text-emerald-700 dark:text-emerald-400">{copyMsg}</p>
         )}

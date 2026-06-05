@@ -6,6 +6,7 @@ import {
 import { getAllGuides } from '@/lib/guides';
 import { createClient } from '@/lib/supabase/server';
 import RecentlyViewed from '@/components/RecentlyViewed';
+import { ButtonLink } from '@/components/Button';
 
 // ISR — 60초마다 재생성. views/추천수가 1분 단위로 갱신됨.
 export const revalidate = 60;
@@ -80,18 +81,12 @@ export default async function Home() {
 
         {/* CTA */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="#newest"
-            className="rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
-          >
+          <ButtonLink href="#newest" variant="dark" size="md">
             프롬프트 둘러보기
-          </a>
-          <Link
-            href="/test"
-            className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
+          </ButtonLink>
+          <ButtonLink href="/test" variant="secondary" size="md">
             🔮 테스트 해보기
-          </Link>
+          </ButtonLink>
         </div>
       </section>
 
