@@ -69,6 +69,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" className={notoSansKR.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  '@id': 'https://prompts-kr.vercel.app/#website',
+                  name: '프롬프트 한국',
+                  alternateName: 'Prompts-KR',
+                  url: 'https://prompts-kr.vercel.app',
+                  inLanguage: 'ko-KR',
+                  description: '한국 사용자를 위한 AI 프롬프트 큐레이션. Claude · ChatGPT · Gemini.',
+                  publisher: { '@id': 'https://prompts-kr.vercel.app/#org' },
+                },
+                {
+                  '@type': 'Organization',
+                  '@id': 'https://prompts-kr.vercel.app/#org',
+                  name: 'Prompts-KR',
+                  url: 'https://prompts-kr.vercel.app',
+                  logo: 'https://prompts-kr.vercel.app/kakao-app-icon.png',
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className={`${notoSansKR.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100`}>
         <header className="border-b bg-white dark:border-slate-800 dark:bg-slate-900">
