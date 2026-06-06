@@ -1,10 +1,37 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import type { Prompt } from '@/lib/prompts';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import type { Prompt, Variable } from '@/lib/prompts';
+
+// 변수 이름에 다음 키워드가 포함되면 멀티라인 입력으로 — 긴 텍스트가 들어오는 슬롯.
+const LONG_VAR_HINTS = ['TEXT', 'SUBTITLE', 'BODY', 'CONTENT', 'ARTICLE', 'PARAGRAPH', '본문', '내용'];
+function isLongVar(name: string): boolean {
+  const upper = name.toUpperCase();
+  return LONG_VAR_HINTS.some(h => upper.includes(h));
+}
+
+// 본문 [VAR] 자동 감지 — lib/prompts.ts와 동일 로직. 클라이언트 번들 가볍게 인라인.
+function detectVariables(body: string): string[] {
+  const re = /\[([가-힣A-Za-z0-9_]+)\]/g;
+  const found = new Set<string>();
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(body))) found.add(m[1]);
+  return Array.from(found);
+}
 
 export default function PromptDetail({ prompt }: { prompt: Prompt }) {
-  const variables = prompt.variables ?? [];
+  // frontmatter에 variables가 비어 있으면 본문 [VAR] 패턴에서 자동 감지.
+  // name·label이 숫자로 파싱될 수도 있어 항상 String 강제.
+  const variables: Variable[] = useMemo(() => {
+    if (prompt.variables && prompt.variables.length > 0) {
+      return prompt.variables.map(v => ({
+        name: String(v.name),
+        label: String(v.label ?? v.name),
+      }));
+    }
+    return detectVariables(prompt.body).map(name => ({ name, label: name }));
+  }, [prompt.variables, prompt.body]);
+
   const [values, setValues] = useState<Record<string, string>>(() =>
     Object.fromEntries(variables.map(v => [v.name, ''])),
   );
@@ -35,7 +62,7 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
     }
   }, [prompt.slug]);
 
-  // [변수] 패턴 치환 — 미입력은 그대로 두어 사용자가 어디를 채울지 보이게 함.
+  // 치환된 본문 (미입력은 [VAR] 그대로). 클립보드 복사용.
   const rendered = useMemo(() => {
     let out = prompt.body;
     for (const v of variables) {
@@ -46,12 +73,49 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
     return out;
   }, [prompt.body, variables, values]);
 
+  // 미입력 [VAR]만 하이라이트한 React 노드 — 화면 표시용.
+  const previewNodes = useMemo(() => {
+    if (variables.length === 0) return [prompt.body];
+    const pattern = new RegExp(
+      `\\[(${variables.map(v => v.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\]`,
+      'g',
+    );
+    const parts: (string | { name: string })[] = [];
+    let last = 0;
+    let m: RegExpExecArray | null;
+    while ((m = pattern.exec(prompt.body)) !== null) {
+      if (m.index > last) parts.push(prompt.body.slice(last, m.index));
+      parts.push({ name: m[1] });
+      last = m.index + m[0].length;
+    }
+    if (last < prompt.body.length) parts.push(prompt.body.slice(last));
+    return parts.map((part, i) => {
+      if (typeof part === 'string') return <Fragment key={i}>{part}</Fragment>;
+      const filled = values[part.name];
+      if (filled) return <Fragment key={i}>{filled}</Fragment>;
+      return (
+        <mark
+          key={i}
+          className="rounded bg-amber-200 px-1 text-amber-900 dark:bg-amber-900/60 dark:text-amber-100"
+        >
+          [{part.name}]
+        </mark>
+      );
+    });
+  }, [prompt.body, variables, values]);
+
+  const filledCount = variables.filter(v => values[v.name]?.trim()).length;
+  const allFilled = variables.length > 0 && filledCount === variables.length;
+
   const copy = async () => {
     await navigator.clipboard.writeText(rendered);
     setCopied(true);
-    // 복사 카운터 증가 (실패해도 UX 무관)
     fetch('https://abacus.jasoncameron.dev/hit/prompts-kr/copies').catch(() => {});
     setTimeout(() => setCopied(false), 1500);
+  };
+
+  const reset = () => {
+    setValues(Object.fromEntries(variables.map(v => [v.name, ''])));
   };
 
   return (
@@ -64,22 +128,56 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
 
       {variables.length > 0 && (
         <section className="rounded border bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-          <h3 className="mb-3 text-sm font-semibold">변수 채우기</h3>
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-sm font-semibold">
+              변수 채우기
+              <span
+                className={
+                  allFilled
+                    ? 'ml-2 rounded bg-emerald-100 px-1.5 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'
+                    : 'ml-2 rounded bg-slate-100 px-1.5 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                }
+              >
+                {filledCount}/{variables.length} 채움
+              </span>
+            </h3>
+            {filledCount > 0 && (
+              <button
+                onClick={reset}
+                className="text-xs text-slate-500 hover:text-slate-700 hover:underline dark:hover:text-slate-300"
+              >
+                초기화
+              </button>
+            )}
+          </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {variables.map(v => (
-              <label key={v.name} className="block">
-                <span className="text-xs text-slate-600 dark:text-slate-400">
-                  <code className="rounded bg-slate-100 px-1 dark:bg-slate-800">[{v.name}]</code> {v.label}
-                </span>
-                <input
-                  type="text"
-                  value={values[v.name] ?? ''}
-                  onChange={e => setValues(s => ({ ...s, [v.name]: e.target.value }))}
-                  className="mt-1 w-full rounded border px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                  placeholder={v.label}
-                />
-              </label>
-            ))}
+            {variables.map(v => {
+              const long = isLongVar(v.name);
+              return (
+                <label key={v.name} className={long ? 'block sm:col-span-2' : 'block'}>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">
+                    <code className="rounded bg-slate-100 px-1 dark:bg-slate-800">[{v.name}]</code> {v.label}
+                  </span>
+                  {long ? (
+                    <textarea
+                      value={values[v.name] ?? ''}
+                      onChange={e => setValues(s => ({ ...s, [v.name]: e.target.value }))}
+                      rows={4}
+                      className="mt-1 w-full rounded border px-2 py-1 font-mono text-xs leading-relaxed dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                      placeholder={v.label}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      value={values[v.name] ?? ''}
+                      onChange={e => setValues(s => ({ ...s, [v.name]: e.target.value }))}
+                      className="mt-1 w-full rounded border px-2 py-1 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                      placeholder={v.label}
+                    />
+                  )}
+                </label>
+              );
+            })}
           </div>
         </section>
       )}
@@ -87,7 +185,9 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
       <section className="rounded border bg-white dark:border-slate-800 dark:bg-slate-900">
         <div className="flex items-center justify-between border-b px-4 py-2 dark:border-slate-800">
           <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
-            {variables.length > 0 ? '치환된 프롬프트' : '프롬프트'}
+            {variables.length > 0
+              ? allFilled ? '✅ 치환 완료된 프롬프트' : '미입력 변수는 노란 표시'
+              : '프롬프트'}
           </span>
           <button
             onClick={copy}
@@ -97,7 +197,7 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
           </button>
         </div>
         <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-sm leading-relaxed text-slate-800 dark:text-slate-200">
-{rendered}
+          {previewNodes}
         </pre>
       </section>
     </div>
