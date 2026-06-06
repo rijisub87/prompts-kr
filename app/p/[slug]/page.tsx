@@ -6,6 +6,7 @@ import {
 } from '@/lib/prompts';
 import PromptDetail from '@/components/PromptDetail';
 import RecommendButton from '@/components/RecommendButton';
+import BookmarkButton from '@/components/BookmarkButton';
 
 export function generateStaticParams() {
   return getAllPrompts().map(p => ({ slug: p.slug }));
@@ -106,8 +107,9 @@ export default async function PromptPage({
 
       <PromptDetail prompt={prompt} />
 
-      <div className="flex justify-center">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <RecommendButton slug={prompt.slug} />
+        <BookmarkButton slug={prompt.slug} />
       </div>
 
       {prompt.tipHtml && (

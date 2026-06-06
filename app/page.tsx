@@ -6,6 +6,7 @@ import {
 import { getAllGuides } from '@/lib/guides';
 import { createClient } from '@/lib/supabase/server';
 import RecentlyViewed from '@/components/RecentlyViewed';
+import Bookmarks from '@/components/Bookmarks';
 import { ButtonLink } from '@/components/Button';
 import PromptStats from '@/components/PromptStats';
 
@@ -172,6 +173,9 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      {/* 즐겨찾기 — 사용자 큐레이션. localStorage 'bookmarks' 비어있을 때 숨김 */}
+      <Bookmarks />
 
       {/* 최근 본 — 클라이언트 localStorage 기반. 첫 방문자엔 안 보임 */}
       <RecentlyViewed />
