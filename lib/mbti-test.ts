@@ -142,14 +142,16 @@ export const QUESTIONS: Question[] = [
 // === 16 결과 유형 ===
 
 export type MBTIResult = {
-  type: string;          // 4글자 코드, 예: 'INTJ'
-  nickname: string;      // 재미있는 별명
-  description: string;   // 한 단락 (~100자)
-  aiStyle: string[];     // AI 사용 스타일 3~4개
-  workTrait: string[];   // 업무 특징 3~4개
-  loveTrait: string[];   // 연애 특징 3~4개
+  type: string;             // 4글자 코드, 예: 'INTJ'
+  nickname: string;         // 재미있는 별명
+  description: string;      // 한 단락 (~100자)
+  aiStyle: string[];        // AI 사용 스타일 3~4개
+  workTrait: string[];      // 업무 특징 3~4개
+  loveTrait: string[];      // 연애 특징 3~4개
   parentingStyle: string[]; // 자녀 양육 스타일 3~4개
   foodPreference: string[]; // 음식 선호 3~4개
+  catchphrase: string[];    // 자주 하는 말 3~4개
+  fashionStyle: string[];   // 패션 스타일 3~4개
 };
 
 export const ALL_TYPES = [
@@ -189,6 +191,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '새 메뉴 도전 약함, 실패 가능성을 싫어함',
       '외식보다 본인이 짠 식단이 안정감',
     ],
+    catchphrase: [
+      '"그래서 핵심이 뭔데?"',
+      '"왜 이렇게 하는 거지?"',
+      '"이게 가장 효율적인 방법이야"',
+    ],
+    fashionStyle: [
+      '블랙·그레이·네이비 단색 위주 — 결정 피로 최소화',
+      '같은 옷을 여러 벌 (스티브 잡스식 유니폼)',
+      '미니멀·기능성 우선, 트렌드 추종 X',
+    ],
   },
   INTP: {
     type: 'INTP',
@@ -218,6 +230,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '좋아하는 1~2가지 메뉴를 반복',
       '새 메뉴보다 익숙한 안전판',
       '식사 시간·식습관 들쭉날쭉, 끼니 거를 때 많음',
+    ],
+    catchphrase: [
+      '"근데 왜 그렇지?"',
+      '"이론적으로는..."',
+      '"음, 흥미롭네"',
+    ],
+    fashionStyle: [
+      '편한 게 최고 — 후드·티셔츠·청바지 무한 반복',
+      '옷에 큰 관심 없음, 익숙한 거 계속 입음',
+      '외출 직전에 손에 잡히는 거 골라 입음',
     ],
   },
   ENTJ: {
@@ -249,6 +271,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '외식보다 정해진 메뉴 반복',
       '주말에는 손맛 살린 가족 식사로 보상',
     ],
+    catchphrase: [
+      '"결론부터 말해줘"',
+      '"그래서 액션 아이템은?"',
+      '"이거 얼마나 걸려?"',
+    ],
+    fashionStyle: [
+      '정장·셋업 위주 — 권위감 있는 실루엣',
+      '비싸 보이는 핏·소재에 투자',
+      '시계·구두·가방 등 디테일이 본인 표현',
+    ],
   },
   ENTP: {
     type: 'ENTP',
@@ -278,6 +310,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '새 메뉴 도전이 즐거움, 같은 거 두 번 잘 안 함',
       '매번 다른 맛집 탐방 — 단골은 적음',
       '평가·비교·발견의 과정 자체를 즐김',
+    ],
+    catchphrase: [
+      '"근데 만약에..."',
+      '"이거 반대로 해보면?"',
+      '"잠깐, 다른 방법 있어"',
+    ],
+    fashionStyle: [
+      '한 가지 톤 절대 안 함 — 매번 변신',
+      '새로운 시도·실험적 코디 즐김',
+      '시선 끄는 포인트 아이템 하나는 꼭',
     ],
   },
   INFJ: {
@@ -309,6 +351,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '좋은 사람과 함께 먹는 경험을 더 기억함',
       '한 끼라도 정성 들여서 — 대충 X',
     ],
+    catchphrase: [
+      '"그 마음 이해해"',
+      '"근데 진짜로는 어떤 의미야?"',
+      '"음..." (말 줄임표가 많음)',
+    ],
+    fashionStyle: [
+      '정제된 무채색 + 포인트 1개로 본인 표현',
+      '차분한 소재 (니트·울·린넨) 선호',
+      '디테일·액세서리에 의미·사연 부여',
+    ],
   },
   INFP: {
     type: 'INFP',
@@ -338,6 +390,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '플레이팅·분위기·공간이 맛 못지않게 중요',
       '좋아하는 한 메뉴는 끝까지 충성',
       '혼밥도 정성스럽게 한 상 차리는 타입',
+    ],
+    catchphrase: [
+      '"그건 좀 슬프다"',
+      '"근데 그게 진짜 의미인가?"',
+      '"음... 잘 모르겠어"',
+    ],
+    fashionStyle: [
+      '본인 감성에 충실 — 남 시선 신경 X',
+      '빈티지·헤이지 톤·자연 소재 선호',
+      '옷에 본인 이야기·취향이 담김',
     ],
   },
   ENFJ: {
@@ -369,6 +431,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '손님·가족 초대 자주, 음식으로 마음 표현',
       '자녀·가족 입맛 우선 — 본인 취향은 양보',
     ],
+    catchphrase: [
+      '"다들 괜찮아?"',
+      '"이건 어떻게 생각해?"',
+      '"수고했어, 진짜로"',
+    ],
+    fashionStyle: [
+      '따뜻한 톤 + 단정한 핏 위주',
+      '상황별 정장·캐주얼 잘 구분해서 입음',
+      '받는 사람·자리 시선을 의식한 코디',
+    ],
   },
   ENFP: {
     type: 'ENFP',
@@ -398,6 +470,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '새 맛집·신메뉴 탐방이 즐거움',
       '한 메뉴 깊게보단 폭넓게 — 단골 적음',
       '분위기 좋은 핫플·인스타 맛집 좋아함',
+    ],
+    catchphrase: [
+      '"오 이거 미친 아이디어!"',
+      '"잠깐, 갑자기 생각났는데"',
+      '"근데 다른 거 해볼까?"',
+    ],
+    fashionStyle: [
+      '색·패턴 풍부 — 단조로움 못 견딤',
+      '액세서리·가방·신발 자주 교체',
+      '트렌드 + 개성 믹스, 본인만의 시도',
     ],
   },
   ISTJ: {
@@ -429,6 +511,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '새 메뉴는 의심부터, 리뷰 꼼꼼히 본 후 결정',
       '식사 시간을 정확히 — 끼니 거르기 거의 없음',
     ],
+    catchphrase: [
+      '"원래 그렇게 하는 거야"',
+      '"확인해보고 알려줄게"',
+      '"이거 정해진 절차야"',
+    ],
+    fashionStyle: [
+      '검증된 브랜드·기본템 위주',
+      '깔끔·단정·과하지 않음 — 직장 표준',
+      '한 번 사면 오래 입음, 회전율 낮음',
+    ],
   },
   ISFJ: {
     type: 'ISFJ',
@@ -458,6 +550,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '가족 입맛에 맞춘 정성스러운 가정식',
       '본인이 좋아하는 메뉴는 양보 자주',
       '매일의 식사가 사랑 표현 — 외식에 미안함',
+    ],
+    catchphrase: [
+      '"괜찮아?"',
+      '"필요한 거 없어?"',
+      '"내가 할게"',
+    ],
+    fashionStyle: [
+      '부드러운 톤·편안한 핏',
+      '너무 튀지 않게 — 주변과 조화 우선',
+      '가족·동료 챙기느라 본인 옷은 후순위',
     ],
   },
   ESTJ: {
@@ -489,6 +591,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '분위기보단 효율 — 외식은 검증된 곳만',
       '주말 식단·장보기까지 미리 계획',
     ],
+    catchphrase: [
+      '"결론이 뭐야?"',
+      '"기한 언제까지?"',
+      '"내가 정리할게"',
+    ],
+    fashionStyle: [
+      '정장·세미정장이 표준',
+      '단정·기능적·돈값하는 아이템 위주',
+      '색·디자인보다 핏·소재에 투자',
+    ],
   },
   ESFJ: {
     type: 'ESFJ',
@@ -518,6 +630,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '함께 먹는 의미 최우선 — 가족 식탁 꾸미기',
       '자녀·손님 위해 손맛 노력',
       '음식으로 사랑·관심을 표현',
+    ],
+    catchphrase: [
+      '"오늘 뭐 먹을까?"',
+      '"다들 같이 가자"',
+      '"괜찮은 거지?"',
+    ],
+    fashionStyle: [
+      '시즌 트렌드를 적절히 따라가는 편',
+      '"잘 어울린다" 칭찬에 행복',
+      '분위기·자리·상대에 맞춘 코디',
     ],
   },
   ISTP: {
@@ -549,6 +671,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '새 메뉴는 본인 흥미 동할 때만 시도',
       '외식·배달 자주, 요리는 그때그때',
     ],
+    catchphrase: [
+      '"한번 해보자"',
+      '"고장났어? 보여줘"',
+      '(말 없이 직접 행동)',
+    ],
+    fashionStyle: [
+      '실용 우선 — 청바지·티셔츠·자켓 무한 반복',
+      '같은 디자인 색만 다른 거 여러 벌',
+      '옷에 큰 의미 부여 X — 활동성 우선',
+    ],
   },
   ISFP: {
     type: 'ISFP',
@@ -578,6 +710,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '플레이팅·색감·분위기가 맛만큼 중요',
       '본인 감각으로 메뉴 선택 — 리뷰 의존 적음',
       '시즌 식재료·로컬·소박한 멋을 즐김',
+    ],
+    catchphrase: [
+      '"예쁘다"',
+      '"음..." (조용한 반응)',
+      '"괜찮긴 한데..."',
+    ],
+    fashionStyle: [
+      '본인 감각 절대 신뢰 — 트렌드는 참고만',
+      '색·텍스처·실루엣 조합이 능숙',
+      '빈티지·아트적 요소를 일상 룩에 섞음',
     ],
   },
   ESTP: {
@@ -609,6 +751,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '빠른 결정·즉각 만족 — 줄 서기 X',
       '외식·배달이 잦음, 요리는 가끔 이벤트로',
     ],
+    catchphrase: [
+      '"그냥 해"',
+      '"지금 가자"',
+      '"그래서?"',
+    ],
+    fashionStyle: [
+      '핫한 아이템 빠르게 시도',
+      '핏·실루엣에 신경 (눈에 띄게)',
+      '운동·아웃도어 룩 활용도 높음',
+    ],
   },
   ESFP: {
     type: 'ESFP',
@@ -638,6 +790,16 @@ export const RESULTS: Record<string, MBTIResult> = {
       '모임·축제·시즌 메뉴를 즐김',
       'SNS 핫플·인기 맛집을 즐겨 찾음',
       '새로움보단 분위기·사람·재미가 핵심',
+    ],
+    catchphrase: [
+      '"오 진짜?!"',
+      '"재밌겠다!"',
+      '"사진 찍자"',
+    ],
+    fashionStyle: [
+      '화려한 색·반짝이는 디테일을 두려워 X',
+      'SNS·사진 잘 받는 코디 본능',
+      '시즌 트렌드 핫템을 가장 빨리 시도',
     ],
   },
 };

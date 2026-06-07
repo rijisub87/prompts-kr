@@ -146,6 +146,35 @@ export default async function ResultPage({
         </section>
       </div>
 
+      <div className="grid gap-3 md:grid-cols-2">
+        <section className="rounded-lg border-l-4 border-indigo-500 bg-indigo-50 p-4 dark:bg-indigo-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300">
+            자주 하는 말
+          </div>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
+            {result.catchphrase.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-indigo-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="rounded-lg border-l-4 border-fuchsia-500 bg-fuchsia-50 p-4 dark:bg-fuchsia-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-fuchsia-800 dark:text-fuchsia-300">
+            패션 스타일
+          </div>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
+            {result.fashionStyle.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-fuchsia-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
       {recommended.length > 0 && (
         <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
           <h2 className="mb-1 text-sm font-semibold text-slate-700 dark:text-slate-300">
