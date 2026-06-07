@@ -100,6 +100,35 @@ export default async function ResultPage({
         </section>
       </div>
 
+      <div className="grid gap-3 md:grid-cols-2">
+        <section className="rounded-lg border-l-4 border-amber-500 bg-amber-50 p-4 dark:bg-amber-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+            자녀 양육
+          </div>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
+            {result.parentingStyle.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-amber-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="rounded-lg border-l-4 border-teal-500 bg-teal-50 p-4 dark:bg-teal-950/30">
+          <div className="text-xs font-semibold uppercase tracking-wider text-teal-800 dark:text-teal-300">
+            음식 선호
+          </div>
+          <ul className="mt-2 space-y-1.5 text-sm text-slate-800 dark:text-slate-200">
+            {result.foodPreference.map((line, i) => (
+              <li key={i} className="flex gap-1.5">
+                <span className="text-teal-500" aria-hidden>•</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
       {recommended.length > 0 && (
         <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
           <h2 className="mb-1 text-sm font-semibold text-slate-700 dark:text-slate-300">

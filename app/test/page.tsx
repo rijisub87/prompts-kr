@@ -3,17 +3,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { QUESTIONS, calcType, type Letter } from '@/lib/mbti-test';
+import { QUESTIONS, calcType, type Option } from '@/lib/mbti-test';
 import { Button } from '@/components/Button';
 
 export default function TestPage() {
   const router = useRouter();
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<(Letter | null)[]>([]);
+  const [answers, setAnswers] = useState<Option[]>([]);
 
-  function answer(trait: Letter | null) {
-    const next = [...answers, trait];
+  function answer(opt: Option) {
+    const next = [...answers, opt];
     if (next.length === QUESTIONS.length) {
       const type = calcType(next);
       router.push(`/test/${type.toLowerCase()}`);
@@ -42,7 +42,7 @@ export default function TestPage() {
           <h2 className="mt-1 text-xl font-bold md:text-2xl">AI 사용으로 보는 MBTI</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             MBTI 4축을 AI 사용·업무 상황으로 본다.<br/>
-            12문항 · 3지선다 · 3분 내외 · 결과는 16가지 유형.
+            12문항 · 4지선다 · 3분 내외 · 결과는 16가지 유형.
           </p>
           <Button
             onClick={() => setStarted(true)}
@@ -114,24 +114,15 @@ export default function TestPage() {
       <h2 className="mt-6 text-xl font-semibold md:text-2xl">{q.text}</h2>
 
       <div className="space-y-3">
-        <button
-          onClick={() => answer(q.a.trait)}
-          className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
-        >
-          {q.a.label}
-        </button>
-        <button
-          onClick={() => answer(q.m.trait)}
-          className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
-        >
-          {q.m.label}
-        </button>
-        <button
-          onClick={() => answer(q.b.trait)}
-          className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
-        >
-          {q.b.label}
-        </button>
+        {q.options.map((opt, i) => (
+          <button
+            key={i}
+            onClick={() => answer(opt)}
+            className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
+          >
+            {opt.label}
+          </button>
+        ))}
       </div>
     </div>
   );
