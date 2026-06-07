@@ -63,7 +63,10 @@ export type JobId =
   | 'designer'
   | 'sales'
   | 'student'
-  | 'hr';
+  | 'hr'
+  | 'analyst'
+  | 'finance'
+  | 'cs';
 
 export type Job = {
   id: JobId;
@@ -158,6 +161,42 @@ export const JOBS: Record<JobId, Job> = {
       '이력서·연봉·평가 등 민감 정보 책임감 있게 처리',
     ],
     aiPriority: { promptDesign: 3, verify: 3, toolMix: 1, context: 3, ethics: 3, automation: 2 },
+  },
+  analyst: {
+    id: 'analyst',
+    name: '데이터 분석가',
+    description: 'SQL·통계로 비즈니스 질문에 답하는 일',
+    requirements: [
+      '비즈니스 질문을 데이터 질문으로 번역',
+      'SQL·노트북으로 가설을 직접 검증',
+      '시각화·내러티브로 임원·실무자에게 설득',
+      '데이터 신뢰성·통계 함정·환각을 알아채는 눈',
+    ],
+    aiPriority: { promptDesign: 2, verify: 3, toolMix: 3, context: 2, ethics: 2, automation: 2 },
+  },
+  finance: {
+    id: 'finance',
+    name: '회계·재무',
+    description: '숫자·규정으로 회사 흐름을 책임지는 일',
+    requirements: [
+      '재무제표·세무·결산 정확도 100%',
+      '회계기준·세법 변동을 빠짐없이 반영',
+      '예산·예측·시나리오 분석',
+      '내부정보·감사 트레일 책임감 있게 운영',
+    ],
+    aiPriority: { promptDesign: 2, verify: 3, toolMix: 1, context: 2, ethics: 3, automation: 3 },
+  },
+  cs: {
+    id: 'cs',
+    name: '고객지원 · 운영 (CS)',
+    description: '대량의 고객 요청을 빠르고 일관되게 처리하는 일',
+    requirements: [
+      '문의 유형 분류·우선순위 매기기',
+      '톤·정확도가 일정한 답변 작성',
+      'FAQ·매뉴얼·매크로 최신 상태 유지',
+      '이슈 트렌드를 제품팀에 정확히 전달',
+    ],
+    aiPriority: { promptDesign: 3, verify: 2, toolMix: 2, context: 2, ethics: 3, automation: 3 },
   },
 };
 
