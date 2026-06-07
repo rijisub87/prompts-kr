@@ -62,7 +62,8 @@ export type JobId =
   | 'developer'
   | 'designer'
   | 'sales'
-  | 'student';
+  | 'student'
+  | 'hr';
 
 export type Job = {
   id: JobId;
@@ -145,6 +146,18 @@ export const JOBS: Record<JobId, Job> = {
       '학업 윤리(표절·인용) 준수',
     ],
     aiPriority: { promptDesign: 2, verify: 3, toolMix: 2, context: 2, ethics: 3, automation: 1 },
+  },
+  hr: {
+    id: 'hr',
+    name: 'HR · 인사',
+    description: '사람·문화·제도로 조직을 굴리는 일',
+    requirements: [
+      '채용 공고·면접 질문·온보딩 자료 작성',
+      '조직 문화·핵심 가치 전파',
+      '노무·법규를 한 글자도 빗나가지 않게 검토',
+      '이력서·연봉·평가 등 민감 정보 책임감 있게 처리',
+    ],
+    aiPriority: { promptDesign: 3, verify: 3, toolMix: 1, context: 3, ethics: 3, automation: 2 },
   },
 };
 
