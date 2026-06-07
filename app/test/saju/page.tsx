@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Button } from '@/components/Button';
+import KakaoShareButton from '@/components/KakaoShareButton';
+import LinkCopyButton from '@/components/LinkCopyButton';
 
 const HOURS = [
   { value: '자시', label: '자시 (23:00~01:00)' },
@@ -161,6 +163,14 @@ export default function SajuPage() {
         <p className="mt-2 text-sm text-slate-600">
           생년월일을 입력하면 Claude가 오늘의 운세를 풀어줍니다.
         </p>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <KakaoShareButton
+            title="AI로 보는 오늘의 사주"
+            description="생년월일을 입력하면 Claude가 오늘의 운세를 풀어줍니다 (총운·재물·인연·건강·행운)"
+            path="/test/saju"
+          />
+          <LinkCopyButton path="/test/saju" />
+        </div>
       </header>
 
       <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">

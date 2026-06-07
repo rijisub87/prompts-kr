@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { QUESTIONS, calcType, type Option } from '@/lib/mbti-test';
 import { Button } from '@/components/Button';
+import KakaoShareButton from '@/components/KakaoShareButton';
+import LinkCopyButton from '@/components/LinkCopyButton';
 
 export default function TestPage() {
   const router = useRouter();
@@ -35,6 +37,14 @@ export default function TestPage() {
         <div className="text-center">
           <h1 className="text-3xl font-bold md:text-4xl">테스트</h1>
           <p className="mt-2 text-sm text-slate-500">재미있게 해볼 수 있는 AI 기반 테스트</p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <KakaoShareButton
+              title="AI 기반 무료 테스트 모음"
+              description="일할 때의 MBTI · AI 활용 능력 시험 · 오늘의 사주"
+              path="/test"
+            />
+            <LinkCopyButton path="/test" />
+          </div>
         </div>
 
         <div className="rounded-lg border-2 border-emerald-200 bg-white p-6 text-center dark:border-emerald-800 dark:bg-slate-900">
