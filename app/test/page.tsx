@@ -39,9 +39,9 @@ export default function TestPage() {
 
         <div className="rounded-lg border-2 border-emerald-200 bg-white p-6 text-center dark:border-emerald-800 dark:bg-slate-900">
           <div className="text-xs text-emerald-700 dark:text-emerald-400">테스트 1</div>
-          <h2 className="mt-1 text-xl font-bold md:text-2xl">AI 사용으로 보는 MBTI</h2>
+          <h2 className="mt-1 text-xl font-bold md:text-2xl">일할 때의 MBTI — AI 사용으로 본다</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            MBTI 4축을 AI 사용·업무 상황으로 본다.<br/>
+            평소 일·AI 활용 상황으로 본인의 MBTI 4축을 측정.<br/>
             12문항 · 4지선다 · 3분 내외 · 결과는 16가지 유형.
           </p>
           <Button

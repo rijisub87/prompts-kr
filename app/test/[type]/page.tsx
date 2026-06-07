@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ALL_TYPES, RESULTS, MBTI_CATEGORIES } from '@/lib/mbti-test';
 import { getPromptsByCategory, CATEGORY_KO, CATEGORY_BORDER, sortByNewest, type Category } from '@/lib/prompts';
+import { createClient } from '@/lib/supabase/server';
 import KakaoShareButton from '@/components/KakaoShareButton';
+import MBTIAutoSave from '@/components/MBTIAutoSave';
 
 export function generateStaticParams() {
   return ALL_TYPES.map(t => ({ type: t.toLowerCase() }));
@@ -17,7 +19,7 @@ export async function generateMetadata({
   const result = RESULTS[type.toUpperCase()];
   if (!result) return {};
   return {
-    title: `${result.type} ${result.nickname} · AI 사용 성향`,
+    title: `${result.type} ${result.nickname} · 일할 때의 MBTI`,
     description: result.description,
   };
 }
@@ -40,10 +42,25 @@ export default async function ResultPage({
     .filter(Boolean)
     .slice(0, 3);
 
+  // 로그인 여부 — 결과 페이지 하단 "기록 보기" 노출용
+  let loggedIn = false;
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    loggedIn = !!user;
+  } catch {
+    // env 미설정 등 — 비로그인 취급
+  }
+
   return (
     <article className="mx-auto max-w-2xl space-y-6 py-8">
+      {/* 로그인 시 자동 저장 (sessionStorage로 중복 방지) */}
+      <MBTIAutoSave type={upper} />
+
       <header className="text-center">
-        <div className="text-xs uppercase tracking-wider text-slate-500">당신의 유형</div>
+        <div className="text-xs uppercase tracking-wider text-slate-500">
+          일할 때의 MBTI — 당신의 유형
+        </div>
         <h1 className="mt-2 text-5xl font-bold tracking-tight md:text-6xl">
           {result.type}
         </h1>
@@ -154,7 +171,7 @@ export default async function ResultPage({
 
       <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
         <KakaoShareButton
-          title={`${result.type} — ${result.nickname}`}
+          title={`${result.type} — ${result.nickname} (일할 때의 MBTI)`}
           description={result.description}
           path={`/test/${type.toLowerCase()}`}
         />
@@ -164,6 +181,14 @@ export default async function ResultPage({
         >
           다시 하기
         </Link>
+        {loggedIn && (
+          <Link
+            href="/test/history"
+            className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-800 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-300"
+          >
+            내 기록 보기 →
+          </Link>
+        )}
         <Link
           href="/"
           className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-800 hover:bg-emerald-100"
@@ -171,6 +196,12 @@ export default async function ResultPage({
           프롬프트 둘러보기 →
         </Link>
       </div>
+
+      {!loggedIn && (
+        <p className="text-center text-xs text-slate-500">
+          로그인하면 테스트한 일자와 결과가 저장돼 다시 볼 수 있어요.
+        </p>
+      )}
     </article>
   );
 }

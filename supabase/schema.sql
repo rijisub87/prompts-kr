@@ -183,3 +183,32 @@ end;
 $$;
 
 grant execute on function public.check_quota(text, integer) to anon, authenticated;
+
+-- =====================================================
+-- 7. MBTI 테스트 결과 — 로그인 사용자의 과거 결과 히스토리
+-- =====================================================
+create table if not exists public.mbti_results (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  type text not null check (char_length(type) = 4),
+  answers jsonb,                                -- 답안 스냅샷 (재계산·디버그용)
+  taken_at timestamptz not null default now()
+);
+
+create index if not exists mbti_results_user_taken_idx
+  on public.mbti_results (user_id, taken_at desc);
+
+alter table public.mbti_results enable row level security;
+
+-- 본인 것만 읽기·쓰기·삭제 가능.
+drop policy if exists "mbti_results select own" on public.mbti_results;
+create policy "mbti_results select own"
+  on public.mbti_results for select using (auth.uid() = user_id);
+
+drop policy if exists "mbti_results insert own" on public.mbti_results;
+create policy "mbti_results insert own"
+  on public.mbti_results for insert with check (auth.uid() = user_id);
+
+drop policy if exists "mbti_results delete own" on public.mbti_results;
+create policy "mbti_results delete own"
+  on public.mbti_results for delete using (auth.uid() = user_id);
