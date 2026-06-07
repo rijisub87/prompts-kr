@@ -122,7 +122,7 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
     <div className="space-y-6">
       {views != null && (
         <div className="text-xs text-slate-500">
-          👁️ {views.toLocaleString('ko-KR')} views
+          조회 {views.toLocaleString('ko-KR')}
         </div>
       )}
 
@@ -186,7 +186,7 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
         <div className="flex items-center justify-between border-b px-4 py-2 dark:border-slate-800">
           <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
             {variables.length > 0
-              ? allFilled ? '✅ 치환 완료된 프롬프트' : '미입력 변수는 노란 표시'
+              ? allFilled ? '치환 완료' : '미입력 변수는 노란 표시'
               : '프롬프트'}
           </span>
           <button

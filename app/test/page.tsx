@@ -59,7 +59,7 @@ export default function TestPage() {
           className="block rounded-lg border-2 border-purple-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-purple-800 dark:bg-slate-900"
         >
           <div className="text-xs text-purple-700 dark:text-purple-400">테스트 2</div>
-          <h2 className="mt-1 text-xl font-bold md:text-2xl">🔮 AI로 보는 오늘의 사주</h2>
+          <h2 className="mt-1 text-xl font-bold md:text-2xl">AI로 보는 오늘의 사주</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             생년월일 입력 → Claude가 오늘의 운세를 풀어줍니다.<br/>
             총운·재물·인연·건강·행운·조언 6섹션.

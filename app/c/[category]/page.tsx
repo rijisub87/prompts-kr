@@ -127,9 +127,9 @@ export default async function CategoryPage({
           {/* 정렬 탭 */}
           <div className="flex flex-wrap gap-2 text-xs">
             {([
-              ['newest', '🆕 최신순'],
-              ['popular', '👁️ 조회순'],
-              ['recommended', '❤️ 추천순'],
+              ['newest', '최신순'],
+              ['popular', '조회순'],
+              ['recommended', '추천순'],
             ] as const).map(([k, label]) => {
               const active = sortKey === k;
               const href = k === 'newest' ? `/c/${cat}` : `/c/${cat}?sort=${k}`;
@@ -195,7 +195,7 @@ export default async function CategoryPage({
       {otherCats.length > 0 && (
         <section className="mt-10 rounded-lg border bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900/50">
           <h2 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">
-            🔗 다른 카테고리
+            다른 카테고리
           </h2>
           <div className="flex flex-wrap gap-2 text-xs">
             {otherCats.map(c => (

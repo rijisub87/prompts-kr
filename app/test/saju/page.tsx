@@ -242,7 +242,7 @@ export default function SajuPage() {
           title="AI 호출 모드는 곧 오픈됩니다"
           className="w-full"
         >
-          🔮 AI에게 바로 물어보기
+          AI에게 바로 물어보기
           <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
             준비중
           </span>

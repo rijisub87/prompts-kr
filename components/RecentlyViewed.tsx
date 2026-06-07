@@ -64,8 +64,8 @@ export default function RecentlyViewed() {
   return (
     <section>
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">👀 다시 보기</h2>
-        <span className="text-xs text-slate-500">최근 {items.length}개</span>
+        <h2 className="text-lg font-semibold">최근 본 프롬프트</h2>
+        <span className="text-xs text-slate-500">{items.length}개</span>
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {items.map(p => (

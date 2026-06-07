@@ -84,7 +84,7 @@ export default async function StatsPage() {
           <div className="mt-1 text-3xl font-bold">{totalViews.toLocaleString('ko-KR')}</div>
         </div>
         <div className="rounded-lg border bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-          <div className="text-xs text-slate-500">총 추천수 ❤️</div>
+          <div className="text-xs text-slate-500">총 추천수</div>
           <div className="mt-1 text-3xl font-bold text-rose-600 dark:text-rose-400">
             {totalRecs.toLocaleString('ko-KR')}
           </div>
@@ -93,7 +93,7 @@ export default async function StatsPage() {
 
       {/* TOP 10 by views */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold">👁️ 가장 많이 본 프롬프트 TOP 10</h2>
+        <h2 className="mb-3 text-lg font-semibold">가장 많이 본 프롬프트 TOP 10</h2>
         {topViews.length === 0 ? (
           <p className="text-sm text-slate-500">아직 데이터가 없어요.</p>
         ) : (
@@ -115,8 +115,8 @@ export default async function StatsPage() {
                     <span className="text-xs text-slate-500">
                       {CATEGORY_KO[p.category]}
                     </span>
-                    <span className="inline-flex items-center gap-0.5 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      👁️ {Number(row.view_count).toLocaleString('ko-KR')}
+                    <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      조회 {Number(row.view_count).toLocaleString('ko-KR')}
                     </span>
                   </Link>
                 </li>
@@ -128,7 +128,7 @@ export default async function StatsPage() {
 
       {/* TOP 10 by recommends */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold">❤️ 가장 많이 추천된 프롬프트 TOP 10</h2>
+        <h2 className="mb-3 text-lg font-semibold">가장 많이 추천된 프롬프트 TOP 10</h2>
         {topRecs.length === 0 ? (
           <p className="text-sm text-slate-500">아직 추천이 없어요.</p>
         ) : (
@@ -150,8 +150,8 @@ export default async function StatsPage() {
                     <span className="text-xs text-slate-500">
                       {CATEGORY_KO[p.category]}
                     </span>
-                    <span className="inline-flex items-center gap-0.5 rounded bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-700 dark:bg-rose-950/30 dark:text-rose-400">
-                      ❤️ {Number(row.recommend_count).toLocaleString('ko-KR')}
+                    <span className="rounded bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-700 dark:bg-rose-950/30 dark:text-rose-400">
+                      추천 {Number(row.recommend_count).toLocaleString('ko-KR')}
                     </span>
                   </Link>
                 </li>
@@ -163,7 +163,7 @@ export default async function StatsPage() {
 
       {/* 카테고리 분포 — 간단 막대 */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold">📊 카테고리 분포</h2>
+        <h2 className="mb-3 text-lg font-semibold">카테고리 분포</h2>
         <div className="space-y-1">
           {catEntries.map(([cat, n]) => {
             const widthPct = (n / maxCat) * 100;
@@ -189,7 +189,7 @@ export default async function StatsPage() {
 
       {/* 메타 */}
       <section className="rounded-lg border bg-slate-50 p-4 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-400">
-        📂 출처 {sources.size}곳에서 큐레이션 ·{' '}
+        출처 {sources.size}곳에서 큐레이션 ·{' '}
         <Link href="/sources" className="underline">출처 모음 보기 →</Link>
       </section>
     </article>

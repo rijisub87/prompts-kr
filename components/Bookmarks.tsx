@@ -80,7 +80,7 @@ export default function Bookmarks() {
   return (
     <section>
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">⭐ 내 즐겨찾기</h2>
+        <h2 className="text-lg font-semibold">내 즐겨찾기</h2>
         <span className="text-xs text-slate-500">{items.length}개</span>
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

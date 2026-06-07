@@ -20,7 +20,7 @@ export default function License() {
         </li>
       </ul>
 
-      <h2>해도 되는 것 ✅</h2>
+      <h2>해도 되는 것</h2>
       <ul>
         <li>개인적 학습·참고를 위한 자유로운 이용</li>
         <li>본 사이트 URL을 출처로 표기 후 인용 (블로그·SNS·발표 자료 등)</li>
@@ -28,7 +28,7 @@ export default function License() {
         <li>비상업 목적의 2차 가공 (단, 동일 라이선스로 공유)</li>
       </ul>
 
-      <h2>안 되는 것 ❌</h2>
+      <h2>안 되는 것</h2>
       <ul>
         <li>본 사이트의 <strong>큐레이션된 모음 전체 또는 상당량</strong>을 그대로 복제해 다른 사이트·서비스로 옮기는 것</li>
         <li>큐레이션 결과(한국어 팁·해설·번역 포함)를 <strong>AI 학습 데이터로 무단 사용</strong></li>

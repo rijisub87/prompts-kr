@@ -114,7 +114,7 @@ export default async function PromptPage({
 
       {prompt.tipHtml && (
         <section className="rounded border bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/30">
-          <h3 className="mb-2 text-sm font-semibold text-amber-900 dark:text-amber-200">💡 사용 팁</h3>
+          <h3 className="mb-2 text-sm font-semibold text-amber-900 dark:text-amber-200">사용 팁</h3>
           <div
             className="prose prose-sm max-w-none text-sm text-amber-900 dark:text-amber-100"
             dangerouslySetInnerHTML={{ __html: prompt.tipHtml }}
@@ -142,7 +142,7 @@ export default async function PromptPage({
       {related.length > 0 && (
         <section>
           <h3 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">
-            🔗 같은 카테고리 — {CATEGORY_KO[prompt.category]}
+            같은 카테고리 — {CATEGORY_KO[prompt.category]}
           </h3>
           <div className="grid gap-2 sm:grid-cols-2">
             {related.map(p => (

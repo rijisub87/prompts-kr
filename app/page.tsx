@@ -76,19 +76,19 @@ export default async function Home() {
           </span>
         </h1>
         <p className="mt-4 text-base text-slate-600 md:text-lg dark:text-slate-400">
-          Claude · ChatGPT · Gemini — 검증된 출처에서 큐레이션
+          Claude, ChatGPT, Gemini에서 쓸 수 있는 한국어 프롬프트
         </p>
 
         {/* 트러스트 시그널 */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
-          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
-            🗂 프롬프트 {totalCount}+
+          <span className="rounded-full bg-white px-3 py-1 font-medium text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
+            프롬프트 {totalCount}개
           </span>
-          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
-            📖 가이드 {guides.length}
+          <span className="rounded-full bg-white px-3 py-1 font-medium text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
+            가이드 {guides.length}개
           </span>
-          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
-            🏷 카테고리 {presentCategories.length}
+          <span className="rounded-full bg-white px-3 py-1 font-medium text-slate-700 shadow-sm dark:bg-slate-900 dark:text-slate-200">
+            카테고리 {presentCategories.length}개
           </span>
         </div>
 
@@ -98,14 +98,14 @@ export default async function Home() {
             프롬프트 둘러보기
           </ButtonLink>
           <ButtonLink href="/test" variant="secondary" size="md">
-            🔮 테스트 해보기
+            테스트 해보기
           </ButtonLink>
         </div>
 
         {/* 인기 TOP 3 — 추천·조회 데이터 있을 때만 노출 */}
         {popular.length > 0 && (
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
-            <span className="text-slate-500 dark:text-slate-400">🔥 지금 인기</span>
+            <span className="text-slate-500 dark:text-slate-400">지금 인기</span>
             {popular.map(p => (
               <Link
                 key={p.slug}
@@ -126,14 +126,14 @@ export default async function Home() {
             href="#newest"
             className="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/40"
           >
-            🆕 새로 추가
+            새로 추가
           </a>
           {guides.length > 0 && (
             <Link
               href="/guides"
               className="rounded-full border border-purple-300 bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-800 hover:bg-purple-100 dark:border-purple-700 dark:bg-purple-950/40 dark:text-purple-300 dark:hover:bg-purple-900/40"
             >
-              📖 가이드 {guides.length}
+              가이드 {guides.length}
             </Link>
           )}
           {presentCategories.map(c => (
@@ -153,7 +153,7 @@ export default async function Home() {
       {guides.length > 0 && (
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-lg font-semibold">📖 도메인 가이드</h2>
+            <h2 className="text-lg font-semibold">도메인 가이드</h2>
             <Link href="/guides" className="text-xs text-purple-700 hover:underline">
               전체 보기 →
             </Link>
@@ -182,7 +182,7 @@ export default async function Home() {
 
       {/* 최신 3개 — addedAt 기준 */}
       <section id="newest" className="scroll-mt-20">
-        <h2 className="mb-3 text-lg font-semibold">🆕 새로 추가된 프롬프트</h2>
+        <h2 className="mb-3 text-lg font-semibold">새로 추가된 프롬프트</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {newest.map(p => (
             <Link
