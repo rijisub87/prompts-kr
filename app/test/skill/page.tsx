@@ -72,7 +72,7 @@ export default function AISkillTestPage() {
           <Link href="/test" className="text-xs text-slate-500 hover:underline">← 테스트 전체</Link>
           <h1 className="mt-2 text-3xl font-bold md:text-4xl">AI 활용 능력 시험</h1>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            6가지 AI 능력을 직무 기준으로 평가합니다. 먼저 직무를 골라주세요.
+            AI 능력을 직무 기준으로 평가합니다. 먼저 직무를 골라주세요.
           </p>
         </header>
 

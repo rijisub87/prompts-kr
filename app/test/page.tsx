@@ -61,7 +61,7 @@ export default function TestPage() {
           <div className="text-xs text-sky-700 dark:text-sky-400">테스트 2</div>
           <h2 className="mt-1 text-xl font-bold md:text-2xl">AI 활용 능력 시험</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            6가지 AI 능력을 직무 기준으로 평가.<br/>
+            AI 능력을 직무 기준으로 평가.<br/>
             6·12·18문항 중 선택 · 점수·강점·약점·직무 적합도 리포트.
           </p>
           <div className="mt-4 inline-block rounded-lg bg-sky-600 px-6 py-3 text-base font-semibold text-white">

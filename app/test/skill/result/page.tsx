@@ -10,7 +10,7 @@ import KakaoShareButton from '@/components/KakaoShareButton';
 
 export const metadata = {
   title: 'AI 활용 능력 시험 결과',
-  description: '6가지 AI 능력별 점수, 강점·약점, 직무 적합도 리포트',
+  description: 'AI 능력별 점수, 강점·약점, 직무 적합도 리포트',
 };
 
 function isValidJob(j: string | undefined): j is JobId {
