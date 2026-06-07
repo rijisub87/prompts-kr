@@ -55,10 +55,25 @@ export default function TestPage() {
         </div>
 
         <Link
+          href="/test/skill"
+          className="block rounded-lg border-2 border-sky-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-slate-900"
+        >
+          <div className="text-xs text-sky-700 dark:text-sky-400">테스트 2</div>
+          <h2 className="mt-1 text-xl font-bold md:text-2xl">AI 활용 능력 시험</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            6가지 AI 능력을 직무 기준으로 평가.<br/>
+            6·12·18문항 중 선택 · 점수·강점·약점·직무 적합도 리포트.
+          </p>
+          <div className="mt-4 inline-block rounded-lg bg-sky-600 px-6 py-3 text-base font-semibold text-white">
+            시험 시작 →
+          </div>
+        </Link>
+
+        <Link
           href="/test/saju"
           className="block rounded-lg border-2 border-purple-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-purple-800 dark:bg-slate-900"
         >
-          <div className="text-xs text-purple-700 dark:text-purple-400">테스트 2</div>
+          <div className="text-xs text-purple-700 dark:text-purple-400">테스트 3</div>
           <h2 className="mt-1 text-xl font-bold md:text-2xl">AI로 보는 오늘의 사주</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             생년월일 입력 → Claude가 오늘의 운세를 풀어줍니다.<br/>
