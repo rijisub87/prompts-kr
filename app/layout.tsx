@@ -134,9 +134,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             © Prompts-KR ·{' '}
             <Link href="/license" className="hover:underline">CC BY-NC-SA 4.0</Link>
             {' · '}
-            <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline dark:text-emerald-400">rijisub@naver.com</a>
-            {' · '}
             <SiteStats />
+          </p>
+          <p className="mt-1">
+            문의:{' '}
+            <a href="mailto:rijisub@naver.com" className="text-emerald-700 hover:underline dark:text-emerald-400">rijisub@naver.com</a>
           </p>
         </footer>
       </body>
