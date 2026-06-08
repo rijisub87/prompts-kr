@@ -11,6 +11,27 @@ import LinkCopyButton from '@/components/LinkCopyButton';
 // 마지막 답을 누른 뒤 결과 페이지로 가기 전에 보여줄 "분석중" 모달 시간.
 const ANALYZE_DURATION_MS = 2500;
 
+// 테스트별 시작 버튼 클릭 집계용 슬러그 (prompt_stats 테이블 재활용)
+const SLUG_MBTI = 'test-mbti';
+const SLUG_SKILL = 'test-skill';
+const SLUG_SAJU = 'test-saju';
+
+type TestCounts = { mbti: number; skill: number; saju: number };
+
+// 클릭 시 카운터 증가 — 페이지 이동 중에도 발사되도록 keepalive.
+function trackTestClick(slug: string) {
+  try {
+    fetch('/api/view', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    // ignore
+  }
+}
+
 export default function TestPage() {
   const router = useRouter();
   const [started, setStarted] = useState(false);
@@ -20,6 +41,15 @@ export default function TestPage() {
   // 결과 분석 모달 상태
   const [pendingType, setPendingType] = useState<string | null>(null);
   const [analysisDone, setAnalysisDone] = useState(false);
+
+  // 시작 버튼 클릭 누적수 — 마운트 시 1회 조회.
+  const [counts, setCounts] = useState<TestCounts | null>(null);
+  useEffect(() => {
+    fetch('/api/test-counts')
+      .then(r => r.json())
+      .then((d: TestCounts) => setCounts(d))
+      .catch(() => {});
+  }, []);
 
   function answer(opt: Option) {
     const next = [...answers, opt];
@@ -77,17 +107,23 @@ export default function TestPage() {
             12문항 · 4지선다 · 3분 내외 · 결과는 16가지 유형.
           </p>
           <Button
-            onClick={() => setStarted(true)}
+            onClick={() => { trackTestClick(SLUG_MBTI); setStarted(true); }}
             variant="primary"
             size="lg"
             className="mt-4"
           >
             시작하기
           </Button>
+          {counts && counts.mbti > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.mbti.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
         </div>
 
         <Link
           href="/test/skill"
+          onClick={() => trackTestClick(SLUG_SKILL)}
           className="block rounded-lg border-2 border-sky-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-slate-900"
         >
           <div className="text-xs text-sky-700 dark:text-sky-400">테스트 2</div>
@@ -99,10 +135,16 @@ export default function TestPage() {
           <div className="mt-4 inline-block rounded-lg bg-sky-600 px-6 py-3 text-base font-semibold text-white">
             시험 시작 →
           </div>
+          {counts && counts.skill > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.skill.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
         </Link>
 
         <Link
           href="/test/saju"
+          onClick={() => trackTestClick(SLUG_SAJU)}
           className="block rounded-lg border-2 border-purple-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-purple-800 dark:bg-slate-900"
         >
           <div className="text-xs text-purple-700 dark:text-purple-400">테스트 3</div>
@@ -114,6 +156,11 @@ export default function TestPage() {
           <div className="mt-4 inline-block rounded-lg bg-purple-600 px-6 py-3 text-base font-semibold text-white">
             사주 보러 가기 →
           </div>
+          {counts && counts.saju > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.saju.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
         </Link>
       </div>
     );
