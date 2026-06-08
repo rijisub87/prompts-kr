@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { QUESTIONS, calcType, type Option } from '@/lib/mbti-test';
@@ -8,21 +8,43 @@ import { Button } from '@/components/Button';
 import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 
+// 마지막 답을 누른 뒤 결과 페이지로 가기 전에 보여줄 "분석중" 모달 시간.
+const ANALYZE_DURATION_MS = 2500;
+
 export default function TestPage() {
   const router = useRouter();
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Option[]>([]);
 
+  // 결과 분석 모달 상태
+  const [pendingType, setPendingType] = useState<string | null>(null);
+  const [analysisDone, setAnalysisDone] = useState(false);
+
   function answer(opt: Option) {
     const next = [...answers, opt];
     if (next.length === QUESTIONS.length) {
       const type = calcType(next);
-      router.push(`/test/${type.toLowerCase()}`);
+      setAnswers(next);
+      setPendingType(type);
+      setAnalysisDone(false);
       return;
     }
     setAnswers(next);
     setStep(step + 1);
+  }
+
+  // 모달이 뜨면 결과 페이지를 미리 가져오고, 일정 시간 후 "닫기" 활성화.
+  useEffect(() => {
+    if (!pendingType) return;
+    router.prefetch(`/test/${pendingType.toLowerCase()}`);
+    const t = setTimeout(() => setAnalysisDone(true), ANALYZE_DURATION_MS);
+    return () => clearTimeout(t);
+  }, [pendingType, router]);
+
+  function goToResult() {
+    if (!pendingType || !analysisDone) return;
+    router.push(`/test/${pendingType.toLowerCase()}`);
   }
 
   function back() {
@@ -128,12 +150,62 @@ export default function TestPage() {
           <button
             key={i}
             onClick={() => answer(opt)}
-            className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
+            disabled={pendingType !== null}
+            className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
           >
             {opt.label}
           </button>
         ))}
       </div>
+
+      {/* 분석 중 모달 — 닫기 클릭 시 결과 페이지로 이동 */}
+      {pendingType && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mbti-analyze-title"
+        >
+          <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-xl dark:bg-slate-900">
+            <h3
+              id="mbti-analyze-title"
+              className="text-xl font-bold text-slate-900 dark:text-slate-100"
+            >
+              {analysisDone ? '분석 완료' : '결과 분석중'}
+            </h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              {analysisDone
+                ? '결과가 준비됐어요. 닫으면 보여드릴게요.'
+                : '12개 답안을 종합해 유형을 계산하고 있어요.'}
+            </p>
+
+            {/* 진행 인디케이터 */}
+            <div className="mt-5 flex items-center justify-center">
+              {analysisDone ? (
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                    <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              ) : (
+                <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-emerald-500 dark:border-slate-700 dark:border-t-emerald-400" />
+              )}
+            </div>
+
+            <button
+              onClick={goToResult}
+              disabled={!analysisDone}
+              className={
+                analysisDone
+                  ? 'mt-6 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700'
+                  : 'mt-6 w-full cursor-not-allowed rounded-lg bg-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-500'
+              }
+            >
+              {analysisDone ? '닫기' : '분석중...'}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
