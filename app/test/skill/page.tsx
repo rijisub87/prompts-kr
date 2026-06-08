@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -13,6 +13,9 @@ import LinkCopyButton from '@/components/LinkCopyButton';
 
 type Step = 'job' | 'preview' | 'length' | 'quiz';
 
+// 마지막 답 후 결과 페이지로 가기 전에 보여줄 "분석중" 모달 시간.
+const ANALYZE_DURATION_MS = 2500;
+
 export default function AISkillTestPage() {
   const router = useRouter();
   const [step, setStep] = useState<Step>('job');
@@ -20,6 +23,10 @@ export default function AISkillTestPage() {
   const [length, setLength] = useState<Length | null>(null);
   const [qIdx, setQIdx] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
+
+  // 분석 모달 상태 — pendingUrl이 있으면 모달 표시.
+  const [pendingUrl, setPendingUrl] = useState<string | null>(null);
+  const [analysisDone, setAnalysisDone] = useState(false);
 
   const job = jobId ? JOBS[jobId] : null;
   const questions = length ? getQuestions(length) : [];
@@ -39,17 +46,32 @@ export default function AISkillTestPage() {
   function answer(optIdx: number) {
     const next = [...answers, optIdx];
     if (next.length === questions.length) {
-      // 결과 페이지로 — URL에 직무·길이·답안 인코딩.
+      // 결과 URL을 만들고 모달 띄움. 닫기 누르면 이동.
       const params = new URLSearchParams({
         j: jobId!,
         l: length!,
         a: next.join(','),
       });
-      router.push(`/test/skill/result?${params.toString()}`);
+      setAnswers(next);
+      setPendingUrl(`/test/skill/result?${params.toString()}`);
+      setAnalysisDone(false);
       return;
     }
     setAnswers(next);
     setQIdx(qIdx + 1);
+  }
+
+  // 모달이 뜨면 결과 페이지 prefetch + 일정 시간 후 닫기 활성화.
+  useEffect(() => {
+    if (!pendingUrl) return;
+    router.prefetch(pendingUrl);
+    const t = setTimeout(() => setAnalysisDone(true), ANALYZE_DURATION_MS);
+    return () => clearTimeout(t);
+  }, [pendingUrl, router]);
+
+  function goToResult() {
+    if (!pendingUrl || !analysisDone) return;
+    router.push(pendingUrl);
   }
 
   function back() {
@@ -244,7 +266,8 @@ export default function AISkillTestPage() {
             <button
               key={i}
               onClick={() => answer(i)}
-              className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
+              disabled={pendingUrl !== null}
+              className="block w-full rounded-lg border-2 border-slate-300 bg-white px-5 py-4 text-left text-base hover:border-emerald-500 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:hover:border-emerald-500 dark:hover:bg-emerald-950/30"
             >
               {opt.label}
             </button>
@@ -256,6 +279,54 @@ export default function AISkillTestPage() {
             처음부터 다시
           </button>
         </div>
+
+        {/* 분석 중 모달 — 닫기 클릭 시 결과 페이지로 이동 */}
+        {pendingUrl && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="skill-analyze-title"
+          >
+            <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-xl dark:bg-slate-900">
+              <h3
+                id="skill-analyze-title"
+                className="text-xl font-bold text-slate-900 dark:text-slate-100"
+              >
+                {analysisDone ? '분석 완료' : '결과 분석중'}
+              </h3>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                {analysisDone
+                  ? '결과가 준비됐어요. 닫으면 보여드릴게요.'
+                  : `${questions.length}개 답안을 능력별로 채점하고 직무 적합도를 계산하고 있어요.`}
+              </p>
+
+              <div className="mt-5 flex items-center justify-center">
+                {analysisDone ? (
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                      <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                ) : (
+                  <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-emerald-500 dark:border-slate-700 dark:border-t-emerald-400" />
+                )}
+              </div>
+
+              <button
+                onClick={goToResult}
+                disabled={!analysisDone}
+                className={
+                  analysisDone
+                    ? 'mt-6 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700'
+                    : 'mt-6 w-full cursor-not-allowed rounded-lg bg-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-500'
+                }
+              >
+                {analysisDone ? '닫기' : '분석중...'}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
