@@ -68,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={notoSansKR.variable} suppressHydrationWarning>
       <head>
+
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
@@ -95,6 +96,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ],
             }),
           }}
+        />
+        {/* Google AdSense — 사이트 소유권 인증 + 광고 송출 준비 */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3766416176278367"
+          crossOrigin="anonymous"
         />
       </head>
       <body className={`${notoSansKR.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100`}>
