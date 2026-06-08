@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
+import Script from 'next/script';
 import Link from 'next/link';
 import SiteStats from '@/components/SiteStats';
 import SearchBar from '@/components/SearchBar';
@@ -97,14 +98,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }),
           }}
         />
-        {/* Google AdSense — 사이트 소유권 인증 + 광고 송출 준비 */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3766416176278367"
-          crossOrigin="anonymous"
-        />
+        {/* AdSense 도메인 미리 연결 — TLS·DNS 비용 줄여 실제 로드 시 빠르게 */}
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
       </head>
       <body className={`${notoSansKR.className} flex min-h-screen flex-col bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100`}>
+        {/* Google AdSense — lazyOnload로 첫 페인트 후 idle 시점에 로드 (인증 코드는 그대로 노출). */}
+        <Script
+          id="adsense-loader"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3766416176278367"
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
         <header className="border-b bg-white dark:border-slate-800 dark:bg-slate-900">
           <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 p-4">
             <Link href="/" className="text-lg font-bold shrink-0">프롬프트 한국</Link>
