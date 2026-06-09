@@ -87,12 +87,12 @@ export default function TestPage() {
     return (
       <div className="mx-auto max-w-2xl space-y-8 py-10">
         <div className="text-center">
-          <h1 className="text-3xl font-bold md:text-4xl">테스트</h1>
-          <p className="mt-2 text-sm text-slate-500">재미있게 해볼 수 있는 AI 기반 테스트</p>
+          <h1 className="text-3xl font-bold md:text-4xl">생활AI</h1>
+          <p className="mt-2 text-sm text-slate-500">일상에서 가볍게 써볼 수 있는 AI</p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
             <KakaoShareButton
-              title="AI 기반 무료 테스트 모음"
-              description="일할 때의 MBTI · AI 활용 능력 시험 · 오늘의 사주"
+              title="생활AI 모음 — 일할 때의 MBTI · AI 활용 능력 · 사주"
+              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주"
               path="/test"
             />
             <LinkCopyButton path="/test" />
@@ -100,8 +100,7 @@ export default function TestPage() {
         </div>
 
         <div className="rounded-lg border-2 border-emerald-200 bg-white p-6 text-center dark:border-emerald-800 dark:bg-slate-900">
-          <div className="text-xs text-emerald-700 dark:text-emerald-400">테스트 1</div>
-          <h2 className="mt-1 text-xl font-bold md:text-2xl">일할 때의 MBTI — AI 사용으로 본다</h2>
+          <h2 className="text-xl font-bold md:text-2xl">No1. 일하는 나의 MBTI</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             평소 일·AI 활용 상황으로 본인의 MBTI 4축을 측정.<br/>
             12문항 · 4지선다 · 3분 내외 · 결과는 16가지 유형.
@@ -126,8 +125,7 @@ export default function TestPage() {
           onClick={() => trackTestClick(SLUG_SKILL)}
           className="block rounded-lg border-2 border-sky-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-slate-900"
         >
-          <div className="text-xs text-sky-700 dark:text-sky-400">테스트 2</div>
-          <h2 className="mt-1 text-xl font-bold md:text-2xl">AI 활용 능력 시험</h2>
+          <h2 className="text-xl font-bold md:text-2xl">No2. AI 활용 직무 테스트</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             AI 능력을 직무 기준으로 평가.<br/>
             6·12·18문항 중 선택 · 점수·강점·약점·직무 적합도 리포트.
@@ -147,8 +145,7 @@ export default function TestPage() {
           onClick={() => trackTestClick(SLUG_SAJU)}
           className="block rounded-lg border-2 border-purple-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-purple-800 dark:bg-slate-900"
         >
-          <div className="text-xs text-purple-700 dark:text-purple-400">테스트 3</div>
-          <h2 className="mt-1 text-xl font-bold md:text-2xl">AI로 보는 오늘의 사주</h2>
+          <h2 className="text-xl font-bold md:text-2xl">No3. AI로 보는 오늘의 사주</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             생년월일 입력 → Claude가 오늘의 운세를 풀어줍니다.<br/>
             총운·재물·인연·건강·행운·조언 6섹션.

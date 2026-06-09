@@ -157,7 +157,7 @@ export default function SajuPage() {
     <div className="mx-auto max-w-2xl space-y-6 py-6">
       <header className="text-center">
         <div className="text-xs text-slate-500">
-          <Link href="/test" className="hover:underline">← 테스트 메인</Link>
+          <Link href="/test" className="hover:underline">← 생활AI 메인</Link>
         </div>
         <h1 className="mt-2 text-3xl font-bold md:text-4xl">AI로 보는 오늘의 사주</h1>
         <p className="mt-2 text-sm text-slate-600">

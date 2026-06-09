@@ -117,7 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <div className="order-2 flex items-center gap-3 text-sm text-slate-700 shrink-0 sm:order-3 sm:gap-5 dark:text-slate-300">
               <Link href="/guides" className="hover:underline">가이드</Link>
-              <Link href="/test" className="hover:underline">테스트</Link>
+              <Link href="/test" className="hover:underline">생활AI</Link>
               {/* 부수 메뉴 — 모바일 숨김, 데스크탑 노출 */}
               <Link href="/platforms" className="hidden hover:underline md:inline">비교</Link>
               <Link href="/glossary" className="hidden hover:underline md:inline">용어집</Link>

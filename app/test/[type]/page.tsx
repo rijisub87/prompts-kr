@@ -228,7 +228,7 @@ export default async function ResultPage({
 
       {!loggedIn && (
         <p className="text-center text-xs text-slate-500">
-          로그인하면 테스트한 일자와 결과가 저장돼 다시 볼 수 있어요.
+          로그인하면 해본 일자와 결과가 저장돼 다시 볼 수 있어요.
         </p>
       )}
     </article>

@@ -49,7 +49,7 @@ export default function KakaoShareButton({
         objectType: 'text',
         text: `${title}\n\n${description}`,
         link: { mobileWebUrl: url, webUrl: url },
-        buttonTitle: '나도 테스트하기',
+        buttonTitle: '나도 해보기',
       });
       return;
     }

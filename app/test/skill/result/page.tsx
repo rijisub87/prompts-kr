@@ -9,7 +9,7 @@ import { getPromptsByCategory, CATEGORY_KO, CATEGORY_BORDER, sortByNewest, type 
 import KakaoShareButton from '@/components/KakaoShareButton';
 
 export const metadata = {
-  title: 'AI 활용 능력 시험 결과',
+  title: 'AI 활용 직무 테스트 결과',
   description: 'AI 능력별 점수, 강점·약점, 직무 적합도 리포트',
 };
 

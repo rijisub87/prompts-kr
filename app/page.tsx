@@ -98,7 +98,7 @@ export default async function Home() {
             프롬프트 둘러보기
           </ButtonLink>
           <ButtonLink href="/test" variant="secondary" size="md">
-            테스트 해보기
+            생활AI 둘러보기
           </ButtonLink>
         </div>
 

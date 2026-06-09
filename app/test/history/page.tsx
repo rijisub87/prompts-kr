@@ -5,7 +5,7 @@ import { RESULTS } from '@/lib/mbti-test';
 
 export const metadata: Metadata = {
   title: '내 MBTI 결과 기록',
-  description: '과거 테스트한 일할 때의 MBTI 결과 모음',
+  description: '과거 일할 때의 MBTI 결과 모음',
 };
 
 // 서버 컴포넌트 — 로그인 사용자의 과거 결과 일자·유형 목록.
@@ -37,13 +37,13 @@ export default async function MBTIHistoryPage() {
       <article className="mx-auto max-w-xl space-y-4 py-10 text-center">
         <h1 className="text-2xl font-bold">내 MBTI 결과 기록</h1>
         <p className="text-sm text-slate-600 dark:text-slate-400">
-          로그인하면 과거에 테스트한 결과를 일자별로 모아 다시 볼 수 있어요.
+          로그인하면 과거에 해본 결과를 일자별로 모아 다시 볼 수 있어요.
         </p>
         <Link
           href="/test"
           className="inline-block rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
         >
-          테스트 하러 가기
+          생활AI 하러 가기
         </Link>
       </article>
     );
@@ -55,13 +55,13 @@ export default async function MBTIHistoryPage() {
       <article className="mx-auto max-w-xl space-y-4 py-10 text-center">
         <h1 className="text-2xl font-bold">내 MBTI 결과 기록</h1>
         <p className="text-sm text-slate-600 dark:text-slate-400">
-          아직 저장된 결과가 없어요. 테스트를 한 번 해보세요.
+          아직 저장된 결과가 없어요. 한 번 해보세요.
         </p>
         <Link
           href="/test"
           className="inline-block rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
         >
-          테스트 하러 가기
+          생활AI 하러 가기
         </Link>
       </article>
     );
@@ -73,7 +73,7 @@ export default async function MBTIHistoryPage() {
       <header>
         <h1 className="text-2xl font-bold md:text-3xl">내 MBTI 결과 기록</h1>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-          최근 {rows.length}개 · 일할 때의 MBTI 테스트 결과 모음
+          최근 {rows.length}개 · 일할 때의 MBTI 결과 모음
         </p>
       </header>
 
@@ -108,7 +108,7 @@ export default async function MBTIHistoryPage() {
 
       <div className="pt-2 text-center">
         <Link href="/test" className="text-sm text-slate-500 hover:underline">
-          다시 테스트 →
+          다시 해보기 →
         </Link>
       </div>
     </article>
