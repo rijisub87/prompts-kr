@@ -15,8 +15,9 @@ const ANALYZE_DURATION_MS = 2500;
 const SLUG_MBTI = 'test-mbti';
 const SLUG_SKILL = 'test-skill';
 const SLUG_SAJU = 'test-saju';
+const SLUG_MARKET = 'test-market';
 
-type TestCounts = { mbti: number; skill: number; saju: number };
+type TestCounts = { mbti: number; skill: number; saju: number; market: number };
 
 // 클릭 시 카운터 증가 — 페이지 이동 중에도 발사되도록 keepalive.
 function trackTestClick(slug: string) {
@@ -92,7 +93,7 @@ export default function TestPage() {
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
             <KakaoShareButton
               title="생활AI 모음 — 일할 때의 MBTI · AI 활용 능력 · 사주"
-              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주"
+              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주 · 데일리 세계 경제"
               path="/test"
             />
             <LinkCopyButton path="/test" />
@@ -156,6 +157,26 @@ export default function TestPage() {
           {counts && counts.saju > 0 && (
             <div className="mt-3 text-xs text-slate-500">
               {counts.saju.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
+        </Link>
+
+        <Link
+          href="/test/market"
+          onClick={() => trackTestClick(SLUG_MARKET)}
+          className="block rounded-lg border-2 border-amber-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-slate-900"
+        >
+          <h2 className="text-xl font-bold md:text-2xl">No4. 데일리 세계 경제</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            오늘 날짜로 시장 지표·투자 거장 동향·주요 이슈를 한 번에.<br/>
+            지표·버핏/달리오/막스·경제 현황·섹터 전망·톱 이슈 5섹션.
+          </p>
+          <div className="mt-4 inline-block rounded-lg bg-amber-600 px-6 py-3 text-base font-semibold text-white">
+            리포트 받으러 가기 →
+          </div>
+          {counts && counts.market > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.market.toLocaleString('ko-KR')}명 시작
             </div>
           )}
         </Link>
