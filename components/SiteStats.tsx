@@ -26,7 +26,7 @@ export default function SiteStats() {
 
   return (
     <span>
-      총 방문수: <strong className="text-slate-900">
+      총 방문수: <strong className="text-slate-900 dark:text-slate-100">
         {visits == null ? '...' : visits.toLocaleString('ko-KR')}
       </strong>
     </span>
