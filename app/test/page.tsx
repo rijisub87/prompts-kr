@@ -17,8 +17,9 @@ const SLUG_SKILL = 'test-skill';
 const SLUG_SAJU = 'test-saju';
 const SLUG_MARKET = 'test-market';
 const SLUG_LOTTO = 'test-lotto';
+const SLUG_LOVE = 'test-love';
 
-type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number };
+type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number };
 
 // 클릭 시 카운터 증가 — 페이지 이동 중에도 발사되도록 keepalive.
 function trackTestClick(slug: string) {
@@ -94,7 +95,7 @@ export default function TestPage() {
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
             <KakaoShareButton
               title="생활AI 모음 — 일할 때의 MBTI · AI 활용 능력 · 사주"
-              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주 · 데일리 세계 경제 · AI 로또 번호 예측"
+              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주 · 데일리 세계 경제 · AI 로또 번호 예측 · AI 연애 궁합"
               path="/test"
             />
             <LinkCopyButton path="/test" />
@@ -198,6 +199,26 @@ export default function TestPage() {
           {counts && counts.lotto > 0 && (
             <div className="mt-3 text-xs text-slate-500">
               {counts.lotto.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
+        </Link>
+
+        <Link
+          href="/test/love"
+          onClick={() => trackTestClick(SLUG_LOVE)}
+          className="block rounded-lg border-2 border-pink-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-pink-800 dark:bg-slate-900"
+        >
+          <h2 className="text-xl font-bold md:text-2xl">No6. AI 연애 궁합</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            두 사람 MBTI·생년월일로 보는 궁합 점수와 케미.<br/>
+            성격 케미·연애 스타일·데이트 추천까지 · 재미용.
+          </p>
+          <div className="mt-4 inline-block rounded-lg bg-pink-600 px-6 py-3 text-base font-semibold text-white">
+            궁합 보러 가기 →
+          </div>
+          {counts && counts.love > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.love.toLocaleString('ko-KR')}명 시작
             </div>
           )}
         </Link>
