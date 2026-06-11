@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { Button } from '@/components/Button';
 import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
+import AskAIButton from '@/components/AskAIButton';
 
 const HOURS = [
   { value: '자시', label: '자시 (23:00~01:00)' },
@@ -245,25 +246,14 @@ export default function SajuPage() {
       </section>
 
       <section className="space-y-3">
-        <Button
-          disabled
-          variant="secondary"
-          size="lg"
-          title="AI 호출 모드는 곧 오픈됩니다"
-          className="w-full"
-        >
-          AI에게 바로 물어보기
-          <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-            준비중
-          </span>
-        </Button>
+        <AskAIButton buildPrompt={() => buildPromptText(year, month, day, hour, calendar)} />
         <Button
           onClick={copyPrompt}
           variant="primary"
           size="lg"
           className="w-full"
         >
-          📋 프롬프트 복사 → Claude/ChatGPT에 붙여넣기
+          프롬프트 복사 → Claude/ChatGPT에 붙여넣기
         </Button>
         {copyMsg && (
           <p className="text-center text-xs text-emerald-700 dark:text-emerald-400">{copyMsg}</p>

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Button } from '@/components/Button';
 import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
+import AskAIButton from '@/components/AskAIButton';
 
 const WHO = ['혼밥', '가족과', '친구와', '연인과 데이트', '회식·모임'];
 const MEAL = ['아침', '점심', '저녁', '야식', '브런치'];
@@ -156,18 +157,7 @@ export default function FoodPage() {
       </section>
 
       <section className="space-y-3">
-        <Button
-          disabled
-          variant="secondary"
-          size="lg"
-          title="AI 호출 모드는 곧 오픈됩니다"
-          className="w-full"
-        >
-          AI에게 바로 물어보기
-          <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-            준비중
-          </span>
-        </Button>
+        <AskAIButton buildPrompt={() => preview} />
         <Button
           onClick={copyPrompt}
           variant="primary"
