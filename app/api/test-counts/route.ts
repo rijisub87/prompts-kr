@@ -3,7 +3,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
-type Counts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number };
+type Counts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number; food: number };
 
 const SLUG_TO_KEY: Record<string, keyof Counts> = {
   'test-mbti': 'mbti',
@@ -12,10 +12,11 @@ const SLUG_TO_KEY: Record<string, keyof Counts> = {
   'test-market': 'market',
   'test-lotto': 'lotto',
   'test-love': 'love',
+  'test-food': 'food',
 };
 
 export async function GET() {
-  const fallback: Counts = { mbti: 0, skill: 0, saju: 0, market: 0, lotto: 0, love: 0 };
+  const fallback: Counts = { mbti: 0, skill: 0, saju: 0, market: 0, lotto: 0, love: 0, food: 0 };
   try {
     const supabase = await createClient();
     const { data } = await supabase

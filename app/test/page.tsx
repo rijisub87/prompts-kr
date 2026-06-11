@@ -18,8 +18,9 @@ const SLUG_SAJU = 'test-saju';
 const SLUG_MARKET = 'test-market';
 const SLUG_LOTTO = 'test-lotto';
 const SLUG_LOVE = 'test-love';
+const SLUG_FOOD = 'test-food';
 
-type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number };
+type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number; food: number };
 
 // 클릭 시 카운터 증가 — 페이지 이동 중에도 발사되도록 keepalive.
 function trackTestClick(slug: string) {
@@ -95,7 +96,7 @@ export default function TestPage() {
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
             <KakaoShareButton
               title="생활AI 모음 — 일할 때의 MBTI · AI 활용 능력 · 사주"
-              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주 · 데일리 세계 경제 · AI 로또 번호 예측 · AI 연애 궁합"
+              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주 · 데일리 세계 경제 · AI 로또 번호 예측 · AI 연애 궁합 · 오늘 뭐먹지"
               path="/test"
             />
             <LinkCopyButton path="/test" />
@@ -219,6 +220,26 @@ export default function TestPage() {
           {counts && counts.love > 0 && (
             <div className="mt-3 text-xs text-slate-500">
               {counts.love.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
+        </Link>
+
+        <Link
+          href="/test/food"
+          onClick={() => trackTestClick(SLUG_FOOD)}
+          className="block rounded-lg border-2 border-orange-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-orange-800 dark:bg-slate-900"
+        >
+          <h2 className="text-xl font-bold md:text-2xl">No7. 오늘 뭐먹지?</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            상황·기분에 맞는 메뉴를 칼로리·식단 코멘트와 함께.<br/>
+            레시피 검색어 또는 주변 맛집까지 추천.
+          </p>
+          <div className="mt-4 inline-block rounded-lg bg-orange-600 px-6 py-3 text-base font-semibold text-white">
+            메뉴 추천받기 →
+          </div>
+          {counts && counts.food > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.food.toLocaleString('ko-KR')}명 시작
             </div>
           )}
         </Link>
