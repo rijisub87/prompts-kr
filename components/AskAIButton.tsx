@@ -6,6 +6,10 @@ import { Button } from '@/components/Button';
 
 // 생활AI 공용 "AI에게 바로 물어보기" 버튼.
 // 로그인 필수 + 하루 1회 무료. 401이면 카카오 로그인 유도, 429면 한도 안내.
+//
+// ⚠️ API 크레딧 충전 전까지 비활성("준비중"). 충전 후 ENABLED = true 한 줄만 바꾸면 부활.
+const ENABLED = false;
+
 export default function AskAIButton({
   buildPrompt,
 }: {
@@ -14,6 +18,24 @@ export default function AskAIButton({
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // 비활성 모드 — 준비중 버튼만 노출 (페이지 배선은 유지).
+  if (!ENABLED) {
+    return (
+      <Button
+        disabled
+        variant="secondary"
+        size="lg"
+        title="AI 호출 모드는 곧 오픈됩니다"
+        className="w-full"
+      >
+        AI에게 바로 물어보기
+        <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+          준비중
+        </span>
+      </Button>
+    );
+  }
 
   async function ask() {
     setLoading(true);
