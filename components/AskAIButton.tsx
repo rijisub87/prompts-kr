@@ -3,6 +3,7 @@
 import { Fragment, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/Button';
+import AdSlot from '@/components/AdSlot';
 
 // 생활AI 공용 "AI에게 바로 물어보기" 버튼.
 // 로그인 필수 + 하루 1회 무료. 401이면 카카오 로그인 유도, 429면 한도 안내.
@@ -18,6 +19,7 @@ export default function AskAIButton({
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showAd, setShowAd] = useState(false);
 
   // 비활성 모드 — 준비중 버튼만 노출 (페이지 배선은 유지).
   if (!ENABLED) {
@@ -64,7 +66,8 @@ export default function AskAIButton({
       // 인증 상태 확인 실패 — 아래 API 호출의 401 처리로 폴백
     }
 
-    // 2. 회원이면 호출
+    // 2. 회원이면 호출 (버튼 아래 광고 노출)
+    setShowAd(true);
     setLoading(true);
     try {
       const r = await fetch('/api/ask', {
@@ -101,6 +104,9 @@ export default function AskAIButton({
           하루 1회 무료
         </span>
       </Button>
+
+      {/* 클릭 후 버튼 아래 광고 */}
+      {showAd && <AdSlot />}
 
       {error && (
         <p className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-3 text-sm text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">

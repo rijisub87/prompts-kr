@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import type { Prompt, Variable } from '@/lib/prompts';
+import AdSlot from '@/components/AdSlot';
 
 // 변수 이름에 다음 키워드가 포함되면 멀티라인 입력으로 — 긴 텍스트가 들어오는 슬롯.
 const LONG_VAR_HINTS = ['TEXT', 'SUBTITLE', 'BODY', 'CONTENT', 'ARTICLE', 'PARAGRAPH', '본문', '내용'];
@@ -106,10 +107,12 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
 
   const filledCount = variables.filter(v => values[v.name]?.trim()).length;
   const allFilled = variables.length > 0 && filledCount === variables.length;
+  const [showAd, setShowAd] = useState(false);
 
   const copy = async () => {
     await navigator.clipboard.writeText(rendered);
     setCopied(true);
+    setShowAd(true);
     fetch('https://abacus.jasoncameron.dev/hit/prompts-kr/copies').catch(() => {});
     setTimeout(() => setCopied(false), 1500);
   };
@@ -181,6 +184,9 @@ export default function PromptDetail({ prompt }: { prompt: Prompt }) {
           </div>
         </section>
       )}
+
+      {/* 복사 클릭 시 프롬프트 위쪽에 광고 노출 */}
+      {showAd && <AdSlot />}
 
       <section className="rounded border bg-white dark:border-slate-800 dark:bg-slate-900">
         <div className="flex items-center justify-between border-b px-4 py-2 dark:border-slate-800">
