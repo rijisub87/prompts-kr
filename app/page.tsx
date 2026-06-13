@@ -9,6 +9,7 @@ import RecentlyViewed from '@/components/RecentlyViewed';
 import Bookmarks from '@/components/Bookmarks';
 import { ButtonLink } from '@/components/Button';
 import PromptStats from '@/components/PromptStats';
+import AdSlot from '@/components/AdSlot';
 
 // ISR — 60초마다 재생성. views/추천수가 1분 단위로 갱신됨.
 export const revalidate = 60;
@@ -222,6 +223,9 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      {/* 새로 추가된 프롬프트 아래 광고 */}
+      <AdSlot />
 
       {presentCategories.map(c => {
         const list = grouped[c];
