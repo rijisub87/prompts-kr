@@ -19,7 +19,7 @@ export default function AskAIButton({
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [showAd, setShowAd] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // 비활성 모드 — 준비중 버튼만 노출 (페이지 배선은 유지).
   if (!ENABLED) {
@@ -66,8 +66,8 @@ export default function AskAIButton({
       // 인증 상태 확인 실패 — 아래 API 호출의 401 처리로 폴백
     }
 
-    // 2. 회원이면 호출 (버튼 아래 광고 노출)
-    setShowAd(true);
+    // 2. 회원이면 분석 모달 열고 호출 (No1과 동일하게 광고 노출)
+    setModalOpen(true);
     setLoading(true);
     try {
       const r = await fetch('/api/ask', {
@@ -77,6 +77,7 @@ export default function AskAIButton({
       });
 
       if (r.status === 401) {
+        setModalOpen(false);
         if (confirm('로그인이 만료됐어요. 카카오로 다시 로그인할까요?')) {
           await goToLogin();
         }
@@ -96,6 +97,14 @@ export default function AskAIButton({
     }
   }
 
+  // 닫기 — 모달 닫고 결과/에러를 인라인으로 표시.
+  function closeModal() {
+    if (loading) return;
+    setModalOpen(false);
+  }
+
+  const done = !loading;
+
   return (
     <div className="space-y-3">
       <Button onClick={ask} disabled={loading} variant="dark" size="lg" className="w-full">
@@ -105,16 +114,14 @@ export default function AskAIButton({
         </span>
       </Button>
 
-      {/* 클릭 후 버튼 아래 광고 */}
-      {showAd && <AdSlot />}
-
-      {error && (
+      {/* 인라인 결과 — 모달 닫은 뒤 노출 */}
+      {!modalOpen && error && (
         <p className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-3 text-sm text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
           {error}
         </p>
       )}
 
-      {result && (
+      {!modalOpen && result && (
         <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
           <h2 className="mb-3 text-sm font-bold text-slate-700 dark:text-slate-300">AI 답변</h2>
           {renderText(result)}
@@ -122,6 +129,62 @@ export default function AskAIButton({
             AI가 생성한 참고용 콘텐츠입니다.
           </p>
         </section>
+      )}
+
+      {/* 분석 중 모달 — 광고 노출, 완료 시 닫기 버튼 */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ask-analyze-title"
+        >
+          <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-xl dark:bg-slate-900">
+            <h3
+              id="ask-analyze-title"
+              className="text-xl font-bold text-slate-900 dark:text-slate-100"
+            >
+              {loading ? 'AI가 분석 중' : error ? '잠시 후 다시 시도해주세요' : '분석 완료'}
+            </h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              {loading
+                ? 'AI가 답변을 작성하고 있어요. 잠시만 기다려주세요.'
+                : error
+                  ? error
+                  : '결과가 준비됐어요. 닫으면 보여드릴게요.'}
+            </p>
+
+            {/* 광고 */}
+            <div className="mt-4">
+              <AdSlot />
+            </div>
+
+            {/* 진행 인디케이터 */}
+            <div className="mt-4 flex items-center justify-center">
+              {loading ? (
+                <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-emerald-500 dark:border-slate-700 dark:border-t-emerald-400" />
+              ) : (
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+                    <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={closeModal}
+              disabled={!done}
+              className={
+                done
+                  ? 'mt-6 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700'
+                  : 'mt-6 w-full cursor-not-allowed rounded-lg bg-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-500'
+              }
+            >
+              {done ? '닫기' : '분석중...'}
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
