@@ -8,7 +8,7 @@ import { Button } from '@/components/Button';
 // 로그인 필수 + 하루 1회 무료. 401이면 카카오 로그인 유도, 429면 한도 안내.
 //
 // ⚠️ API 크레딧 충전 전까지 비활성("준비중"). 충전 후 ENABLED = true 한 줄만 바꾸면 부활.
-const ENABLED = false;
+const ENABLED = true;
 
 export default function AskAIButton({
   buildPrompt,

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/Button';
 import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
@@ -110,6 +110,35 @@ export default function SajuPage() {
   const [day, setDay] = useState(1);
   const [hour, setHour] = useState('모름');
   const [calendar, setCalendar] = useState<'양력' | '음력'>('양력');
+  const [loaded, setLoaded] = useState(false);
+
+  // 생년월일·생시 캐시 — localStorage. 다시 방문 시 입력 생략.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('saju_birth');
+      if (raw) {
+        const v = JSON.parse(raw);
+        if (Number.isInteger(v.year)) setYear(v.year);
+        if (Number.isInteger(v.month)) setMonth(v.month);
+        if (Number.isInteger(v.day)) setDay(v.day);
+        if (typeof v.hour === 'string') setHour(v.hour);
+        if (v.calendar === '양력' || v.calendar === '음력') setCalendar(v.calendar);
+      }
+    } catch {
+      // localStorage 거부 등 — 기본값 사용
+    }
+    setLoaded(true);
+  }, []);
+
+  // 값이 바뀔 때마다 저장 (최초 로드 완료 후에만 — 초기값 덮어쓰기 방지).
+  useEffect(() => {
+    if (!loaded) return;
+    try {
+      localStorage.setItem('saju_birth', JSON.stringify({ year, month, day, hour, calendar }));
+    } catch {
+      // ignore
+    }
+  }, [loaded, year, month, day, hour, calendar]);
 
   const [reading, setReading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
