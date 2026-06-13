@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 import AskAIButton from '@/components/AskAIButton';
 
@@ -107,11 +106,6 @@ export default function FoodPage() {
           상황에 맞는 메뉴를 칼로리·식단 코멘트와 함께, 레시피 또는 주변 맛집까지 추천.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <KakaoShareButton
-            title="오늘 뭐먹지? — AI 메뉴 추천"
-            description="상황·기분에 맞는 메뉴를 칼로리·식단 코멘트와 함께 추천하고 레시피·맛집까지 안내"
-            path="/test/food"
-          />
           <LinkCopyButton path="/test/food" />
         </div>
       </header>

@@ -8,7 +8,6 @@ import {
   type JobId, type Length,
 } from '@/lib/ai-skill-test';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 import AnalyzeModal from '@/components/AnalyzeModal';
 
@@ -93,11 +92,6 @@ export default function AISkillTestPage() {
             AI 능력을 직무 기준으로 평가합니다. 먼저 직무를 골라주세요.
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <KakaoShareButton
-              title="AI 활용 직무 테스트"
-              description="직무 기준으로 6가지 AI 능력을 평가하고 강점·약점·적합도 리포트"
-              path="/test/skill"
-            />
             <LinkCopyButton path="/test/skill" />
           </div>
         </header>

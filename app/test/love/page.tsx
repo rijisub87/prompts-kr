@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 import AskAIButton from '@/components/AskAIButton';
 
@@ -126,11 +125,6 @@ export default function LovePage() {
           두 사람 정보를 넣으면 궁합 점수·케미·데이트 추천을 재미로 풀어주는 프롬프트.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <KakaoShareButton
-            title="AI 연애 궁합"
-            description="두 사람 MBTI·생년월일로 보는 궁합 점수·성격 케미·데이트 추천 (재미용)"
-            path="/test/love"
-          />
           <LinkCopyButton path="/test/love" />
         </div>
       </header>

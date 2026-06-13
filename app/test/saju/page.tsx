@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 import AskAIButton from '@/components/AskAIButton';
 
@@ -194,11 +193,6 @@ export default function SajuPage() {
           생년월일을 입력하면 Claude가 오늘의 운세를 풀어줍니다.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <KakaoShareButton
-            title="AI로 보는 오늘의 사주"
-            description="생년월일을 입력하면 Claude가 오늘의 운세를 풀어줍니다 (총운·재물·인연·건강·행운)"
-            path="/test/saju"
-          />
           <LinkCopyButton path="/test/saju" />
         </div>
       </header>

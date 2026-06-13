@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 
 function todayStr(): string {
@@ -81,11 +80,6 @@ export default function LottoPage() {
           최근 당첨번호 트렌드를 참고해 5개 게임 세트를 재미로 추정하는 프롬프트.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <KakaoShareButton
-            title="AI 로또 번호 예측"
-            description="최근 당첨번호 트렌드를 참고해 5개 게임 세트를 재미로 추정하는 AI 프롬프트"
-            path="/test/lotto"
-          />
           <LinkCopyButton path="/test/lotto" />
         </div>
       </header>

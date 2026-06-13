@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { QUESTIONS, calcType, type Option } from '@/lib/mbti-test';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 import AnalyzeModal from '@/components/AnalyzeModal';
 
@@ -88,11 +87,6 @@ export default function TestPage() {
           <h1 className="text-3xl font-bold md:text-4xl">생활AI</h1>
           <p className="mt-2 text-sm text-slate-500">일상에서 가볍게 써볼 수 있는 AI</p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <KakaoShareButton
-              title="생활AI 모음 — 일할 때의 MBTI · AI 활용 능력 · 사주"
-              description="일하는 나의 MBTI · AI 활용 직무 테스트 · 오늘의 사주 · 데일리 세계 경제 · AI 로또 번호 예측 · AI 연애 궁합 · 오늘 뭐먹지"
-              path="/test"
-            />
             <LinkCopyButton path="/test" />
           </div>
         </div>

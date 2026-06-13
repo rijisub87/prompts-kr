@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/Button';
-import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
 
 // 오늘 날짜를 YYYY-MM-DD로. 'use client'라 빌드 타임 고정 없이 매 방문 시점 기준.
@@ -83,11 +82,6 @@ export default function MarketPage() {
           오늘 날짜로 시장 지표·투자 거장 동향·주요 이슈를 한 번에 받아보는 리포트 프롬프트.
         </p>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <KakaoShareButton
-            title="데일리 세계 경제 리포트"
-            description="지표·투자 거장 동향·경제 현황·섹터 전망·주요 이슈를 한 번에 받아보는 AI 프롬프트"
-            path="/test/market"
-          />
           <LinkCopyButton path="/test/market" />
         </div>
       </header>
