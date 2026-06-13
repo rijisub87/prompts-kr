@@ -7,6 +7,7 @@ import {
 import PromptDetail from '@/components/PromptDetail';
 import RecommendButton from '@/components/RecommendButton';
 import BookmarkButton from '@/components/BookmarkButton';
+import AdSlot from '@/components/AdSlot';
 
 export function generateStaticParams() {
   return getAllPrompts().map(p => ({ slug: p.slug }));
@@ -111,6 +112,9 @@ export default async function PromptPage({
         <RecommendButton slug={prompt.slug} />
         <BookmarkButton slug={prompt.slug} />
       </div>
+
+      {/* 추천·즐겨찾기 아래 광고 */}
+      <AdSlot />
 
       {prompt.tipHtml && (
         <section className="rounded border bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/30">
