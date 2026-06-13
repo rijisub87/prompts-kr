@@ -3,7 +3,7 @@
 import { Fragment, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/Button';
-import AdSlot from '@/components/AdSlot';
+import AnalyzeModal from '@/components/AnalyzeModal';
 
 // 생활AI 공용 "AI에게 바로 물어보기" 버튼.
 // 로그인 필수 + 하루 1회 무료. 401이면 카카오 로그인 유도, 429면 한도 안내.
@@ -131,61 +131,8 @@ export default function AskAIButton({
         </section>
       )}
 
-      {/* 분석 중 모달 — 광고 노출, 완료 시 닫기 버튼 */}
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="ask-analyze-title"
-        >
-          <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-xl dark:bg-slate-900">
-            <h3
-              id="ask-analyze-title"
-              className="text-xl font-bold text-slate-900 dark:text-slate-100"
-            >
-              {loading ? 'AI가 분석 중' : error ? '잠시 후 다시 시도해주세요' : '분석 완료'}
-            </h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              {loading
-                ? 'AI가 답변을 작성하고 있어요. 잠시만 기다려주세요.'
-                : error
-                  ? error
-                  : '결과가 준비됐어요. 닫으면 보여드릴게요.'}
-            </p>
-
-            {/* 광고 */}
-            <div className="mt-4">
-              <AdSlot />
-            </div>
-
-            {/* 진행 인디케이터 */}
-            <div className="mt-4 flex items-center justify-center">
-              {loading ? (
-                <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-emerald-500 dark:border-slate-700 dark:border-t-emerald-400" />
-              ) : (
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                    <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={closeModal}
-              disabled={!done}
-              className={
-                done
-                  ? 'mt-6 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700'
-                  : 'mt-6 w-full cursor-not-allowed rounded-lg bg-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-500'
-              }
-            >
-              {done ? '닫기' : '분석중...'}
-            </button>
-          </div>
-        </div>
-      )}
+      {/* 분석 중 모달 — 3·2·1 카운트다운 + 광고, API 완료 시 닫기 */}
+      <AnalyzeModal open={modalOpen} done={done} onConfirm={closeModal} confirmLabel="닫기" />
     </div>
   );
 }

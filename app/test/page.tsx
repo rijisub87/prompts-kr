@@ -7,7 +7,7 @@ import { QUESTIONS, calcType, type Option } from '@/lib/mbti-test';
 import { Button } from '@/components/Button';
 import KakaoShareButton from '@/components/KakaoShareButton';
 import LinkCopyButton from '@/components/LinkCopyButton';
-import AdSlot from '@/components/AdSlot';
+import AnalyzeModal from '@/components/AnalyzeModal';
 
 // 테스트별 시작 버튼 클릭 집계용 슬러그 (prompt_stats 테이블 재활용)
 const SLUG_MBTI = 'test-mbti';
@@ -280,39 +280,8 @@ export default function TestPage() {
         ))}
       </div>
 
-      {/* 결과 준비 모달 — 광고 노출 후 "결과 보기" 클릭 시 결과 페이지로 */}
-      {pendingType && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="mbti-result-title"
-        >
-          <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-xl dark:bg-slate-900">
-            <h3
-              id="mbti-result-title"
-              className="text-xl font-bold text-slate-900 dark:text-slate-100"
-            >
-              결과가 준비됐어요
-            </h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              아래 버튼을 누르면 유형 결과를 보여드릴게요.
-            </p>
-
-            {/* 광고 */}
-            <div className="mt-4">
-              <AdSlot />
-            </div>
-
-            <button
-              onClick={goToResult}
-              className="mt-6 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700"
-            >
-              결과 보기
-            </button>
-          </div>
-        </div>
-      )}
+      {/* 결과 준비 모달 — 3·2·1 카운트다운 + 광고 → 결과 보기 */}
+      <AnalyzeModal open={pendingType !== null} done onConfirm={goToResult} />
     </div>
   );
 }
