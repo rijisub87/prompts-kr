@@ -37,10 +37,35 @@ export default function AskAIButton({
     );
   }
 
+  async function goToLogin() {
+    const supabase = createClient();
+    const next = encodeURIComponent(window.location.pathname);
+    await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${next}` },
+    });
+  }
+
   async function ask() {
-    setLoading(true);
     setError(null);
     setResult(null);
+
+    // 1. 클릭 즉시 회원 여부 확인 — 비회원이면 API 호출 없이 안내 + 로그인으로.
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        if (confirm('AI에게 바로 물어보기는 회원 전용 기능이에요. 카카오로 로그인(회원가입)하러 갈까요?')) {
+          await goToLogin();
+        }
+        return;
+      }
+    } catch {
+      // 인증 상태 확인 실패 — 아래 API 호출의 401 처리로 폴백
+    }
+
+    // 2. 회원이면 호출
+    setLoading(true);
     try {
       const r = await fetch('/api/ask', {
         method: 'POST',
@@ -49,13 +74,8 @@ export default function AskAIButton({
       });
 
       if (r.status === 401) {
-        if (confirm('AI에게 바로 물어보려면 로그인이 필요해요. 카카오로 로그인할까요?')) {
-          const supabase = createClient();
-          const next = encodeURIComponent(window.location.pathname);
-          await supabase.auth.signInWithOAuth({
-            provider: 'kakao',
-            options: { redirectTo: `${window.location.origin}/auth/callback?next=${next}` },
-          });
+        if (confirm('로그인이 만료됐어요. 카카오로 다시 로그인할까요?')) {
+          await goToLogin();
         }
         return;
       }
