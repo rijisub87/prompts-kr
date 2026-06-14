@@ -144,6 +144,7 @@ export async function POST() {
           object_type: 'text',
           text: buildKakaoText(report, date),
           link: { web_url: `${SITE}/test/market`, mobile_web_url: `${SITE}/test/market` },
+          buttons: [], // 기본 '자세히 보기' 버튼 제거 (메시지 탭으로 링크 이동은 유지)
         }),
       }),
     });
