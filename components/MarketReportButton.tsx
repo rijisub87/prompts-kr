@@ -12,20 +12,21 @@ export default function MarketReportButton() {
   const [report, setReport] = useState<string | null>(null);
   const ran = useRef(false);
 
-  // 카카오 인증 후 복귀(?send=1) → 자동 전송 1회.
+  // 카카오 인증 후 복귀(?send=1) → 자동 전송 1회. (복귀 경로에선 재인증 안 함 — 루프 방지)
   useEffect(() => {
     if (ran.current) return;
     const params = new URLSearchParams(window.location.search);
     if (params.get('send') !== '1') return;
     ran.current = true;
-    // URL에서 send 파라미터 제거 (새로고침 시 재전송 방지)
     params.delete('send');
     const clean = window.location.pathname + (params.toString() ? `?${params}` : '');
     window.history.replaceState(null, '', clean);
-    void send();
+    void send(true);
   }, []);
 
+  // talk_message scope로 (재)인증 — 미동의자는 여기서 동의 화면을 보게 됨.
   async function startAuth() {
+    setStatus('sending');
     const supabase = createClient();
     const next = encodeURIComponent('/test/market?send=1');
     await supabase.auth.signInWithOAuth({
@@ -37,29 +38,34 @@ export default function MarketReportButton() {
     });
   }
 
-  async function send() {
+  // fromReturn=true(인증 후 복귀)면 실패해도 재인증하지 않고 안내만.
+  async function send(fromReturn = false) {
     setStatus('sending');
     setMsg(null);
     try {
       const r = await fetch('/api/market-report', { method: 'POST' });
-      if (r.status === 401) {
-        // 미로그인 → 카카오 인증으로
-        await startAuth();
-        return;
-      }
-      const d = await r.json();
+      const d = r.status === 401 ? { needAuth: true } : await r.json();
       if (d.report) setReport(d.report);
 
       if (d.ok) {
         setStatus('sent');
         setMsg('카카오톡으로 리포트를 보냈어요! 카톡을 확인해보세요.');
-      } else if (d.needAuth) {
-        // 카카오 메시지 권한 필요 → 재인증
-        await startAuth();
-      } else {
-        setStatus('error');
-        setMsg(d.error ?? '전송에 실패했어요. 잠시 후 다시 시도해주세요.');
+        return;
       }
+
+      if (d.needAuth) {
+        if (fromReturn) {
+          // 동의 화면을 봤는데도 권한이 없음 → 거절했거나 미동의. 루프 대신 안내.
+          setStatus('error');
+          setMsg('카카오톡 메시지 전송 동의가 필요해요. 버튼을 다시 눌러 "카카오톡 메시지 전송"에 동의해주세요.');
+        } else {
+          await startAuth();
+        }
+        return;
+      }
+
+      setStatus('error');
+      setMsg(d.error ?? '전송에 실패했어요. 잠시 후 다시 시도해주세요.');
     } catch {
       setStatus('error');
       setMsg('네트워크 오류 — 잠시 후 다시 시도해주세요.');
@@ -77,6 +83,9 @@ export default function MarketReportButton() {
       >
         {status === 'sending' ? '리포트 보내는 중…' : '내 카톡으로 리포트 받기'}
       </Button>
+      <p className="text-center text-xs text-slate-400">
+        카카오 로그인 + &lsquo;카카오톡 메시지 전송&rsquo; 동의가 필요해요 (하루 1회).
+      </p>
 
       {msg && (
         <p
