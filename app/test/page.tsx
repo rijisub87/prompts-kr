@@ -16,8 +16,9 @@ const SLUG_MARKET = 'test-market';
 const SLUG_LOTTO = 'test-lotto';
 const SLUG_LOVE = 'test-love';
 const SLUG_FOOD = 'test-food';
+const SLUG_FAKE = 'test-fake-friend';
 
-type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number; food: number };
+type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number; food: number; fake: number };
 
 // 클릭 시 카운터 증가 — 페이지 이동 중에도 발사되도록 keepalive.
 function trackTestClick(slug: string) {
@@ -228,6 +229,26 @@ export default function TestPage() {
           {counts && counts.food > 0 && (
             <div className="mt-3 text-xs text-slate-500">
               {counts.food.toLocaleString('ko-KR')}명 시작
+            </div>
+          )}
+        </Link>
+
+        <Link
+          href="/test/fake-friend"
+          onClick={() => trackTestClick(SLUG_FAKE)}
+          className="block rounded-lg border-2 border-rose-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:shadow-md dark:border-rose-800 dark:bg-slate-900"
+        >
+          <h2 className="text-xl font-bold md:text-2xl">No8. 가짜 남사친 구분법</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            상황 5문항으로 &lsquo;남친 되고 싶은 남자&rsquo;인지 진짜 친구인지 % 진단.<br/>
+            여자·남자 관점 각각 · 재미용.
+          </p>
+          <div className="mt-4 inline-block rounded-lg bg-rose-600 px-6 py-3 text-base font-semibold text-white">
+            진단 시작 →
+          </div>
+          {counts && counts.fake > 0 && (
+            <div className="mt-3 text-xs text-slate-500">
+              {counts.fake.toLocaleString('ko-KR')}명 시작
             </div>
           )}
         </Link>
