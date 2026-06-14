@@ -20,23 +20,29 @@ export default function MarketReportButton() {
       .catch(() => {});
   }, []);
 
-  // 카카오 인증 후 복귀(?send=1) → 자동 전송 1회. (복귀 경로에선 재인증 안 함 — 루프 방지)
+  // 카카오 인증 후 복귀 → 자동 전송 1회.
+  // 복귀 경로(next)는 쿼리 없이 '/test/market'만 — Supabase가 중첩 쿼리를 못 살려 메인으로
+  // 떨어지는 문제 방지. 자동전송 의도는 sessionStorage 플래그로 전달(같은 탭 OAuth 왕복 유지).
   useEffect(() => {
     if (ran.current) return;
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('send') !== '1') return;
+    let pending = false;
+    try {
+      pending = sessionStorage.getItem('market_send_after_auth') === '1';
+      if (pending) sessionStorage.removeItem('market_send_after_auth');
+    } catch {
+      pending = false;
+    }
+    if (!pending) return;
     ran.current = true;
-    params.delete('send');
-    const clean = window.location.pathname + (params.toString() ? `?${params}` : '');
-    window.history.replaceState(null, '', clean);
     void send(true);
   }, []);
 
   // talk_message scope로 (재)인증 — 미동의자는 여기서 동의 화면을 보게 됨.
   async function startAuth() {
     setStatus('sending');
+    try { sessionStorage.setItem('market_send_after_auth', '1'); } catch {}
     const supabase = createClient();
-    const next = encodeURIComponent('/test/market?send=1');
+    const next = encodeURIComponent('/test/market');
     await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
