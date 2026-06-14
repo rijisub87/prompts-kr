@@ -78,9 +78,19 @@ export default function FakeFriendPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
             {result.description}
           </p>
-          <p className="mt-3 border-t pt-3 text-sm font-medium text-rose-700 dark:text-rose-300">
-            조언 — {result.advice}
-          </p>
+          <div className="mt-4 border-t pt-4 dark:border-slate-800">
+            <h3 className="text-sm font-semibold text-rose-700 dark:text-rose-300">
+              이렇게 대응해보세요
+            </h3>
+            <ul className="mt-2 space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
+              {result.actions.map((a, i) => (
+                <li key={i} className="flex gap-1.5">
+                  <span className="text-rose-500" aria-hidden>•</span>
+                  <span>{a}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         <p className="text-center text-xs text-slate-400">
