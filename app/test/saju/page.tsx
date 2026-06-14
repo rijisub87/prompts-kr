@@ -283,21 +283,18 @@ export default function SajuPage() {
         )}
       </section>
 
-      {error && (
-        <section className="rounded-lg border-l-4 border-rose-500 bg-rose-50 p-4 text-sm text-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
-          {error}
-        </section>
-      )}
+      <section className="rounded-lg border bg-slate-50 dark:border-slate-800 dark:bg-slate-900/50">
+        <div className="flex items-center justify-between border-b px-4 py-2 dark:border-slate-800">
+          <span className="text-xs font-medium text-slate-600 dark:text-slate-400">프롬프트 미리보기</span>
+        </div>
+        <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          {buildPromptText(year, month, day, hour, calendar)}
+        </pre>
+      </section>
 
-      {reading && (
-        <section className="rounded-lg border bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="mb-3 text-lg font-bold">오늘의 사주 풀이</h2>
-          {renderReading(reading)}
-          <p className="mt-5 border-t pt-3 text-xs text-slate-400 dark:border-slate-800">
-            ⚠️ 이 풀이는 AI가 생성한 참고용 콘텐츠입니다. 사주명리학 전문가의 정식 상담을 대체하지 않습니다.
-          </p>
-        </section>
-      )}
+      <p className="text-center text-xs text-slate-400">
+        ⚠️ AI가 생성한 사주 풀이는 참고용입니다. 사주명리학 전문가의 정식 상담을 대체하지 않습니다.
+      </p>
     </div>
   );
 }
