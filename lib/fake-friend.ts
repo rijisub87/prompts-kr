@@ -7,88 +7,89 @@ export type Perspective = 'female' | 'male';
 export type Option = { label: string; score: 0 | 1 | 2 };
 export type Question = { text: string; options: [Option, Option, Option] };
 
+// 보기 점수 순서는 일부러 뒤섞음(위치로 못 맞추게). 각 문항은 0·1·2를 한 번씩 포함.
 export const QUESTIONS: Record<Perspective, Question[]> = {
   female: [
     {
-      text: '단둘이 있을 때 그의 태도는?',
+      text: '단둘이 카페에 앉아 있을 때 그는?',
       options: [
-        { label: '여럿이 있을 때랑 똑같이 편하게 장난친다', score: 0 },
-        { label: '살짝 더 신경 쓰고 챙겨주는 느낌', score: 1 },
-        { label: '눈에 띄게 다정해지고 은근히 분위기를 잡는다', score: 2 },
+        { label: '메뉴며 자리며 챙기고 평소보다 말이 많아진다', score: 1 },
+        { label: '분위기 좋은 자리로 데려가 눈을 오래 맞춘다', score: 2 },
+        { label: '친구들이랑 있을 때처럼 툭툭 장난만 친다', score: 0 },
       ],
     },
     {
-      text: '내가 "요즘 만나는(좋아하는) 사람 있어"라고 하면?',
+      text: '내가 "나 소개팅 했어"라고 말하면?',
       options: [
-        { label: '잘됐다며 진심으로 축하해준다', score: 0 },
-        { label: '어떤 사람이냐고 유독 꼬치꼬치 묻는다', score: 1 },
-        { label: '표정이 굳거나 갑자기 시큰둥해진다', score: 2 },
+        { label: '"어떤 놈인데?" 하며 표정이 굳는다', score: 2 },
+        { label: '"오 잘됐다!" 하고 진심으로 응원한다', score: 0 },
+        { label: '누구냐고 유독 자세히 캐묻는다', score: 1 },
       ],
     },
     {
-      text: '평소 그의 연락 패턴은?',
+      text: '밤 11시, 그에게서 오는 연락은?',
       options: [
-        { label: '용건 있을 때만 온다', score: 0 },
-        { label: '가끔 안부·일상을 공유한다', score: 1 },
-        { label: '밤마다 "자?" 하며 사소한 것까지 시시콜콜', score: 2 },
+        { label: '거의 없다 — 용건 있을 때만', score: 0 },
+        { label: '"자?" 하고 별 내용 없이 톡이 온다', score: 2 },
+        { label: '가끔 "오늘 뭐 했어?" 안부 정도', score: 1 },
       ],
     },
     {
-      text: '내 생일·기념일에 그는?',
+      text: '내 생일날 그는?',
       options: [
-        { label: '톡으로 축하 한마디', score: 0 },
-        { label: '소소한 선물을 챙긴다', score: 1 },
-        { label: '깜짝 이벤트나 정성 가득한 선물을 준비한다', score: 2 },
+        { label: '깜짝 케이크에 정성 선물까지 준비한다', score: 2 },
+        { label: '작은 선물 하나 챙겨준다', score: 1 },
+        { label: '"생축~" 톡 한 줄 보낸다', score: 0 },
       ],
     },
     {
-      text: '내가 힘들고 지칠 때 그는?',
+      text: '내가 "요즘 너무 우울해"라고 하면?',
       options: [
-        { label: '적당히 위로해주고 끝', score: 0 },
-        { label: '이야기 들어주고 은근히 챙겨준다', score: 1 },
-        { label: '만사 제치고 달려와 다 해결해주려 한다', score: 2 },
+        { label: '이야기 들어주고 먹을 걸 사다 준다', score: 1 },
+        { label: '"힘내" 하고 평소처럼 넘어간다', score: 0 },
+        { label: '하던 일 멈추고 곧장 나에게 달려온다', score: 2 },
       ],
     },
   ],
   male: [
     {
-      text: '그녀가 다른 남자랑 친하게 지내는 걸 보면?',
+      text: '그녀가 다른 남자랑 웃고 떠드는 걸 볼 때 나는?',
       options: [
-        { label: '아무렇지 않다, 친구니까', score: 0 },
-        { label: '살짝 신경이 쓰인다', score: 1 },
-        { label: '기분이 묘하게 나쁘고 질투가 난다', score: 2 },
+        { label: '괜히 기분 상하고 자꾸 신경 쓰인다', score: 2 },
+        { label: '살짝 거슬리는 정도', score: 1 },
+        { label: '아무렇지 않다 — 친구니까', score: 0 },
       ],
     },
     {
-      text: '그녀의 연락에 나는?',
+      text: '그녀에게 톡이 오면 나는?',
       options: [
-        { label: '생각나면 답한다', score: 0 },
         { label: '비교적 빨리 답하는 편', score: 1 },
-        { label: '알림 뜨면 바로 확인, 그녀 답이 늦으면 신경 쓰인다', score: 2 },
+        { label: '생각나면 답한다', score: 0 },
+        { label: '알림 뜨자마자 확인, 답 늦으면 신경 쓴다', score: 2 },
       ],
     },
     {
-      text: '그녀와 단둘이 만나는 건?',
+      text: '이번 주말 단둘이 만나기로 했다. 나는?',
       options: [
         { label: '친구라 그냥 편하다', score: 0 },
+        { label: '며칠 전부터 설레서 옷까지 고른다', score: 2 },
         { label: '은근히 기대된다', score: 1 },
-        { label: '설레서 옷차림까지 미리 신경 쓴다', score: 2 },
       ],
     },
     {
       text: '그녀가 연애 상담을 해올 때 내 속마음은?',
       options: [
+        { label: '"그 사람보다 내가…" 싶고 질투난다', score: 2 },
+        { label: '듣다 보면 기분이 복잡해진다', score: 1 },
         { label: '친구로서 진심으로 조언해준다', score: 0 },
-        { label: '듣다 보면 기분이 좀 복잡해진다', score: 1 },
-        { label: '"나는 어떤데" 싶고 상대가 질투난다', score: 2 },
       ],
     },
     {
-      text: '그녀가 갑자기 예뻐/멋져 보인 적 있나?',
+      text: '문득 그녀가 예뻐 보인 적이 있나?',
       options: [
-        { label: '없다, 그냥 친구다', score: 0 },
         { label: '가끔 그런 순간이 있다', score: 1 },
-        { label: '자주 설렌다', score: 2 },
+        { label: '솔직히 자주 설렌다', score: 2 },
+        { label: '없다, 그냥 친구다', score: 0 },
       ],
     },
   ],
