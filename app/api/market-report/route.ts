@@ -118,7 +118,20 @@ export async function POST() {
     return NextResponse.json({ ok: false, needAuth: true, report });
   }
 
-  // 5. 카카오 '나에게 보내기'
+  // 5. 가입자당 하루 1회 — 실제 전송 직전에만 소진 (재인증 단계에선 소진 X)
+  try {
+    const { data: ok } = await supabase.rpc('check_quota', {
+      p_key: `report:${user.id}`,
+      p_max: 1,
+    });
+    if (ok === false) {
+      return NextResponse.json({ ok: false, limit: true, report });
+    }
+  } catch {
+    // quota 인프라 없으면 통과
+  }
+
+  // 6. 카카오 '나에게 보내기'
   try {
     const r = await fetch('https://kapi.kakao.com/v2/api/talk/memo/default/send', {
       method: 'POST',

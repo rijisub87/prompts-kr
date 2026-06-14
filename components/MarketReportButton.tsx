@@ -67,6 +67,12 @@ export default function MarketReportButton() {
         return;
       }
 
+      if (d.limit) {
+        setStatus('sent');
+        setMsg('오늘은 이미 리포트를 받으셨어요. 아래에서 오늘 리포트를 확인하세요. (하루 1회)');
+        return;
+      }
+
       if (d.needAuth) {
         if (fromReturn) {
           // 동의 화면을 봤는데도 권한이 없음 → 거절했거나 미동의. 루프 대신 안내.
