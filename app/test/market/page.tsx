@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '@/components/Button';
 import LinkCopyButton from '@/components/LinkCopyButton';
+import MarketReportButton from '@/components/MarketReportButton';
 
 // 오늘 날짜를 YYYY-MM-DD로. 'use client'라 빌드 타임 고정 없이 매 방문 시점 기준.
 function todayStr(): string {
@@ -103,21 +104,11 @@ export default function MarketPage() {
       </section>
 
       <section className="space-y-3">
-        <Button
-          disabled
-          variant="secondary"
-          size="lg"
-          title="AI 호출 모드는 곧 오픈됩니다"
-          className="w-full"
-        >
-          AI에게 바로 물어보기
-          <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-            준비중
-          </span>
-        </Button>
+        {/* 카카오톡으로 오늘의 리포트 받기 (로그인 + 카카오 메시지 권한) */}
+        <MarketReportButton />
         <Button
           onClick={copyPrompt}
-          variant="primary"
+          variant="secondary"
           size="lg"
           className="w-full"
         >
