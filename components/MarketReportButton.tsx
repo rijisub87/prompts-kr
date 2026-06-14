@@ -12,6 +12,14 @@ export default function MarketReportButton() {
   const [report, setReport] = useState<string | null>(null);
   const ran = useRef(false);
 
+  // 마운트 시: 오늘 캐시된 리포트가 있으면 표시 (링크로 들어온 방문자도 결과를 봄).
+  useEffect(() => {
+    fetch('/api/market-report')
+      .then(r => r.json())
+      .then(d => { if (d.report) setReport(d.report); })
+      .catch(() => {});
+  }, []);
+
   // 카카오 인증 후 복귀(?send=1) → 자동 전송 1회. (복귀 경로에선 재인증 안 함 — 루프 방지)
   useEffect(() => {
     if (ran.current) return;

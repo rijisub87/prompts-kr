@@ -13,37 +13,46 @@ function todayStr(): string {
 }
 
 function buildPrompt(date: string): string {
-  return `오늘은 ${date}입니다. 한국 투자자를 위한 간결한 데일리 마켓 브리핑을 한국어로 작성하세요.
+  return `오늘은 ${date}입니다. 한국 투자자를 위한 "초간결" 데일리 마켓 브리핑을 한국어로 작성하세요.
 
-다음 4개 섹션, 각 2~3줄로:
-
-## 오늘의 시장 한눈에
-미국 금리·증시·환율·유가·금·비트코인의 큰 흐름 (방향성 위주).
-
-## 투자 거장 동향
-버핏·달리오·막스 등 최근 공개된 움직임이 있으면 요약, 없으면 "신규 동향 없음".
-
-## 경제 현황
-미국·세계·한국 경제의 핵심 이슈 한두 가지씩.
-
-## 오늘 주목할 포인트
-섹터 방향성 또는 주의할 이벤트 2~3개.
+형식: 머리말 없이 4줄, 각 줄 앞에 이모지 없이 핵심만.
+1줄) 미국 증시·금리 방향
+2줄) 환율·유가·금·비트코인 중 눈에 띄는 것
+3줄) 오늘의 핵심 이슈 하나
+4줄) 한 줄 코멘트(주의/관전 포인트)
 
 [제약]
-- 실시간 데이터에 접근할 수 없으므로 구체적 수치는 "추정"·"확인 필요"로 표기하고 단정하지 말 것
-- 투자 자문이 아니라 판단 재료 제공
-- 전체 700자 이내로 간결하게`;
+- 전체 130자 이내, 매우 압축적으로
+- 실시간 데이터 접근 불가 → 구체 수치는 단정 말고 방향성·"추정" 위주
+- 투자 자문 아님, 판단 재료만
+- 마크다운 기호(##, **) 쓰지 말 것`;
 }
 
-// 카카오 텍스트 메시지(200자 제한)용 요약 — 마크다운 기호 제거 후 앞부분.
-function makeSummary(report: string, date: string): string {
+// 카카오 텍스트 메시지(200자 한도) — 리포트 전체를 담되 안전하게 자름.
+function buildKakaoText(report: string, date: string): string {
   const plain = report
     .replace(/^#+\s*/gm, '')
     .replace(/\*\*/g, '')
-    .replace(/\n{2,}/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
-  const head = plain.slice(0, 150).trim();
-  return `[데일리 세계 경제 · ${date}]\n${head}…\n\n전체 리포트는 링크에서 확인하세요.`;
+  const header = `[데일리 세계경제 ${date.slice(5)}]\n`;
+  const full = header + plain;
+  return full.length > 200 ? full.slice(0, 199) + '…' : full;
+}
+
+// GET — 오늘 캐시된 리포트 조회 (링크 방문자가 빈 화면 대신 결과를 보게). 로그인 불필요.
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    const cacheKey = `market-report:${todayStr()}`;
+    const { data } = await supabase.rpc('get_saju_cache', { p_key: cacheKey });
+    if (typeof data === 'string' && data.length > 0) {
+      return NextResponse.json({ report: data });
+    }
+  } catch {
+    // ignore
+  }
+  return NextResponse.json({ report: null });
 }
 
 export async function POST() {
@@ -120,9 +129,8 @@ export async function POST() {
       body: new URLSearchParams({
         template_object: JSON.stringify({
           object_type: 'text',
-          text: makeSummary(report, date),
+          text: buildKakaoText(report, date),
           link: { web_url: `${SITE}/test/market`, mobile_web_url: `${SITE}/test/market` },
-          button_title: '전체 리포트 보기',
         }),
       }),
     });
