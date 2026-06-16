@@ -120,22 +120,19 @@ export default function TestPage() {
     return (
       <div className="mx-auto max-w-2xl space-y-8 py-10">
         <div className="text-center">
-          <h1 className="text-3xl font-bold md:text-4xl">생활AI</h1>
-          <p className="mt-2 text-sm text-slate-500">일상에서 가볍게 써볼 수 있는 AI</p>
+          <h1 className="text-3xl font-bold md:text-4xl">재미 AI</h1>
+          <p className="mt-2 text-sm text-slate-500">재미로 즐기는 AI 테스트 모음</p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
             <LinkCopyButton path="/test" />
           </div>
         </div>
 
-        {(['money', 'fun'] as const).map(group => {
+        {(['fun'] as const).map(group => {
           const cards = TESTS
             .filter(t => t.group === group)
             .sort((a, b) => (counts?.[b.key] ?? 0) - (counts?.[a.key] ?? 0));
           return (
             <section key={group} className="space-y-3">
-              <h2 className="text-lg font-bold">
-                {group === 'money' ? '재테크 AI' : '재미 AI'}
-              </h2>
               {cards.map(t => {
                 const count = counts?.[t.key] ?? 0;
                 const inner = (
