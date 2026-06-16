@@ -16,8 +16,9 @@ const SLUG_LOTTO = 'test-lotto';
 const SLUG_LOVE = 'test-love';
 const SLUG_FOOD = 'test-food';
 const SLUG_FAKE = 'test-fake-friend';
+const SLUG_STOCKS = 'test-stocks';
 
-type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number; food: number; fake: number };
+type TestCounts = { mbti: number; skill: number; saju: number; market: number; lotto: number; love: number; food: number; fake: number; stocks: number };
 
 // 생활AI 카드 정의 — money(재테크)/fun(재미) 그룹. 렌더 시 인기(시작 수)순 정렬.
 type TestDef = {
@@ -38,6 +39,8 @@ const TESTS: TestDef[] = [
     desc: <>오늘 날짜로 시장 지표·투자 거장 동향·주요 이슈를 한 번에.<br/>카카오톡으로 받아보기 가능.</> },
   { key: 'lotto', slug: SLUG_LOTTO, group: 'money', title: 'AI 로또 번호 예측', cta: '번호 받으러 가기 →', border: 'border-rose-200 dark:border-rose-800', ctaBg: 'bg-rose-600', href: '/test/lotto',
     desc: <>최근 당첨번호 트렌드를 참고해 5개 게임 세트를 재미로 추정.<br/>홀짝·고저·합계 균형 컨셉 선택 · 순수 오락용.</> },
+  { key: 'stocks', slug: SLUG_STOCKS, group: 'money', title: '데일리 국내 대장주', cta: '리포트 받으러 가기 →', border: 'border-blue-200 dark:border-blue-800', ctaBg: 'bg-blue-600', href: '/test/stocks',
+    desc: <>삼성전자·SK하이닉스 목표주가 방향·호재·악재.<br/>매일 카카오톡으로 받아보기.</> },
   { key: 'mbti', slug: SLUG_MBTI, group: 'fun', title: '일하는 나의 MBTI', cta: '시작하기', border: 'border-emerald-200 dark:border-emerald-800', ctaBg: 'bg-emerald-600', inline: true,
     desc: <>평소 일·AI 활용 상황으로 본인의 MBTI 4축을 측정.<br/>12문항 · 4지선다 · 3분 내외 · 결과는 16가지 유형.</> },
   { key: 'skill', slug: SLUG_SKILL, group: 'fun', title: 'AI 활용 직무 테스트', cta: '시험 시작 →', border: 'border-sky-200 dark:border-sky-800', ctaBg: 'bg-sky-600', href: '/test/skill',

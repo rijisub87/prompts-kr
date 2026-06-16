@@ -4,9 +4,17 @@ import { useEffect, useRef, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/Button';
 
-// "내 카톡으로 리포트 받기" — 카카오 talk_message scope로 (재)인증 후
-// /test/market?send=1 로 복귀하면 자동으로 리포트 생성 + 카카오 '나에게 보내기'.
-export default function MarketReportButton() {
+// "내 카톡으로 리포트 받기" — 카카오 talk_message scope로 (재)인증 후 복귀하면
+// 자동으로 리포트 생성 + 카카오 '나에게 보내기'. apiPath/returnPath로 리포트 종류 구분.
+export default function MarketReportButton({
+  apiPath = '/api/market-report',
+  returnPath = '/test/market',
+  storageKey = 'market_send_after_auth',
+}: {
+  apiPath?: string;
+  returnPath?: string;
+  storageKey?: string;
+} = {}) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [msg, setMsg] = useState<string | null>(null);
   const [report, setReport] = useState<string | null>(null);
@@ -14,21 +22,19 @@ export default function MarketReportButton() {
 
   // 마운트 시: 오늘 캐시된 리포트가 있으면 표시 (링크로 들어온 방문자도 결과를 봄).
   useEffect(() => {
-    fetch('/api/market-report')
+    fetch(apiPath)
       .then(r => r.json())
       .then(d => { if (d.report) setReport(d.report); })
       .catch(() => {});
-  }, []);
+  }, [apiPath]);
 
-  // 카카오 인증 후 복귀 → 자동 전송 1회.
-  // 복귀 경로(next)는 쿼리 없이 '/test/market'만 — Supabase가 중첩 쿼리를 못 살려 메인으로
-  // 떨어지는 문제 방지. 자동전송 의도는 sessionStorage 플래그로 전달(같은 탭 OAuth 왕복 유지).
+  // 카카오 인증 후 복귀 → 자동 전송 1회. (next는 경로만 — 중첩 쿼리 메인 리다이렉트 방지)
   useEffect(() => {
     if (ran.current) return;
     let pending = false;
     try {
-      pending = sessionStorage.getItem('market_send_after_auth') === '1';
-      if (pending) sessionStorage.removeItem('market_send_after_auth');
+      pending = sessionStorage.getItem(storageKey) === '1';
+      if (pending) sessionStorage.removeItem(storageKey);
     } catch {
       pending = false;
     }
@@ -40,9 +46,9 @@ export default function MarketReportButton() {
   // talk_message scope로 (재)인증 — 미동의자는 여기서 동의 화면을 보게 됨.
   async function startAuth() {
     setStatus('sending');
-    try { sessionStorage.setItem('market_send_after_auth', '1'); } catch {}
+    try { sessionStorage.setItem(storageKey, '1'); } catch {}
     const supabase = createClient();
-    const next = encodeURIComponent('/test/market');
+    const next = encodeURIComponent(returnPath);
     await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
@@ -57,7 +63,7 @@ export default function MarketReportButton() {
     setStatus('sending');
     setMsg(null);
     try {
-      const r = await fetch('/api/market-report', { method: 'POST' });
+      const r = await fetch(apiPath, { method: 'POST' });
       const d = r.status === 401 ? { needAuth: true } : await r.json();
       if (d.report) setReport(d.report);
 
