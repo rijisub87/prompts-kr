@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Fuse from 'fuse.js';
+import type Fuse from 'fuse.js'; // 타입만 — 런타임 번들엔 미포함(첫 focus 시 동적 로드)
 
 type Item = {
   slug: string;
@@ -52,26 +52,33 @@ export default function SearchBar() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const loadedRef = useRef(false);
 
-  useEffect(() => {
-    fetch('/search-index.json')
-      .then(r => r.json())
-      .then((data: Item[]) => {
-        setItems(data);
-        setFuse(new Fuse(data, {
-          keys: [
-            { name: 'title', weight: 3 },
-            { name: 'category', weight: 2 },
-            { name: 'platforms', weight: 1 },
-            { name: 'source', weight: 1 },
-            { name: 'text', weight: 1 },
-          ],
-          threshold: 0.4,
-          ignoreLocation: true,
-        }));
-      })
-      .catch(() => {});
-  }, []);
+  // 첫 focus(또는 / 단축키) 시점에만 Fuse.js + 검색 인덱스를 로드 — 첫 진입 속도 확보.
+  async function ensureLoaded() {
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+    try {
+      const [{ default: FuseCtor }, data] = await Promise.all([
+        import('fuse.js'),
+        fetch('/search-index.json').then(r => r.json()) as Promise<Item[]>,
+      ]);
+      setItems(data);
+      setFuse(new FuseCtor(data, {
+        keys: [
+          { name: 'title', weight: 3 },
+          { name: 'category', weight: 2 },
+          { name: 'platforms', weight: 1 },
+          { name: 'source', weight: 1 },
+          { name: 'text', weight: 1 },
+        ],
+        threshold: 0.4,
+        ignoreLocation: true,
+      }));
+    } catch {
+      loadedRef.current = false; // 실패 시 재시도 허용
+    }
+  }
 
   // 바깥 클릭 시 결과 닫기
   useEffect(() => {
@@ -92,6 +99,7 @@ export default function SearchBar() {
       const tag = t?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
       e.preventDefault();
+      void ensureLoaded();
       inputRef.current?.focus();
       setOpen(true);
     };
@@ -153,9 +161,9 @@ export default function SearchBar() {
           type="search"
           value={q}
           onChange={e => { setQ(e.target.value); setOpen(true); }}
-          onFocus={() => setOpen(true)}
+          onFocus={() => { void ensureLoaded(); setOpen(true); }}
           onKeyDown={onKeyDown}
-          placeholder={`프롬프트 검색 (${items.length})`}
+          placeholder={items.length ? `프롬프트 검색 (${items.length})` : '프롬프트 검색'}
           role="combobox"
           aria-expanded={open && q.trim().length > 0}
           aria-controls="search-results"
