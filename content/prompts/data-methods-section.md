@@ -28,4 +28,4 @@ Cover, in standard academic order:
 Write in formal academic English suitable for an APA-style paper. Mark any section where you are inventing details that I must replace with my own.
 ```
 
-마지막 줄("발명한 부분 표시") 덕분에 환각으로 만든 세부사항을 본인 자료로 교체하기 쉽습니다. APA가 아니면 [METHOD] 부분에 양식 지정. 학위논문 1차 초안에 직격.
+논문·학위논문의 방법론(Methods) 섹션 1차 초안을 표준 학술 순서(연구 설계·표본·도구·절차·분석 계획·윤리)대로 한 번에 뽑아주는 프롬프트입니다. 빈 문서 앞에서 막막할 때 뼈대를 빠르게 세우는 용도로 유용합니다. METHOD에는 "질적 반구조화 면접", "온라인 설문", "이중맹검 RCT"처럼 실제 사용한 방법을 구체적으로 넣어야 절차가 현실적으로 나옵니다. 가장 큰 강점은 마지막 줄로, AI가 지어낸 세부사항(표본 수, 신뢰도 수치 등)에 표시를 남기게 해서 본인 자료로 교체할 부분을 한눈에 찾을 수 있다는 점입니다. APA가 아닌 학술지 양식이 필요하면 마지막 문장의 "APA-style"을 해당 양식으로 바꿔 지정하세요. 표시된 부분을 실제 데이터로 채우기 전에는 제출용으로 쓰면 안 됩니다.

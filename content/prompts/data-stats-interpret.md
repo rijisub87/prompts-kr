@@ -27,4 +27,4 @@ Please explain in plain language:
 Flag any result that is statistically significant but practically trivial, or practically meaningful but statistically uncertain.
 ```
 
-학부 통계 지식 있는 대학원생의 #1 니즈. p값을 "효과 확률"로 오해하지 않도록 막아주는 마지막 두 줄이 결정적입니다. 분석 종류·전체 출력·연구 질문 3가지를 모두 붙여야 해석이 구체적으로 나옵니다.
+R·SPSS 등에서 뽑은 통계 출력을 통계 정의가 아니라 "내 연구 질문에서 이게 무슨 뜻인가"로 풀어 설명해주는 프롬프트입니다. 각 수치의 맥락별 의미, 통계적 유의성이 말해주는 것과 못 말해주는 것, p값과 함께 봐야 할 효과크기의 실질적 의미, 연구 질문에 대한 결론, 그리고 이 출력으로는 결론지을 수 없는 것까지 짚어줍니다. p값을 "효과가 있을 확률"로 오해하지 않도록 막고, 유의하지만 실질적으로 사소한 결과나 그 반대 경우를 따로 표시해주는 마지막 부분이 특히 유용합니다. TEST_OR_MODEL(분석 종류), OUTPUT(전체 출력), QUESTION(연구 질문) 세 가지를 모두 붙여야 일반론이 아닌 맥락 해석이 나옵니다. 출력 일부만 잘라 넣으면 해석도 부분적이 되니 표 전체를 넣으세요.
