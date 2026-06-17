@@ -132,11 +132,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 p-6">{children}</main>
         <footer className="border-t bg-white py-4 text-center text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
-          <p>
-            © Prompts-KR ·{' '}
-            <Link href="/license" className="hover:underline">CC BY-NC-SA 4.0</Link>
-            {' · '}
-            <SiteStats />
+          <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+            <Link href="/about" className="hover:underline">소개</Link>
+            <span aria-hidden>·</span>
+            <Link href="/privacy" className="hover:underline">개인정보처리방침</Link>
+            <span aria-hidden>·</span>
+            <Link href="/license" className="hover:underline">라이선스</Link>
+            <span aria-hidden>·</span>
+            <Link href="/sources" className="hover:underline">출처</Link>
+          </p>
+          <p className="mt-1">
+            © Prompts-KR · <SiteStats />
           </p>
           <p className="mt-1">
             문의:{' '}
