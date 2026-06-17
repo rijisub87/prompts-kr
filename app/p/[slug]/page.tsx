@@ -21,7 +21,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const prompt = getPromptBySlug(slug);
   if (!prompt) return {};
-  return { title: prompt.title };
+
+  const desc = (prompt.tipHtml ? stripHtml(prompt.tipHtml) : prompt.body)
+    .slice(0, 155)
+    .trim();
+  const url = `/p/${prompt.slug}`;
+  const ko = CATEGORY_KO[prompt.category];
+
+  return {
+    title: prompt.title,
+    description: desc || `${ko} AI 프롬프트 — ${prompt.title}`,
+    keywords: [prompt.title, `${ko} 프롬프트`, ...prompt.platform, 'AI 프롬프트'],
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      title: `${prompt.title} · 프롬프트 한국`,
+      description: desc,
+      url,
+    },
+    twitter: { card: 'summary_large_image', title: prompt.title, description: desc },
+  };
 }
 
 function stripHtml(html: string): string {

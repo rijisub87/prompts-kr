@@ -5,6 +5,7 @@ import { MetadataRoute } from 'next';
 import { getAllPrompts, getPromptsByCategory, CATEGORIES } from '@/lib/prompts';
 import { getAllGuides } from '@/lib/guides';
 import { ALL_TYPES } from '@/lib/mbti-test';
+import { COLLECTIONS } from '@/lib/collections';
 
 const BASE_URL = 'https://prompts-kr.vercel.app';
 
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/test`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/money`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/collections`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/test/skill`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/test/saju`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/test/market`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -78,5 +80,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  return [...staticRoutes, ...prompts, ...guides, ...tests, ...categories];
+  // 6. 컬렉션(묶음 큐레이션)
+  const collections: MetadataRoute.Sitemap = COLLECTIONS.map(c => ({
+    url: `${BASE_URL}/collections/${c.slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...prompts, ...guides, ...tests, ...categories, ...collections];
 }
